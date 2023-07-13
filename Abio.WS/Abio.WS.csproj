@@ -19,4 +19,8 @@
     <Folder Include="Features\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Abio.Library\Abio.Library.csproj" />
+  </ItemGroup>
+
 </Project>

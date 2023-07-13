@@ -13,6 +13,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Abio.SQL", "Abio.SQL\Abio.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abio.Console.Application", "Abio.Console.Application\Abio.Console.Application.csproj", "{7CBE8190-517A-4045-B3BE-ADFB4E091950}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abio.Library", "Abio.Library\Abio.Library.csproj", "{55131BDB-5319-4B82-A73B-92F53AC82FCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7CBE8190-517A-4045-B3BE-ADFB4E091950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CBE8190-517A-4045-B3BE-ADFB4E091950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CBE8190-517A-4045-B3BE-ADFB4E091950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55131BDB-5319-4B82-A73B-92F53AC82FCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55131BDB-5319-4B82-A73B-92F53AC82FCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55131BDB-5319-4B82-A73B-92F53AC82FCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55131BDB-5319-4B82-A73B-92F53AC82FCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{53519619-1A76-4533-A55A-65EDF8F05D54} = {8F14D767-4A3B-41B6-BD7B-1FA1DA7A74B6}
 		{D2A7E38E-0DE4-40B5-93F5-6D1D666B28FE} = {8F14D767-4A3B-41B6-BD7B-1FA1DA7A74B6}
 		{7CBE8190-517A-4045-B3BE-ADFB4E091950} = {8F14D767-4A3B-41B6-BD7B-1FA1DA7A74B6}
+		{55131BDB-5319-4B82-A73B-92F53AC82FCB} = {8F14D767-4A3B-41B6-BD7B-1FA1DA7A74B6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5F72CEE-9CD0-4C0D-BB57-FEF0FA715A36}

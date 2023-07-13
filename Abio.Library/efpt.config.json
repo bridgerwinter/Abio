@@ -1,0 +1,109 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "Abio.SQLContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "Abio.Library",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[Economy].[MarketListings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Economy].[Markets]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[ConstructedBuildings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[Friends]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[HiredLeaders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[HiredUnits]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[ItemInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[ResearchedTechnology]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Identity].[ResourceInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Buildings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[BuildingsLevels]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Factions]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Items]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Resources]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Technology]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[UnitLevels]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Units]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Security].[Users]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "Abio.SQL\\Abio.SQL.sqlproj",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": true,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
