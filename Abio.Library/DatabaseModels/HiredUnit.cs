@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Abio.Library.Models;
+namespace Abio.Library.DatabaseModels;
 
 public partial class HiredUnit
 {
@@ -15,9 +15,17 @@ public partial class HiredUnit
 
     public int? UnitLevel { get; set; }
 
+    public Guid? HiredLeaderId { get; set; }
+
     public byte[] created_at { get; set; }
 
+    public virtual HiredLeader HiredLeader { get; set; }
+
+    public virtual ICollection<HiredUnitsStat> HiredUnitsStats { get; } = new List<HiredUnitsStat>();
+
     public virtual Unit Unit { get; set; }
+
+    public virtual ICollection<UnitGroup> UnitGroups { get; } = new List<UnitGroup>();
 
     public virtual UnitLevel UnitLevelNavigation { get; set; }
 

@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Abio.Library.Models;
+namespace Abio.Library.DatabaseModels;
 
 public partial class User
 {
@@ -24,4 +24,8 @@ public partial class User
     public virtual ICollection<MarketListing> MarketListings { get; } = new List<MarketListing>();
 
     public virtual ICollection<ResourceInventory> ResourceInventories { get; } = new List<ResourceInventory>();
+
+    public virtual ICollection<UserCity> UserCities { get; } = new List<UserCity>();
+
+    public virtual ICollection<UserCitiesLeader> UserCitiesLeaders { get; } = new List<UserCitiesLeader>();
 }

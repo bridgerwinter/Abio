@@ -3,15 +3,15 @@
 using System;
 using System.Collections.Generic;
 
-namespace Abio.Library.Models;
+namespace Abio.Library.DatabaseModels;
 
-public partial class HiredLeader
+public partial class Player
 {
-    public Guid HiredLeaderId { get; set; }
-
     public Guid? UserId { get; set; }
 
-    public string HiredLeaderName { get; set; }
+    public int? MaxCities { get; set; }
+
+    public int? MaxOwnedLand { get; set; }
 
     public virtual User User { get; set; }
 }

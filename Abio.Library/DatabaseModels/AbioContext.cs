@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Abio.Library.Models;
+namespace Abio.Library.DatabaseModels;
 
-public partial class AbioSQLContext : DbContext
+public partial class AbioContext : DbContext
 {
-    public AbioSQLContext(DbContextOptions<AbioSQLContext> options)
+    public AbioContext(DbContextOptions<AbioContext> options)
         : base(options)
     {
     }
@@ -25,7 +25,11 @@ public partial class AbioSQLContext : DbContext
 
     public virtual DbSet<HiredLeader> HiredLeaders { get; set; }
 
+    public virtual DbSet<HiredLeaderStat> HiredLeaderStats { get; set; }
+
     public virtual DbSet<HiredUnit> HiredUnits { get; set; }
+
+    public virtual DbSet<HiredUnitsStat> HiredUnitsStats { get; set; }
 
     public virtual DbSet<Item> Items { get; set; }
 
@@ -34,6 +38,8 @@ public partial class AbioSQLContext : DbContext
     public virtual DbSet<Market> Markets { get; set; }
 
     public virtual DbSet<MarketListing> MarketListings { get; set; }
+
+    public virtual DbSet<Player> Players { get; set; }
 
     public virtual DbSet<ResearchedTechnology> ResearchedTechnologies { get; set; }
 
@@ -45,9 +51,15 @@ public partial class AbioSQLContext : DbContext
 
     public virtual DbSet<Unit> Units { get; set; }
 
+    public virtual DbSet<UnitGroup> UnitGroups { get; set; }
+
     public virtual DbSet<UnitLevel> UnitLevels { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UserCitiesLeader> UserCitiesLeaders { get; set; }
+
+    public virtual DbSet<UserCity> UserCities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -77,7 +89,7 @@ public partial class AbioSQLContext : DbContext
         {
             entity.HasKey(e => e.ConstructuredBuildingId);
 
-            entity.ToTable("ConstructedBuildings", "Identity");
+            entity.ToTable("ConstructedBuildings", "Player");
 
             entity.Property(e => e.ConstructuredBuildingId).ValueGeneratedNever();
             entity.Property(e => e.created_at)
@@ -104,7 +116,7 @@ public partial class AbioSQLContext : DbContext
         {
             entity.HasKey(e => e.UserId);
 
-            entity.ToTable("Friends", "Identity");
+            entity.ToTable("Friends", "Player");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
@@ -113,19 +125,34 @@ public partial class AbioSQLContext : DbContext
 
         modelBuilder.Entity<HiredLeader>(entity =>
         {
-            entity.ToTable("HiredLeaders", "Identity");
+            entity.ToTable("HiredLeaders", "Player");
 
             entity.Property(e => e.HiredLeaderId).ValueGeneratedNever();
             entity.Property(e => e.HiredLeaderName)
                 .HasMaxLength(24)
                 .IsUnicode(false);
+            entity.Property(e => e.created_at)
+                .IsRequired()
+                .IsRowVersion()
+                .IsConcurrencyToken();
 
             entity.HasOne(d => d.User).WithMany(p => p.HiredLeaders).HasForeignKey(d => d.UserId);
         });
 
+        modelBuilder.Entity<HiredLeaderStat>(entity =>
+        {
+            entity.HasKey(e => e.HiredLeaderStatsId);
+
+            entity.ToTable("HiredLeaderStats", "Player");
+
+            entity.Property(e => e.HiredLeaderStatsId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredLeaderStats).HasForeignKey(d => d.HiredLeaderId);
+        });
+
         modelBuilder.Entity<HiredUnit>(entity =>
         {
-            entity.ToTable("HiredUnits", "Identity");
+            entity.ToTable("HiredUnits", "Player");
 
             entity.Property(e => e.HiredUnitId).ValueGeneratedNever();
             entity.Property(e => e.created_at)
@@ -133,11 +160,24 @@ public partial class AbioSQLContext : DbContext
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredUnits).HasForeignKey(d => d.HiredLeaderId);
+
             entity.HasOne(d => d.Unit).WithMany(p => p.HiredUnits).HasForeignKey(d => d.UnitId);
 
             entity.HasOne(d => d.UnitLevelNavigation).WithMany(p => p.HiredUnits).HasForeignKey(d => d.UnitLevel);
 
             entity.HasOne(d => d.User).WithMany(p => p.HiredUnits).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<HiredUnitsStat>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatsId);
+
+            entity.ToTable("HiredUnitsStats", "Player");
+
+            entity.Property(e => e.HiredUnitStatsId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredUnit).WithMany(p => p.HiredUnitsStats).HasForeignKey(d => d.HiredUnitId);
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -153,7 +193,7 @@ public partial class AbioSQLContext : DbContext
 
         modelBuilder.Entity<ItemInventory>(entity =>
         {
-            entity.ToTable("ItemInventory", "Identity");
+            entity.ToTable("ItemInventory", "Player");
 
             entity.Property(e => e.ItemInventoryId).ValueGeneratedNever();
 
@@ -187,11 +227,20 @@ public partial class AbioSQLContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.MarketListings).HasForeignKey(d => d.UserId);
         });
 
+        modelBuilder.Entity<Player>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Players", "Player");
+
+            entity.HasOne(d => d.User).WithMany().HasForeignKey(d => d.UserId);
+        });
+
         modelBuilder.Entity<ResearchedTechnology>(entity =>
         {
             entity
                 .HasNoKey()
-                .ToTable("ResearchedTechnology", "Identity");
+                .ToTable("ResearchedTechnology", "Player");
 
             entity.Property(e => e.created_at)
                 .IsRequired()
@@ -213,7 +262,7 @@ public partial class AbioSQLContext : DbContext
 
         modelBuilder.Entity<ResourceInventory>(entity =>
         {
-            entity.ToTable("ResourceInventory", "Identity");
+            entity.ToTable("ResourceInventory", "Player");
 
             entity.Property(e => e.ResourceInventoryId).ValueGeneratedNever();
 
@@ -240,6 +289,19 @@ public partial class AbioSQLContext : DbContext
             entity.HasOne(d => d.Faction).WithMany(p => p.Units).HasForeignKey(d => d.FactionId);
         });
 
+        modelBuilder.Entity<UnitGroup>(entity =>
+        {
+            entity.HasKey(e => e.UnitGroupsId);
+
+            entity.ToTable("UnitGroups", "Player");
+
+            entity.Property(e => e.UnitGroupsId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UnitGroups).HasForeignKey(d => d.HiredLeaderId);
+
+            entity.HasOne(d => d.HiredUnit).WithMany(p => p.UnitGroups).HasForeignKey(d => d.HiredUnitId);
+        });
+
         modelBuilder.Entity<UnitLevel>(entity =>
         {
             entity.ToTable("UnitLevels", "Lookup");
@@ -257,6 +319,32 @@ public partial class AbioSQLContext : DbContext
                 .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
+        });
+
+        modelBuilder.Entity<UserCitiesLeader>(entity =>
+        {
+            entity.HasKey(e => e.UserCityLeadersId);
+
+            entity.ToTable("UserCitiesLeaders", "Player");
+
+            entity.Property(e => e.UserCityLeadersId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.City).WithMany(p => p.UserCitiesLeaders).HasForeignKey(d => d.CityId);
+
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UserCitiesLeaders).HasForeignKey(d => d.HiredLeaderId);
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserCitiesLeaders).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<UserCity>(entity =>
+        {
+            entity.HasKey(e => e.CityId);
+
+            entity.ToTable("UserCities", "Player");
+
+            entity.Property(e => e.CityId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserCities).HasForeignKey(d => d.UserId);
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,13 +1,13 @@
 ﻿{
    "CodeGenerationMode": 3,
-   "ContextClassName": "Abio.SQLContext",
+   "ContextClassName": "Abio.Context",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": null,
-   "OutputPath": "Models",
+   "OutputPath": "DatabaseModels",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "Abio.Library",
    "Schemas": null,
@@ -20,34 +20,6 @@
       },
       {
          "Name": "[Economy].[Markets]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[ConstructedBuildings]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[Friends]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[HiredLeaders]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[HiredUnits]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[ItemInventory]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[ResearchedTechnology]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Identity].[ResourceInventory]",
          "ObjectType": 0
       },
       {
@@ -80,6 +52,58 @@
       },
       {
          "Name": "[Lookup].[Units]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ConstructedBuildings]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[Friends]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredLeaders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredLeaderStats]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnits]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitsStats]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ItemInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[Players]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ResearchedTechnology]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ResourceInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[UnitGroups]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[UserCities]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[UserCitiesLeaders]",
          "ObjectType": 0
       },
       {

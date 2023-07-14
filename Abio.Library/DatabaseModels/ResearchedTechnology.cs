@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Abio.Library.Models;
+namespace Abio.Library.DatabaseModels;
 
 public partial class ResearchedTechnology
 {
