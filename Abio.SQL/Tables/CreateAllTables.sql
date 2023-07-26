@@ -23,7 +23,7 @@ CREATE TABLE [Player].[Friends] (
 GO
 
 CREATE TABLE [Player].[Players] (
-  [UserId] uniqueidentifier,
+  [UserId] uniqueidentifier PRIMARY KEY,
   [MaxCities] int,
   [MaxOwnedLand] int
 )
@@ -46,7 +46,8 @@ CREATE TABLE [Player].[UserCitiesLeaders] (
 GO
 
 CREATE TABLE [Player].[ResearchedTechnology] (
-  [ResearchedTechnologyId] uniqueidentifier,
+  [ResearchedTechnologyId] uniqueidentifier PRIMARY KEY,
+  [UserId] uniqueidentifier,
   [TechnologyId] int,
   [created_at] timestamp
 )
@@ -150,7 +151,7 @@ CREATE TABLE [Economy].[MarketListings] (
 GO
 
 CREATE TABLE [Lookup].[Resources] (
-  [ResourceId] int PRIMARY KEY,
+  [ResourceId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [ResourceName] varchar(100)
 )
 GO
@@ -163,14 +164,14 @@ CREATE TABLE [Lookup].[Items] (
 GO
 
 CREATE TABLE [Lookup].[Buildings] (
-  [BuildingId] int PRIMARY KEY,
+  [BuildingId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [BuildingName] varchar(max),
   [FactionId] int
 )
 GO
 
 CREATE TABLE [Lookup].[Units] (
-  [UnitId] int PRIMARY KEY,
+  [UnitId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [UnitName] varchar(max),
   [FactionId] int,
   [Health] int,
@@ -180,25 +181,25 @@ CREATE TABLE [Lookup].[Units] (
 GO
 
 CREATE TABLE [Lookup].[UnitLevels] (
-  [UnitLevelId] int PRIMARY KEY,
+  [UnitLevelId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [UnitRankName] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[BuildingsLevels] (
-  [BuildingLevelId] int PRIMARY KEY,
+  [BuildingLevelId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [BuildingRankName] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[Factions] (
-  [FactionId] int PRIMARY KEY,
+  [FactionId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [FactionName] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[Technology] (
-  [TechnologyId] int PRIMARY KEY,
+  [TechnologyId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [TechnologyName] varchar(max)
 )
 GO
@@ -243,6 +244,9 @@ ALTER TABLE [Player].[ConstructedBuildings] ADD FOREIGN KEY ([BuildingLevel]) RE
 GO
 
 ALTER TABLE [Player].[ResearchedTechnology] ADD FOREIGN KEY ([TechnologyId]) REFERENCES [Lookup].[Technology] ([TechnologyId])
+GO
+
+ALTER TABLE [Player].[ResearchedTechnology] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
 GO
 
 ALTER TABLE [Player].[HiredUnits] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])

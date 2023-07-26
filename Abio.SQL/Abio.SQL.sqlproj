@@ -62,4 +62,7 @@
   <ItemGroup>
     <Build Include="Tables\CreateAllTables.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\DropAllTables.sql" />
+  </ItemGroup>
 </Project>
