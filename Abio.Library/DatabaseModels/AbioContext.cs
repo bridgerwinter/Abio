@@ -29,6 +29,8 @@ public partial class AbioContext : DbContext
 
     public virtual DbSet<HiredUnit> HiredUnit { get; set; }
 
+    public virtual DbSet<HiredUnitAttribute> HiredUnitAttribute { get; set; }
+
     public virtual DbSet<HiredUnitStat> HiredUnitStat { get; set; }
 
     public virtual DbSet<Item> Item { get; set; }
@@ -51,9 +53,13 @@ public partial class AbioContext : DbContext
 
     public virtual DbSet<Unit> Unit { get; set; }
 
+    public virtual DbSet<UnitAttribute> UnitAttribute { get; set; }
+
     public virtual DbSet<UnitGroup> UnitGroup { get; set; }
 
     public virtual DbSet<UnitLevel> UnitLevel { get; set; }
+
+    public virtual DbSet<UnitStat> UnitStat { get; set; }
 
     public virtual DbSet<User> User { get; set; }
 
@@ -170,16 +176,35 @@ public partial class AbioContext : DbContext
 
             entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredUnit)
                 .HasForeignKey(d => d.HiredLeaderId)
-                .HasConstraintName("FK__HiredUnit__Hired__1392CE8F");
+                .HasConstraintName("FK__HiredUnit__Hired__294D0584");
+
+            entity.HasOne(d => d.Unit).WithMany(p => p.HiredUnit)
+                .HasForeignKey(d => d.UnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_HiredUnit_Unit");
 
             entity.HasOne(d => d.User).WithMany(p => p.HiredUnit)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__HiredUnit__UserI__041B80D5");
+                .HasConstraintName("FK__HiredUnit__UserI__2C29722F");
+        });
+
+        modelBuilder.Entity<HiredUnitAttribute>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitAttributeId).HasName("PK_UnitAttribute");
+
+            entity.ToTable("HiredUnitAttribute", "Player");
+
+            entity.Property(e => e.HiredUnitAttributeId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredUnit).WithMany(p => p.HiredUnitAttribute)
+                .HasForeignKey(d => d.HiredUnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_HiredUnitAttribute_HiredUnit");
         });
 
         modelBuilder.Entity<HiredUnitStat>(entity =>
         {
-            entity.HasKey(e => e.HiredUnitStatId).HasName("PK__HiredUni__976C0A014227FF86");
+            entity.HasKey(e => e.HiredUnitStatId).HasName("PK_Player.HiredUnitStat");
 
             entity.ToTable("HiredUnitStat", "Player");
 
@@ -187,7 +212,8 @@ public partial class AbioContext : DbContext
 
             entity.HasOne(d => d.HiredUnit).WithMany(p => p.HiredUnitStat)
                 .HasForeignKey(d => d.HiredUnitId)
-                .HasConstraintName("FK__HiredUnit__Hired__1486F2C8");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Player.HiredUnitStat_Player.HiredUnit");
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -331,6 +357,18 @@ public partial class AbioContext : DbContext
             entity.Property(e => e.UnitName).IsUnicode(false);
         });
 
+        modelBuilder.Entity<UnitAttribute>(entity =>
+        {
+            entity.ToTable("UnitAttribute", "Lookup");
+
+            entity.Property(e => e.UnitAttributeId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Unit).WithMany(p => p.UnitAttribute)
+                .HasForeignKey(d => d.UnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_UnitAttribute_Unit");
+        });
+
         modelBuilder.Entity<UnitGroup>(entity =>
         {
             entity.HasKey(e => e.UnitGroupId).HasName("PK__UnitGrou__46226B18B0F60162");
@@ -356,6 +394,20 @@ public partial class AbioContext : DbContext
 
             entity.Property(e => e.UnitLevelId).ValueGeneratedNever();
             entity.Property(e => e.UnitRankName).IsUnicode(false);
+        });
+
+        modelBuilder.Entity<UnitStat>(entity =>
+        {
+            entity.HasKey(e => e.UnitStatId).HasName("PK_Lookup.UnitStat");
+
+            entity.ToTable("UnitStat", "Lookup");
+
+            entity.Property(e => e.UnitStatId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Unit).WithMany(p => p.UnitStat)
+                .HasForeignKey(d => d.UnitId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Lookup.UnitStat_Lookup.Unit");
         });
 
         modelBuilder.Entity<User>(entity =>

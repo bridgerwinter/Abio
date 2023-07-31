@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Abio.Library.DatabaseModels;
 
-public partial class HiredUnitStat
+public partial class UnitStat
 {
-    public Guid HiredUnitStatId { get; set; }
+    public Guid UnitStatId { get; set; }
 
-    public Guid HiredUnitId { get; set; }
+    public Guid UnitId { get; set; }
 
     public int? ShortBlade { get; set; }
 
@@ -43,5 +43,5 @@ public partial class HiredUnitStat
 
     public int? Tank { get; set; }
 
-    public virtual HiredUnit HiredUnit { get; set; }
+    public virtual Unit Unit { get; set; }
 }

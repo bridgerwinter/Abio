@@ -11,17 +11,21 @@ public partial class HiredUnit
 
     public Guid? UserId { get; set; }
 
-    public int? UnitId { get; set; }
-
     public int? UnitLevel { get; set; }
 
     public Guid? HiredLeaderId { get; set; }
 
     public byte[] created_at { get; set; }
 
+    public Guid UnitId { get; set; }
+
     public virtual HiredLeader HiredLeader { get; set; }
 
+    public virtual ICollection<HiredUnitAttribute> HiredUnitAttribute { get; } = new List<HiredUnitAttribute>();
+
     public virtual ICollection<HiredUnitStat> HiredUnitStat { get; } = new List<HiredUnitStat>();
+
+    public virtual Unit Unit { get; set; }
 
     public virtual ICollection<UnitGroup> UnitGroup { get; } = new List<UnitGroup>();
 

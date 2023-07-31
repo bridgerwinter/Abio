@@ -11,11 +11,11 @@ public partial class Unit
 
     public string UnitName { get; set; }
 
-    public int? FactionId { get; set; }
+    public int FactionId { get; set; }
 
-    public int? Health { get; set; }
+    public virtual ICollection<HiredUnit> HiredUnit { get; } = new List<HiredUnit>();
 
-    public int? Attack { get; set; }
+    public virtual ICollection<UnitAttribute> UnitAttribute { get; } = new List<UnitAttribute>();
 
-    public int? Defense { get; set; }
+    public virtual ICollection<UnitStat> UnitStat { get; } = new List<UnitStat>();
 }
