@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Markets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Market>>> GetMarkets()
+        public async Task<ActionResult<IEnumerable<Market>>> GetMarket()
         {
-          if (_context.Markets == null)
+          if (_context.Market == null)
           {
               return NotFound();
           }
-            return await _context.Markets.ToListAsync();
+            return await _context.Market.ToListAsync();
         }
 
         // GET: api/Markets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Market>> GetMarket(Guid id)
         {
-          if (_context.Markets == null)
+          if (_context.Market == null)
           {
               return NotFound();
           }
-            var market = await _context.Markets.FindAsync(id);
+            var market = await _context.Market.FindAsync(id);
 
             if (market == null)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Market>> PostMarket(Market market)
         {
-          if (_context.Markets == null)
+          if (_context.Market == null)
           {
-              return Problem("Entity set 'AbioContext.Markets'  is null.");
+              return Problem("Entity set 'AbioContext.Market'  is null.");
           }
-            _context.Markets.Add(market);
+            _context.Market.Add(market);
             try
             {
                 await _context.SaveChangesAsync();
@@ -113,17 +113,17 @@ namespace Abio.WS.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMarket(Guid id)
         {
-            if (_context.Markets == null)
+            if (_context.Market == null)
             {
                 return NotFound();
             }
-            var market = await _context.Markets.FindAsync(id);
+            var market = await _context.Market.FindAsync(id);
             if (market == null)
             {
                 return NotFound();
             }
 
-            _context.Markets.Remove(market);
+            _context.Market.Remove(market);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool MarketExists(Guid id)
         {
-            return (_context.Markets?.Any(e => e.MarketId == id)).GetValueOrDefault();
+            return (_context.Market?.Any(e => e.MarketId == id)).GetValueOrDefault();
         }
     }
 }

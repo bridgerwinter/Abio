@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Items
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItems()
+        public async Task<ActionResult<IEnumerable<Item>>> GetItem()
         {
-          if (_context.Items == null)
+          if (_context.Item == null)
           {
               return NotFound();
           }
-            return await _context.Items.ToListAsync();
+            return await _context.Item.ToListAsync();
         }
 
         // GET: api/Items/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Item>> GetItem(Guid id)
         {
-          if (_context.Items == null)
+          if (_context.Item == null)
           {
               return NotFound();
           }
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Item.FindAsync(id);
 
             if (item == null)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
-          if (_context.Items == null)
+          if (_context.Item == null)
           {
-              return Problem("Entity set 'AbioContext.Items'  is null.");
+              return Problem("Entity set 'AbioContext.Item'  is null.");
           }
-            _context.Items.Add(item);
+            _context.Item.Add(item);
             try
             {
                 await _context.SaveChangesAsync();
@@ -113,17 +113,17 @@ namespace Abio.WS.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(Guid id)
         {
-            if (_context.Items == null)
+            if (_context.Item == null)
             {
                 return NotFound();
             }
-            var item = await _context.Items.FindAsync(id);
+            var item = await _context.Item.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Items.Remove(item);
+            _context.Item.Remove(item);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool ItemExists(Guid id)
         {
-            return (_context.Items?.Any(e => e.ItemId == id)).GetValueOrDefault();
+            return (_context.Item?.Any(e => e.ItemId == id)).GetValueOrDefault();
         }
     }
 }

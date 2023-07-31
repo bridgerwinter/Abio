@@ -19,7 +19,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[BuildingsLevels]",
+         "Name": "[Lookup].[BuildingLevel]",
          "ObjectType": 0
       },
       {

@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Units
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Unit>>> GetUnits()
+        public async Task<ActionResult<IEnumerable<Unit>>> GetUnit()
         {
-          if (_context.Units == null)
+          if (_context.Unit == null)
           {
               return NotFound();
           }
-            return await _context.Units.ToListAsync();
+            return await _context.Unit.ToListAsync();
         }
 
         // GET: api/Units/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Unit>> GetUnit(int id)
+        public async Task<ActionResult<Unit>> GetUnit(Guid id)
         {
-          if (_context.Units == null)
+          if (_context.Unit == null)
           {
               return NotFound();
           }
-            var unit = await _context.Units.FindAsync(id);
+            var unit = await _context.Unit.FindAsync(id);
 
             if (unit == null)
             {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Units/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUnit(int id, Unit unit)
+        public async Task<IActionResult> PutUnit(Guid id, Unit unit)
         {
             if (id != unit.UnitId)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Unit>> PostUnit(Unit unit)
         {
-          if (_context.Units == null)
+          if (_context.Unit == null)
           {
-              return Problem("Entity set 'AbioContext.Units'  is null.");
+              return Problem("Entity set 'AbioContext.Unit'  is null.");
           }
-            _context.Units.Add(unit);
+            _context.Unit.Add(unit);
             try
             {
                 await _context.SaveChangesAsync();
@@ -111,27 +111,27 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Units/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUnit(int id)
+        public async Task<IActionResult> DeleteUnit(Guid id)
         {
-            if (_context.Units == null)
+            if (_context.Unit == null)
             {
                 return NotFound();
             }
-            var unit = await _context.Units.FindAsync(id);
+            var unit = await _context.Unit.FindAsync(id);
             if (unit == null)
             {
                 return NotFound();
             }
 
-            _context.Units.Remove(unit);
+            _context.Unit.Remove(unit);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UnitExists(int id)
+        private bool UnitExists(Guid id)
         {
-            return (_context.Units?.Any(e => e.UnitId == id)).GetValueOrDefault();
+            return (_context.Unit?.Any(e => e.UnitId == id)).GetValueOrDefault();
         }
     }
 }

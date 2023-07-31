@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/ResearchedTechnologies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ResearchedTechnology>>> GetResearchedTechnologies()
+        public async Task<ActionResult<IEnumerable<ResearchedTechnology>>> GetResearchedTechnology()
         {
-          if (_context.ResearchedTechnologies == null)
+          if (_context.ResearchedTechnology == null)
           {
               return NotFound();
           }
-            return await _context.ResearchedTechnologies.ToListAsync();
+            return await _context.ResearchedTechnology.ToListAsync();
         }
 
         // GET: api/ResearchedTechnologies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ResearchedTechnology>> GetResearchedTechnology(Guid? id)
+        public async Task<ActionResult<ResearchedTechnology>> GetResearchedTechnology(Guid id)
         {
-          if (_context.ResearchedTechnologies == null)
+          if (_context.ResearchedTechnology == null)
           {
               return NotFound();
           }
-            var researchedTechnology = await _context.ResearchedTechnologies.FindAsync(id);
+            var researchedTechnology = await _context.ResearchedTechnology.FindAsync(id);
 
             if (researchedTechnology == null)
             {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/ResearchedTechnologies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutResearchedTechnology(Guid? id, ResearchedTechnology researchedTechnology)
+        public async Task<IActionResult> PutResearchedTechnology(Guid id, ResearchedTechnology researchedTechnology)
         {
             if (id != researchedTechnology.ResearchedTechnologyId)
             {
@@ -85,39 +85,53 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ResearchedTechnology>> PostResearchedTechnology(ResearchedTechnology researchedTechnology)
         {
-          if (_context.ResearchedTechnologies == null)
+          if (_context.ResearchedTechnology == null)
           {
-              return Problem("Entity set 'AbioContext.ResearchedTechnologies'  is null.");
+              return Problem("Entity set 'AbioContext.ResearchedTechnology'  is null.");
           }
-            _context.ResearchedTechnologies.Add(researchedTechnology);
-            await _context.SaveChangesAsync();
+            _context.ResearchedTechnology.Add(researchedTechnology);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (ResearchedTechnologyExists(researchedTechnology.ResearchedTechnologyId))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return CreatedAtAction("GetResearchedTechnology", new { id = researchedTechnology.ResearchedTechnologyId }, researchedTechnology);
         }
 
         // DELETE: api/ResearchedTechnologies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteResearchedTechnology(Guid? id)
+        public async Task<IActionResult> DeleteResearchedTechnology(Guid id)
         {
-            if (_context.ResearchedTechnologies == null)
+            if (_context.ResearchedTechnology == null)
             {
                 return NotFound();
             }
-            var researchedTechnology = await _context.ResearchedTechnologies.FindAsync(id);
+            var researchedTechnology = await _context.ResearchedTechnology.FindAsync(id);
             if (researchedTechnology == null)
             {
                 return NotFound();
             }
 
-            _context.ResearchedTechnologies.Remove(researchedTechnology);
+            _context.ResearchedTechnology.Remove(researchedTechnology);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ResearchedTechnologyExists(Guid? id)
+        private bool ResearchedTechnologyExists(Guid id)
         {
-            return (_context.ResearchedTechnologies?.Any(e => e.ResearchedTechnologyId == id)).GetValueOrDefault();
+            return (_context.ResearchedTechnology?.Any(e => e.ResearchedTechnologyId == id)).GetValueOrDefault();
         }
     }
 }

@@ -11,55 +11,55 @@ namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BuildingsLevelsController : ControllerBase
+    public class UnitAttributesController : ControllerBase
     {
         private readonly AbioContext _context;
 
-        public BuildingsLevelsController(AbioContext context)
+        public UnitAttributesController(AbioContext context)
         {
             _context = context;
         }
 
-        // GET: api/BuildingsLevels
+        // GET: api/UnitAttributes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BuildingsLevel>>> GetBuildingsLevels()
+        public async Task<ActionResult<IEnumerable<UnitAttribute>>> GetUnitAttribute()
         {
-          if (_context.BuildingsLevels == null)
+          if (_context.UnitAttribute == null)
           {
               return NotFound();
           }
-            return await _context.BuildingsLevels.ToListAsync();
+            return await _context.UnitAttribute.ToListAsync();
         }
 
-        // GET: api/BuildingsLevels/5
+        // GET: api/UnitAttributes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BuildingsLevel>> GetBuildingsLevel(int id)
+        public async Task<ActionResult<UnitAttribute>> GetUnitAttribute(Guid id)
         {
-          if (_context.BuildingsLevels == null)
+          if (_context.UnitAttribute == null)
           {
               return NotFound();
           }
-            var buildingsLevel = await _context.BuildingsLevels.FindAsync(id);
+            var unitAttribute = await _context.UnitAttribute.FindAsync(id);
 
-            if (buildingsLevel == null)
+            if (unitAttribute == null)
             {
                 return NotFound();
             }
 
-            return buildingsLevel;
+            return unitAttribute;
         }
 
-        // PUT: api/BuildingsLevels/5
+        // PUT: api/UnitAttributes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuildingsLevel(int id, BuildingsLevel buildingsLevel)
+        public async Task<IActionResult> PutUnitAttribute(Guid id, UnitAttribute unitAttribute)
         {
-            if (id != buildingsLevel.BuildingLevelId)
+            if (id != unitAttribute.UnitAttributeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(buildingsLevel).State = EntityState.Modified;
+            _context.Entry(unitAttribute).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BuildingsLevelExists(id))
+                if (!UnitAttributeExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +80,23 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/BuildingsLevels
+        // POST: api/UnitAttributes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BuildingsLevel>> PostBuildingsLevel(BuildingsLevel buildingsLevel)
+        public async Task<ActionResult<UnitAttribute>> PostUnitAttribute(UnitAttribute unitAttribute)
         {
-          if (_context.BuildingsLevels == null)
+          if (_context.UnitAttribute == null)
           {
-              return Problem("Entity set 'AbioContext.BuildingsLevels'  is null.");
+              return Problem("Entity set 'AbioContext.UnitAttribute'  is null.");
           }
-            _context.BuildingsLevels.Add(buildingsLevel);
+            _context.UnitAttribute.Add(unitAttribute);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (BuildingsLevelExists(buildingsLevel.BuildingLevelId))
+                if (UnitAttributeExists(unitAttribute.UnitAttributeId))
                 {
                     return Conflict();
                 }
@@ -106,32 +106,32 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetBuildingsLevel", new { id = buildingsLevel.BuildingLevelId }, buildingsLevel);
+            return CreatedAtAction("GetUnitAttribute", new { id = unitAttribute.UnitAttributeId }, unitAttribute);
         }
 
-        // DELETE: api/BuildingsLevels/5
+        // DELETE: api/UnitAttributes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBuildingsLevel(int id)
+        public async Task<IActionResult> DeleteUnitAttribute(Guid id)
         {
-            if (_context.BuildingsLevels == null)
+            if (_context.UnitAttribute == null)
             {
                 return NotFound();
             }
-            var buildingsLevel = await _context.BuildingsLevels.FindAsync(id);
-            if (buildingsLevel == null)
+            var unitAttribute = await _context.UnitAttribute.FindAsync(id);
+            if (unitAttribute == null)
             {
                 return NotFound();
             }
 
-            _context.BuildingsLevels.Remove(buildingsLevel);
+            _context.UnitAttribute.Remove(unitAttribute);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool BuildingsLevelExists(int id)
+        private bool UnitAttributeExists(Guid id)
         {
-            return (_context.BuildingsLevels?.Any(e => e.BuildingLevelId == id)).GetValueOrDefault();
+            return (_context.UnitAttribute?.Any(e => e.UnitAttributeId == id)).GetValueOrDefault();
         }
     }
 }

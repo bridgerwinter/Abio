@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Technologies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Technology>>> GetTechnologies()
+        public async Task<ActionResult<IEnumerable<Technology>>> GetTechnology()
         {
-          if (_context.Technologies == null)
+          if (_context.Technology == null)
           {
               return NotFound();
           }
-            return await _context.Technologies.ToListAsync();
+            return await _context.Technology.ToListAsync();
         }
 
         // GET: api/Technologies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Technology>> GetTechnology(int id)
+        public async Task<ActionResult<Technology>> GetTechnology(Guid id)
         {
-          if (_context.Technologies == null)
+          if (_context.Technology == null)
           {
               return NotFound();
           }
-            var technology = await _context.Technologies.FindAsync(id);
+            var technology = await _context.Technology.FindAsync(id);
 
             if (technology == null)
             {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Technologies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTechnology(int id, Technology technology)
+        public async Task<IActionResult> PutTechnology(Guid id, Technology technology)
         {
             if (id != technology.TechnologyId)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Technology>> PostTechnology(Technology technology)
         {
-          if (_context.Technologies == null)
+          if (_context.Technology == null)
           {
-              return Problem("Entity set 'AbioContext.Technologies'  is null.");
+              return Problem("Entity set 'AbioContext.Technology'  is null.");
           }
-            _context.Technologies.Add(technology);
+            _context.Technology.Add(technology);
             try
             {
                 await _context.SaveChangesAsync();
@@ -111,27 +111,27 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Technologies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTechnology(int id)
+        public async Task<IActionResult> DeleteTechnology(Guid id)
         {
-            if (_context.Technologies == null)
+            if (_context.Technology == null)
             {
                 return NotFound();
             }
-            var technology = await _context.Technologies.FindAsync(id);
+            var technology = await _context.Technology.FindAsync(id);
             if (technology == null)
             {
                 return NotFound();
             }
 
-            _context.Technologies.Remove(technology);
+            _context.Technology.Remove(technology);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TechnologyExists(int id)
+        private bool TechnologyExists(Guid id)
         {
-            return (_context.Technologies?.Any(e => e.TechnologyId == id)).GetValueOrDefault();
+            return (_context.Technology?.Any(e => e.TechnologyId == id)).GetValueOrDefault();
         }
     }
 }

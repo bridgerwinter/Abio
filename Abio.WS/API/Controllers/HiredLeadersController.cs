@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/HiredLeaders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HiredLeader>>> GetHiredLeaders()
+        public async Task<ActionResult<IEnumerable<HiredLeader>>> GetHiredLeader()
         {
-          if (_context.HiredLeaders == null)
+          if (_context.HiredLeader == null)
           {
               return NotFound();
           }
-            return await _context.HiredLeaders.ToListAsync();
+            return await _context.HiredLeader.ToListAsync();
         }
 
         // GET: api/HiredLeaders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HiredLeader>> GetHiredLeader(Guid id)
         {
-          if (_context.HiredLeaders == null)
+          if (_context.HiredLeader == null)
           {
               return NotFound();
           }
-            var hiredLeader = await _context.HiredLeaders.FindAsync(id);
+            var hiredLeader = await _context.HiredLeader.FindAsync(id);
 
             if (hiredLeader == null)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<HiredLeader>> PostHiredLeader(HiredLeader hiredLeader)
         {
-          if (_context.HiredLeaders == null)
+          if (_context.HiredLeader == null)
           {
-              return Problem("Entity set 'AbioContext.HiredLeaders'  is null.");
+              return Problem("Entity set 'AbioContext.HiredLeader'  is null.");
           }
-            _context.HiredLeaders.Add(hiredLeader);
+            _context.HiredLeader.Add(hiredLeader);
             try
             {
                 await _context.SaveChangesAsync();
@@ -113,17 +113,17 @@ namespace Abio.WS.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHiredLeader(Guid id)
         {
-            if (_context.HiredLeaders == null)
+            if (_context.HiredLeader == null)
             {
                 return NotFound();
             }
-            var hiredLeader = await _context.HiredLeaders.FindAsync(id);
+            var hiredLeader = await _context.HiredLeader.FindAsync(id);
             if (hiredLeader == null)
             {
                 return NotFound();
             }
 
-            _context.HiredLeaders.Remove(hiredLeader);
+            _context.HiredLeader.Remove(hiredLeader);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool HiredLeaderExists(Guid id)
         {
-            return (_context.HiredLeaders?.Any(e => e.HiredLeaderId == id)).GetValueOrDefault();
+            return (_context.HiredLeader?.Any(e => e.HiredLeaderId == id)).GetValueOrDefault();
         }
     }
 }

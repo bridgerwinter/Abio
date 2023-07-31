@@ -11,55 +11,55 @@ namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HiredUnitsStatsController : ControllerBase
+    public class HiredUnitStatsController : ControllerBase
     {
         private readonly AbioContext _context;
 
-        public HiredUnitsStatsController(AbioContext context)
+        public HiredUnitStatsController(AbioContext context)
         {
             _context = context;
         }
 
-        // GET: api/HiredUnitsStats
+        // GET: api/HiredUnitStats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HiredUnitsStat>>> GetHiredUnitsStats()
+        public async Task<ActionResult<IEnumerable<HiredUnitStat>>> GetHiredUnitStat()
         {
-          if (_context.HiredUnitsStats == null)
+          if (_context.HiredUnitStat == null)
           {
               return NotFound();
           }
-            return await _context.HiredUnitsStats.ToListAsync();
+            return await _context.HiredUnitStat.ToListAsync();
         }
 
-        // GET: api/HiredUnitsStats/5
+        // GET: api/HiredUnitStats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HiredUnitsStat>> GetHiredUnitsStat(Guid id)
+        public async Task<ActionResult<HiredUnitStat>> GetHiredUnitStat(Guid id)
         {
-          if (_context.HiredUnitsStats == null)
+          if (_context.HiredUnitStat == null)
           {
               return NotFound();
           }
-            var hiredUnitsStat = await _context.HiredUnitsStats.FindAsync(id);
+            var hiredUnitStat = await _context.HiredUnitStat.FindAsync(id);
 
-            if (hiredUnitsStat == null)
+            if (hiredUnitStat == null)
             {
                 return NotFound();
             }
 
-            return hiredUnitsStat;
+            return hiredUnitStat;
         }
 
-        // PUT: api/HiredUnitsStats/5
+        // PUT: api/HiredUnitStats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHiredUnitsStat(Guid id, HiredUnitsStat hiredUnitsStat)
+        public async Task<IActionResult> PutHiredUnitStat(Guid id, HiredUnitStat hiredUnitStat)
         {
-            if (id != hiredUnitsStat.HiredUnitStatsId)
+            if (id != hiredUnitStat.HiredUnitStatId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hiredUnitsStat).State = EntityState.Modified;
+            _context.Entry(hiredUnitStat).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!HiredUnitsStatExists(id))
+                if (!HiredUnitStatExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +80,23 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/HiredUnitsStats
+        // POST: api/HiredUnitStats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HiredUnitsStat>> PostHiredUnitsStat(HiredUnitsStat hiredUnitsStat)
+        public async Task<ActionResult<HiredUnitStat>> PostHiredUnitStat(HiredUnitStat hiredUnitStat)
         {
-          if (_context.HiredUnitsStats == null)
+          if (_context.HiredUnitStat == null)
           {
-              return Problem("Entity set 'AbioContext.HiredUnitsStats'  is null.");
+              return Problem("Entity set 'AbioContext.HiredUnitStat'  is null.");
           }
-            _context.HiredUnitsStats.Add(hiredUnitsStat);
+            _context.HiredUnitStat.Add(hiredUnitStat);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (HiredUnitsStatExists(hiredUnitsStat.HiredUnitStatsId))
+                if (HiredUnitStatExists(hiredUnitStat.HiredUnitStatId))
                 {
                     return Conflict();
                 }
@@ -106,32 +106,32 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetHiredUnitsStat", new { id = hiredUnitsStat.HiredUnitStatsId }, hiredUnitsStat);
+            return CreatedAtAction("GetHiredUnitStat", new { id = hiredUnitStat.HiredUnitStatId }, hiredUnitStat);
         }
 
-        // DELETE: api/HiredUnitsStats/5
+        // DELETE: api/HiredUnitStats/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteHiredUnitsStat(Guid id)
+        public async Task<IActionResult> DeleteHiredUnitStat(Guid id)
         {
-            if (_context.HiredUnitsStats == null)
+            if (_context.HiredUnitStat == null)
             {
                 return NotFound();
             }
-            var hiredUnitsStat = await _context.HiredUnitsStats.FindAsync(id);
-            if (hiredUnitsStat == null)
+            var hiredUnitStat = await _context.HiredUnitStat.FindAsync(id);
+            if (hiredUnitStat == null)
             {
                 return NotFound();
             }
 
-            _context.HiredUnitsStats.Remove(hiredUnitsStat);
+            _context.HiredUnitStat.Remove(hiredUnitStat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool HiredUnitsStatExists(Guid id)
+        private bool HiredUnitStatExists(Guid id)
         {
-            return (_context.HiredUnitsStats?.Any(e => e.HiredUnitStatsId == id)).GetValueOrDefault();
+            return (_context.HiredUnitStat?.Any(e => e.HiredUnitStatId == id)).GetValueOrDefault();
         }
     }
 }

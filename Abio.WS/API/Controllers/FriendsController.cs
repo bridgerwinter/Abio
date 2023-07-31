@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Friends
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Friend>>> GetFriends()
+        public async Task<ActionResult<IEnumerable<Friend>>> GetFriend()
         {
-          if (_context.Friends == null)
+          if (_context.Friend == null)
           {
               return NotFound();
           }
-            return await _context.Friends.ToListAsync();
+            return await _context.Friend.ToListAsync();
         }
 
         // GET: api/Friends/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Friend>> GetFriend(Guid id)
         {
-          if (_context.Friends == null)
+          if (_context.Friend == null)
           {
               return NotFound();
           }
-            var friend = await _context.Friends.FindAsync(id);
+            var friend = await _context.Friend.FindAsync(id);
 
             if (friend == null)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Friend>> PostFriend(Friend friend)
         {
-          if (_context.Friends == null)
+          if (_context.Friend == null)
           {
-              return Problem("Entity set 'AbioContext.Friends'  is null.");
+              return Problem("Entity set 'AbioContext.Friend'  is null.");
           }
-            _context.Friends.Add(friend);
+            _context.Friend.Add(friend);
             try
             {
                 await _context.SaveChangesAsync();
@@ -113,17 +113,17 @@ namespace Abio.WS.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFriend(Guid id)
         {
-            if (_context.Friends == null)
+            if (_context.Friend == null)
             {
                 return NotFound();
             }
-            var friend = await _context.Friends.FindAsync(id);
+            var friend = await _context.Friend.FindAsync(id);
             if (friend == null)
             {
                 return NotFound();
             }
 
-            _context.Friends.Remove(friend);
+            _context.Friend.Remove(friend);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool FriendExists(Guid id)
         {
-            return (_context.Friends?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Friend?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
     }
 }

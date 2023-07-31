@@ -11,55 +11,55 @@ namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourcesController : ControllerBase
+    public class UnitStatsController : ControllerBase
     {
         private readonly AbioContext _context;
 
-        public ResourcesController(AbioContext context)
+        public UnitStatsController(AbioContext context)
         {
             _context = context;
         }
 
-        // GET: api/Resources
+        // GET: api/UnitStats
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Resource>>> GetResources()
+        public async Task<ActionResult<IEnumerable<UnitStat>>> GetUnitStat()
         {
-          if (_context.Resources == null)
+          if (_context.UnitStat == null)
           {
               return NotFound();
           }
-            return await _context.Resources.ToListAsync();
+            return await _context.UnitStat.ToListAsync();
         }
 
-        // GET: api/Resources/5
+        // GET: api/UnitStats/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Resource>> GetResource(int id)
+        public async Task<ActionResult<UnitStat>> GetUnitStat(Guid id)
         {
-          if (_context.Resources == null)
+          if (_context.UnitStat == null)
           {
               return NotFound();
           }
-            var resource = await _context.Resources.FindAsync(id);
+            var unitStat = await _context.UnitStat.FindAsync(id);
 
-            if (resource == null)
+            if (unitStat == null)
             {
                 return NotFound();
             }
 
-            return resource;
+            return unitStat;
         }
 
-        // PUT: api/Resources/5
+        // PUT: api/UnitStats/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutResource(int id, Resource resource)
+        public async Task<IActionResult> PutUnitStat(Guid id, UnitStat unitStat)
         {
-            if (id != resource.ResourceId)
+            if (id != unitStat.UnitStatId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(resource).State = EntityState.Modified;
+            _context.Entry(unitStat).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ResourceExists(id))
+                if (!UnitStatExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +80,23 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Resources
+        // POST: api/UnitStats
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Resource>> PostResource(Resource resource)
+        public async Task<ActionResult<UnitStat>> PostUnitStat(UnitStat unitStat)
         {
-          if (_context.Resources == null)
+          if (_context.UnitStat == null)
           {
-              return Problem("Entity set 'AbioContext.Resources'  is null.");
+              return Problem("Entity set 'AbioContext.UnitStat'  is null.");
           }
-            _context.Resources.Add(resource);
+            _context.UnitStat.Add(unitStat);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ResourceExists(resource.ResourceId))
+                if (UnitStatExists(unitStat.UnitStatId))
                 {
                     return Conflict();
                 }
@@ -106,32 +106,32 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetResource", new { id = resource.ResourceId }, resource);
+            return CreatedAtAction("GetUnitStat", new { id = unitStat.UnitStatId }, unitStat);
         }
 
-        // DELETE: api/Resources/5
+        // DELETE: api/UnitStats/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteResource(int id)
+        public async Task<IActionResult> DeleteUnitStat(Guid id)
         {
-            if (_context.Resources == null)
+            if (_context.UnitStat == null)
             {
                 return NotFound();
             }
-            var resource = await _context.Resources.FindAsync(id);
-            if (resource == null)
+            var unitStat = await _context.UnitStat.FindAsync(id);
+            if (unitStat == null)
             {
                 return NotFound();
             }
 
-            _context.Resources.Remove(resource);
+            _context.UnitStat.Remove(unitStat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ResourceExists(int id)
+        private bool UnitStatExists(Guid id)
         {
-            return (_context.Resources?.Any(e => e.ResourceId == id)).GetValueOrDefault();
+            return (_context.UnitStat?.Any(e => e.UnitStatId == id)).GetValueOrDefault();
         }
     }
 }

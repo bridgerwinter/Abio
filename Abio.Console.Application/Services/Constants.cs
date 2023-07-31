@@ -17,7 +17,7 @@ namespace Abio.Console.Application.Services
         public static string RestUrl = "http://localhost:5096/api/";
 
 		public static string BuildingUrl = string.Concat(RestUrl,"Buildings");
-		public static string BuildingLevelUrl = string.Concat(RestUrl,"BuildingLevels");
+		public static string BuildingLevelUrl = string.Concat(RestUrl,"BuildingLevel");
 		public static string ConstructedBuildingUrl = string.Concat(RestUrl,"ConstructedBuildings");
 		public static string FactionUrl = string.Concat(RestUrl,"Factions");
 		public static string HiredLeaderUrl = string.Concat(RestUrl,"HiredLeaders");

@@ -61,7 +61,7 @@ namespace Abio.Console.Application.Services
 			return deserializedResult;
 		}
 
-		public static async Task<List<BuildingLevel>> GetAllBuildingLevels()
+		public static async Task<List<BuildingLevel>> GetAllBuildingLevel()
 		{
 			string result = await Constants.GetClient().GetStringAsync(Constants.BuildingLevelUrl);
 			var deserializedResult = JsonConvert.DeserializeObject<List<BuildingLevel>>(result);

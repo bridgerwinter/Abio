@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/ConstructedBuildings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ConstructedBuilding>>> GetConstructedBuildings()
+        public async Task<ActionResult<IEnumerable<ConstructedBuilding>>> GetConstructedBuilding()
         {
-          if (_context.ConstructedBuildings == null)
+          if (_context.ConstructedBuilding == null)
           {
               return NotFound();
           }
-            return await _context.ConstructedBuildings.ToListAsync();
+            return await _context.ConstructedBuilding.ToListAsync();
         }
 
         // GET: api/ConstructedBuildings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ConstructedBuilding>> GetConstructedBuilding(Guid id)
         {
-          if (_context.ConstructedBuildings == null)
+          if (_context.ConstructedBuilding == null)
           {
               return NotFound();
           }
-            var constructedBuilding = await _context.ConstructedBuildings.FindAsync(id);
+            var constructedBuilding = await _context.ConstructedBuilding.FindAsync(id);
 
             if (constructedBuilding == null)
             {
@@ -54,7 +54,7 @@ namespace Abio.WS.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutConstructedBuilding(Guid id, ConstructedBuilding constructedBuilding)
         {
-            if (id != constructedBuilding.ConstructuredBuildingId)
+            if (id != constructedBuilding.ConstructedBuildingId)
             {
                 return BadRequest();
             }
@@ -85,18 +85,18 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ConstructedBuilding>> PostConstructedBuilding(ConstructedBuilding constructedBuilding)
         {
-          if (_context.ConstructedBuildings == null)
+          if (_context.ConstructedBuilding == null)
           {
-              return Problem("Entity set 'AbioContext.ConstructedBuildings'  is null.");
+              return Problem("Entity set 'AbioContext.ConstructedBuilding'  is null.");
           }
-            _context.ConstructedBuildings.Add(constructedBuilding);
+            _context.ConstructedBuilding.Add(constructedBuilding);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ConstructedBuildingExists(constructedBuilding.ConstructuredBuildingId))
+                if (ConstructedBuildingExists(constructedBuilding.ConstructedBuildingId))
                 {
                     return Conflict();
                 }
@@ -106,24 +106,24 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetConstructedBuilding", new { id = constructedBuilding.ConstructuredBuildingId }, constructedBuilding);
+            return CreatedAtAction("GetConstructedBuilding", new { id = constructedBuilding.ConstructedBuildingId }, constructedBuilding);
         }
 
         // DELETE: api/ConstructedBuildings/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConstructedBuilding(Guid id)
         {
-            if (_context.ConstructedBuildings == null)
+            if (_context.ConstructedBuilding == null)
             {
                 return NotFound();
             }
-            var constructedBuilding = await _context.ConstructedBuildings.FindAsync(id);
+            var constructedBuilding = await _context.ConstructedBuilding.FindAsync(id);
             if (constructedBuilding == null)
             {
                 return NotFound();
             }
 
-            _context.ConstructedBuildings.Remove(constructedBuilding);
+            _context.ConstructedBuilding.Remove(constructedBuilding);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool ConstructedBuildingExists(Guid id)
         {
-            return (_context.ConstructedBuildings?.Any(e => e.ConstructuredBuildingId == id)).GetValueOrDefault();
+            return (_context.ConstructedBuilding?.Any(e => e.ConstructedBuildingId == id)).GetValueOrDefault();
         }
     }
 }

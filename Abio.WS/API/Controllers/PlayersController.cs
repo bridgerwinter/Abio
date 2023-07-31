@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Players
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
+        public async Task<ActionResult<IEnumerable<Player>>> GetPlayer()
         {
-          if (_context.Players == null)
+          if (_context.Player == null)
           {
               return NotFound();
           }
-            return await _context.Players.ToListAsync();
+            return await _context.Player.ToListAsync();
         }
 
         // GET: api/Players/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Player>> GetPlayer(Guid? id)
+        public async Task<ActionResult<Player>> GetPlayer(Guid id)
         {
-          if (_context.Players == null)
+          if (_context.Player == null)
           {
               return NotFound();
           }
-            var player = await _context.Players.FindAsync(id);
+            var player = await _context.Player.FindAsync(id);
 
             if (player == null)
             {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Players/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPlayer(Guid? id, Player player)
+        public async Task<IActionResult> PutPlayer(Guid id, Player player)
         {
             if (id != player.UserId)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
-          if (_context.Players == null)
+          if (_context.Player == null)
           {
-              return Problem("Entity set 'AbioContext.Players'  is null.");
+              return Problem("Entity set 'AbioContext.Player'  is null.");
           }
-            _context.Players.Add(player);
+            _context.Player.Add(player);
             try
             {
                 await _context.SaveChangesAsync();
@@ -111,27 +111,27 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Players/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePlayer(Guid? id)
+        public async Task<IActionResult> DeletePlayer(Guid id)
         {
-            if (_context.Players == null)
+            if (_context.Player == null)
             {
                 return NotFound();
             }
-            var player = await _context.Players.FindAsync(id);
+            var player = await _context.Player.FindAsync(id);
             if (player == null)
             {
                 return NotFound();
             }
 
-            _context.Players.Remove(player);
+            _context.Player.Remove(player);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PlayerExists(Guid? id)
+        private bool PlayerExists(Guid id)
         {
-            return (_context.Players?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Player?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
     }
 }

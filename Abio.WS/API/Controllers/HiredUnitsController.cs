@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/HiredUnits
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HiredUnit>>> GetHiredUnits()
+        public async Task<ActionResult<IEnumerable<HiredUnit>>> GetHiredUnit()
         {
-          if (_context.HiredUnits == null)
+          if (_context.HiredUnit == null)
           {
               return NotFound();
           }
-            return await _context.HiredUnits.ToListAsync();
+            return await _context.HiredUnit.ToListAsync();
         }
 
         // GET: api/HiredUnits/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HiredUnit>> GetHiredUnit(Guid id)
         {
-          if (_context.HiredUnits == null)
+          if (_context.HiredUnit == null)
           {
               return NotFound();
           }
-            var hiredUnit = await _context.HiredUnits.FindAsync(id);
+            var hiredUnit = await _context.HiredUnit.FindAsync(id);
 
             if (hiredUnit == null)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<HiredUnit>> PostHiredUnit(HiredUnit hiredUnit)
         {
-          if (_context.HiredUnits == null)
+          if (_context.HiredUnit == null)
           {
-              return Problem("Entity set 'AbioContext.HiredUnits'  is null.");
+              return Problem("Entity set 'AbioContext.HiredUnit'  is null.");
           }
-            _context.HiredUnits.Add(hiredUnit);
+            _context.HiredUnit.Add(hiredUnit);
             try
             {
                 await _context.SaveChangesAsync();
@@ -113,17 +113,17 @@ namespace Abio.WS.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHiredUnit(Guid id)
         {
-            if (_context.HiredUnits == null)
+            if (_context.HiredUnit == null)
             {
                 return NotFound();
             }
-            var hiredUnit = await _context.HiredUnits.FindAsync(id);
+            var hiredUnit = await _context.HiredUnit.FindAsync(id);
             if (hiredUnit == null)
             {
                 return NotFound();
             }
 
-            _context.HiredUnits.Remove(hiredUnit);
+            _context.HiredUnit.Remove(hiredUnit);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool HiredUnitExists(Guid id)
         {
-            return (_context.HiredUnits?.Any(e => e.HiredUnitId == id)).GetValueOrDefault();
+            return (_context.HiredUnit?.Any(e => e.HiredUnitId == id)).GetValueOrDefault();
         }
     }
 }

@@ -11,55 +11,55 @@ namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FactionsController : ControllerBase
+    public class UserCityLeadersController : ControllerBase
     {
         private readonly AbioContext _context;
 
-        public FactionsController(AbioContext context)
+        public UserCityLeadersController(AbioContext context)
         {
             _context = context;
         }
 
-        // GET: api/Factions
+        // GET: api/UserCityLeaders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Faction>>> GetFaction()
+        public async Task<ActionResult<IEnumerable<UserCityLeader>>> GetUserCityLeader()
         {
-          if (_context.Faction == null)
+          if (_context.UserCityLeader == null)
           {
               return NotFound();
           }
-            return await _context.Faction.ToListAsync();
+            return await _context.UserCityLeader.ToListAsync();
         }
 
-        // GET: api/Factions/5
+        // GET: api/UserCityLeaders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Faction>> GetFaction(Guid id)
+        public async Task<ActionResult<UserCityLeader>> GetUserCityLeader(Guid id)
         {
-          if (_context.Faction == null)
+          if (_context.UserCityLeader == null)
           {
               return NotFound();
           }
-            var faction = await _context.Faction.FindAsync(id);
+            var userCityLeader = await _context.UserCityLeader.FindAsync(id);
 
-            if (faction == null)
+            if (userCityLeader == null)
             {
                 return NotFound();
             }
 
-            return faction;
+            return userCityLeader;
         }
 
-        // PUT: api/Factions/5
+        // PUT: api/UserCityLeaders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFaction(Guid id, Faction faction)
+        public async Task<IActionResult> PutUserCityLeader(Guid id, UserCityLeader userCityLeader)
         {
-            if (id != faction.FactionId)
+            if (id != userCityLeader.UserCityLeaderId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(faction).State = EntityState.Modified;
+            _context.Entry(userCityLeader).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FactionExists(id))
+                if (!UserCityLeaderExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +80,23 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Factions
+        // POST: api/UserCityLeaders
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Faction>> PostFaction(Faction faction)
+        public async Task<ActionResult<UserCityLeader>> PostUserCityLeader(UserCityLeader userCityLeader)
         {
-          if (_context.Faction == null)
+          if (_context.UserCityLeader == null)
           {
-              return Problem("Entity set 'AbioContext.Faction'  is null.");
+              return Problem("Entity set 'AbioContext.UserCityLeader'  is null.");
           }
-            _context.Faction.Add(faction);
+            _context.UserCityLeader.Add(userCityLeader);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (FactionExists(faction.FactionId))
+                if (UserCityLeaderExists(userCityLeader.UserCityLeaderId))
                 {
                     return Conflict();
                 }
@@ -106,32 +106,32 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFaction", new { id = faction.FactionId }, faction);
+            return CreatedAtAction("GetUserCityLeader", new { id = userCityLeader.UserCityLeaderId }, userCityLeader);
         }
 
-        // DELETE: api/Factions/5
+        // DELETE: api/UserCityLeaders/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFaction(Guid id)
+        public async Task<IActionResult> DeleteUserCityLeader(Guid id)
         {
-            if (_context.Faction == null)
+            if (_context.UserCityLeader == null)
             {
                 return NotFound();
             }
-            var faction = await _context.Faction.FindAsync(id);
-            if (faction == null)
+            var userCityLeader = await _context.UserCityLeader.FindAsync(id);
+            if (userCityLeader == null)
             {
                 return NotFound();
             }
 
-            _context.Faction.Remove(faction);
+            _context.UserCityLeader.Remove(userCityLeader);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FactionExists(Guid id)
+        private bool UserCityLeaderExists(Guid id)
         {
-            return (_context.Faction?.Any(e => e.FactionId == id)).GetValueOrDefault();
+            return (_context.UserCityLeader?.Any(e => e.UserCityLeaderId == id)).GetValueOrDefault();
         }
     }
 }

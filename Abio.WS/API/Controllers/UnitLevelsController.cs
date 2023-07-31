@@ -11,55 +11,55 @@ namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FactionsController : ControllerBase
+    public class UnitLevelsController : ControllerBase
     {
         private readonly AbioContext _context;
 
-        public FactionsController(AbioContext context)
+        public UnitLevelsController(AbioContext context)
         {
             _context = context;
         }
 
-        // GET: api/Factions
+        // GET: api/UnitLevels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Faction>>> GetFaction()
+        public async Task<ActionResult<IEnumerable<UnitLevel>>> GetUnitLevel()
         {
-          if (_context.Faction == null)
+          if (_context.UnitLevel == null)
           {
               return NotFound();
           }
-            return await _context.Faction.ToListAsync();
+            return await _context.UnitLevel.ToListAsync();
         }
 
-        // GET: api/Factions/5
+        // GET: api/UnitLevels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Faction>> GetFaction(Guid id)
+        public async Task<ActionResult<UnitLevel>> GetUnitLevel(Guid id)
         {
-          if (_context.Faction == null)
+          if (_context.UnitLevel == null)
           {
               return NotFound();
           }
-            var faction = await _context.Faction.FindAsync(id);
+            var unitLevel = await _context.UnitLevel.FindAsync(id);
 
-            if (faction == null)
+            if (unitLevel == null)
             {
                 return NotFound();
             }
 
-            return faction;
+            return unitLevel;
         }
 
-        // PUT: api/Factions/5
+        // PUT: api/UnitLevels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFaction(Guid id, Faction faction)
+        public async Task<IActionResult> PutUnitLevel(Guid id, UnitLevel unitLevel)
         {
-            if (id != faction.FactionId)
+            if (id != unitLevel.UnitLevelId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(faction).State = EntityState.Modified;
+            _context.Entry(unitLevel).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FactionExists(id))
+                if (!UnitLevelExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +80,23 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Factions
+        // POST: api/UnitLevels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Faction>> PostFaction(Faction faction)
+        public async Task<ActionResult<UnitLevel>> PostUnitLevel(UnitLevel unitLevel)
         {
-          if (_context.Faction == null)
+          if (_context.UnitLevel == null)
           {
-              return Problem("Entity set 'AbioContext.Faction'  is null.");
+              return Problem("Entity set 'AbioContext.UnitLevel'  is null.");
           }
-            _context.Faction.Add(faction);
+            _context.UnitLevel.Add(unitLevel);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (FactionExists(faction.FactionId))
+                if (UnitLevelExists(unitLevel.UnitLevelId))
                 {
                     return Conflict();
                 }
@@ -106,32 +106,32 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFaction", new { id = faction.FactionId }, faction);
+            return CreatedAtAction("GetUnitLevel", new { id = unitLevel.UnitLevelId }, unitLevel);
         }
 
-        // DELETE: api/Factions/5
+        // DELETE: api/UnitLevels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFaction(Guid id)
+        public async Task<IActionResult> DeleteUnitLevel(Guid id)
         {
-            if (_context.Faction == null)
+            if (_context.UnitLevel == null)
             {
                 return NotFound();
             }
-            var faction = await _context.Faction.FindAsync(id);
-            if (faction == null)
+            var unitLevel = await _context.UnitLevel.FindAsync(id);
+            if (unitLevel == null)
             {
                 return NotFound();
             }
 
-            _context.Faction.Remove(faction);
+            _context.UnitLevel.Remove(unitLevel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FactionExists(Guid id)
+        private bool UnitLevelExists(Guid id)
         {
-            return (_context.Faction?.Any(e => e.FactionId == id)).GetValueOrDefault();
+            return (_context.UnitLevel?.Any(e => e.UnitLevelId == id)).GetValueOrDefault();
         }
     }
 }

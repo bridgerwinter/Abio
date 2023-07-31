@@ -11,55 +11,55 @@ namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UnitGroupsController : ControllerBase
+    public class BuildingLevelsController : ControllerBase
     {
         private readonly AbioContext _context;
 
-        public UnitGroupsController(AbioContext context)
+        public BuildingLevelsController(AbioContext context)
         {
             _context = context;
         }
 
-        // GET: api/UnitGroups
+        // GET: api/BuildingLevels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UnitGroup>>> GetUnitGroups()
+        public async Task<ActionResult<IEnumerable<BuildingLevel>>> GetBuildingLevel()
         {
-          if (_context.UnitGroups == null)
+          if (_context.BuildingLevel == null)
           {
               return NotFound();
           }
-            return await _context.UnitGroups.ToListAsync();
+            return await _context.BuildingLevel.ToListAsync();
         }
 
-        // GET: api/UnitGroups/5
+        // GET: api/BuildingLevels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UnitGroup>> GetUnitGroup(Guid id)
+        public async Task<ActionResult<BuildingLevel>> GetBuildingLevel(Guid id)
         {
-          if (_context.UnitGroups == null)
+          if (_context.BuildingLevel == null)
           {
               return NotFound();
           }
-            var unitGroup = await _context.UnitGroups.FindAsync(id);
+            var buildingLevel = await _context.BuildingLevel.FindAsync(id);
 
-            if (unitGroup == null)
+            if (buildingLevel == null)
             {
                 return NotFound();
             }
 
-            return unitGroup;
+            return buildingLevel;
         }
 
-        // PUT: api/UnitGroups/5
+        // PUT: api/BuildingLevels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUnitGroup(Guid id, UnitGroup unitGroup)
+        public async Task<IActionResult> PutBuildingLevel(Guid id, BuildingLevel buildingLevel)
         {
-            if (id != unitGroup.UnitGroupsId)
+            if (id != buildingLevel.BuildingLevelId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(unitGroup).State = EntityState.Modified;
+            _context.Entry(buildingLevel).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UnitGroupExists(id))
+                if (!BuildingLevelExists(id))
                 {
                     return NotFound();
                 }
@@ -80,23 +80,23 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/UnitGroups
+        // POST: api/BuildingLevels
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UnitGroup>> PostUnitGroup(UnitGroup unitGroup)
+        public async Task<ActionResult<BuildingLevel>> PostBuildingLevel(BuildingLevel buildingLevel)
         {
-          if (_context.UnitGroups == null)
+          if (_context.BuildingLevel == null)
           {
-              return Problem("Entity set 'AbioContext.UnitGroups'  is null.");
+              return Problem("Entity set 'AbioContext.BuildingLevel'  is null.");
           }
-            _context.UnitGroups.Add(unitGroup);
+            _context.BuildingLevel.Add(buildingLevel);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UnitGroupExists(unitGroup.UnitGroupsId))
+                if (BuildingLevelExists(buildingLevel.BuildingLevelId))
                 {
                     return Conflict();
                 }
@@ -106,32 +106,32 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUnitGroup", new { id = unitGroup.UnitGroupsId }, unitGroup);
+            return CreatedAtAction("GetBuildingLevel", new { id = buildingLevel.BuildingLevelId }, buildingLevel);
         }
 
-        // DELETE: api/UnitGroups/5
+        // DELETE: api/BuildingLevels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUnitGroup(Guid id)
+        public async Task<IActionResult> DeleteBuildingLevel(Guid id)
         {
-            if (_context.UnitGroups == null)
+            if (_context.BuildingLevel == null)
             {
                 return NotFound();
             }
-            var unitGroup = await _context.UnitGroups.FindAsync(id);
-            if (unitGroup == null)
+            var buildingLevel = await _context.BuildingLevel.FindAsync(id);
+            if (buildingLevel == null)
             {
                 return NotFound();
             }
 
-            _context.UnitGroups.Remove(unitGroup);
+            _context.BuildingLevel.Remove(buildingLevel);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UnitGroupExists(Guid id)
+        private bool BuildingLevelExists(Guid id)
         {
-            return (_context.UnitGroups?.Any(e => e.UnitGroupsId == id)).GetValueOrDefault();
+            return (_context.BuildingLevel?.Any(e => e.BuildingLevelId == id)).GetValueOrDefault();
         }
     }
 }

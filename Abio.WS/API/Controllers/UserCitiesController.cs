@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/UserCities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserCity>>> GetUserCities()
+        public async Task<ActionResult<IEnumerable<UserCity>>> GetUserCity()
         {
-          if (_context.UserCities == null)
+          if (_context.UserCity == null)
           {
               return NotFound();
           }
-            return await _context.UserCities.ToListAsync();
+            return await _context.UserCity.ToListAsync();
         }
 
         // GET: api/UserCities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<UserCity>> GetUserCity(Guid id)
         {
-          if (_context.UserCities == null)
+          if (_context.UserCity == null)
           {
               return NotFound();
           }
-            var userCity = await _context.UserCities.FindAsync(id);
+            var userCity = await _context.UserCity.FindAsync(id);
 
             if (userCity == null)
             {
@@ -54,7 +54,7 @@ namespace Abio.WS.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUserCity(Guid id, UserCity userCity)
         {
-            if (id != userCity.CityId)
+            if (id != userCity.UserCityId)
             {
                 return BadRequest();
             }
@@ -85,18 +85,18 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<UserCity>> PostUserCity(UserCity userCity)
         {
-          if (_context.UserCities == null)
+          if (_context.UserCity == null)
           {
-              return Problem("Entity set 'AbioContext.UserCities'  is null.");
+              return Problem("Entity set 'AbioContext.UserCity'  is null.");
           }
-            _context.UserCities.Add(userCity);
+            _context.UserCity.Add(userCity);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserCityExists(userCity.CityId))
+                if (UserCityExists(userCity.UserCityId))
                 {
                     return Conflict();
                 }
@@ -106,24 +106,24 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUserCity", new { id = userCity.CityId }, userCity);
+            return CreatedAtAction("GetUserCity", new { id = userCity.UserCityId }, userCity);
         }
 
         // DELETE: api/UserCities/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserCity(Guid id)
         {
-            if (_context.UserCities == null)
+            if (_context.UserCity == null)
             {
                 return NotFound();
             }
-            var userCity = await _context.UserCities.FindAsync(id);
+            var userCity = await _context.UserCity.FindAsync(id);
             if (userCity == null)
             {
                 return NotFound();
             }
 
-            _context.UserCities.Remove(userCity);
+            _context.UserCity.Remove(userCity);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool UserCityExists(Guid id)
         {
-            return (_context.UserCities?.Any(e => e.CityId == id)).GetValueOrDefault();
+            return (_context.UserCity?.Any(e => e.UserCityId == id)).GetValueOrDefault();
         }
     }
 }

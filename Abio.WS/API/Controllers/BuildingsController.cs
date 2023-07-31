@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Buildings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Building>>> GetBuildings()
+        public async Task<ActionResult<IEnumerable<Building>>> GetBuilding()
         {
-          if (_context.Buildings == null)
+          if (_context.Building == null)
           {
               return NotFound();
           }
-            return await _context.Buildings.ToListAsync();
+            return await _context.Building.ToListAsync();
         }
 
         // GET: api/Buildings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Building>> GetBuilding(int id)
+        public async Task<ActionResult<Building>> GetBuilding(Guid id)
         {
-          if (_context.Buildings == null)
+          if (_context.Building == null)
           {
               return NotFound();
           }
-            var building = await _context.Buildings.FindAsync(id);
+            var building = await _context.Building.FindAsync(id);
 
             if (building == null)
             {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Buildings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuilding(int id, Building building)
+        public async Task<IActionResult> PutBuilding(Guid id, Building building)
         {
             if (id != building.BuildingId)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Building>> PostBuilding(Building building)
         {
-          if (_context.Buildings == null)
+          if (_context.Building == null)
           {
-              return Problem("Entity set 'AbioContext.Buildings'  is null.");
+              return Problem("Entity set 'AbioContext.Building'  is null.");
           }
-            _context.Buildings.Add(building);
+            _context.Building.Add(building);
             try
             {
                 await _context.SaveChangesAsync();
@@ -111,27 +111,27 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Buildings/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBuilding(int id)
+        public async Task<IActionResult> DeleteBuilding(Guid id)
         {
-            if (_context.Buildings == null)
+            if (_context.Building == null)
             {
                 return NotFound();
             }
-            var building = await _context.Buildings.FindAsync(id);
+            var building = await _context.Building.FindAsync(id);
             if (building == null)
             {
                 return NotFound();
             }
 
-            _context.Buildings.Remove(building);
+            _context.Building.Remove(building);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool BuildingExists(int id)
+        private bool BuildingExists(Guid id)
         {
-            return (_context.Buildings?.Any(e => e.BuildingId == id)).GetValueOrDefault();
+            return (_context.Building?.Any(e => e.BuildingId == id)).GetValueOrDefault();
         }
     }
 }

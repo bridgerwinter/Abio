@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/ItemInventories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ItemInventory>>> GetItemInventories()
+        public async Task<ActionResult<IEnumerable<ItemInventory>>> GetItemInventory()
         {
-          if (_context.ItemInventories == null)
+          if (_context.ItemInventory == null)
           {
               return NotFound();
           }
-            return await _context.ItemInventories.ToListAsync();
+            return await _context.ItemInventory.ToListAsync();
         }
 
         // GET: api/ItemInventories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ItemInventory>> GetItemInventory(Guid id)
         {
-          if (_context.ItemInventories == null)
+          if (_context.ItemInventory == null)
           {
               return NotFound();
           }
-            var itemInventory = await _context.ItemInventories.FindAsync(id);
+            var itemInventory = await _context.ItemInventory.FindAsync(id);
 
             if (itemInventory == null)
             {
@@ -85,11 +85,11 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ItemInventory>> PostItemInventory(ItemInventory itemInventory)
         {
-          if (_context.ItemInventories == null)
+          if (_context.ItemInventory == null)
           {
-              return Problem("Entity set 'AbioContext.ItemInventories'  is null.");
+              return Problem("Entity set 'AbioContext.ItemInventory'  is null.");
           }
-            _context.ItemInventories.Add(itemInventory);
+            _context.ItemInventory.Add(itemInventory);
             try
             {
                 await _context.SaveChangesAsync();
@@ -113,17 +113,17 @@ namespace Abio.WS.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItemInventory(Guid id)
         {
-            if (_context.ItemInventories == null)
+            if (_context.ItemInventory == null)
             {
                 return NotFound();
             }
-            var itemInventory = await _context.ItemInventories.FindAsync(id);
+            var itemInventory = await _context.ItemInventory.FindAsync(id);
             if (itemInventory == null)
             {
                 return NotFound();
             }
 
-            _context.ItemInventories.Remove(itemInventory);
+            _context.ItemInventory.Remove(itemInventory);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool ItemInventoryExists(Guid id)
         {
-            return (_context.ItemInventories?.Any(e => e.ItemInventoryId == id)).GetValueOrDefault();
+            return (_context.ItemInventory?.Any(e => e.ItemInventoryId == id)).GetValueOrDefault();
         }
     }
 }

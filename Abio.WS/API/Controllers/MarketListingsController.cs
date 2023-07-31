@@ -22,24 +22,24 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/MarketListings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MarketListing>>> GetMarketListings()
+        public async Task<ActionResult<IEnumerable<MarketListing>>> GetMarketListing()
         {
-          if (_context.MarketListings == null)
+          if (_context.MarketListing == null)
           {
               return NotFound();
           }
-            return await _context.MarketListings.ToListAsync();
+            return await _context.MarketListing.ToListAsync();
         }
 
         // GET: api/MarketListings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MarketListing>> GetMarketListing(Guid id)
         {
-          if (_context.MarketListings == null)
+          if (_context.MarketListing == null)
           {
               return NotFound();
           }
-            var marketListing = await _context.MarketListings.FindAsync(id);
+            var marketListing = await _context.MarketListing.FindAsync(id);
 
             if (marketListing == null)
             {
@@ -54,7 +54,7 @@ namespace Abio.WS.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMarketListing(Guid id, MarketListing marketListing)
         {
-            if (id != marketListing.ListingId)
+            if (id != marketListing.MarketListingId)
             {
                 return BadRequest();
             }
@@ -85,18 +85,18 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<MarketListing>> PostMarketListing(MarketListing marketListing)
         {
-          if (_context.MarketListings == null)
+          if (_context.MarketListing == null)
           {
-              return Problem("Entity set 'AbioContext.MarketListings'  is null.");
+              return Problem("Entity set 'AbioContext.MarketListing'  is null.");
           }
-            _context.MarketListings.Add(marketListing);
+            _context.MarketListing.Add(marketListing);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (MarketListingExists(marketListing.ListingId))
+                if (MarketListingExists(marketListing.MarketListingId))
                 {
                     return Conflict();
                 }
@@ -106,24 +106,24 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetMarketListing", new { id = marketListing.ListingId }, marketListing);
+            return CreatedAtAction("GetMarketListing", new { id = marketListing.MarketListingId }, marketListing);
         }
 
         // DELETE: api/MarketListings/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMarketListing(Guid id)
         {
-            if (_context.MarketListings == null)
+            if (_context.MarketListing == null)
             {
                 return NotFound();
             }
-            var marketListing = await _context.MarketListings.FindAsync(id);
+            var marketListing = await _context.MarketListing.FindAsync(id);
             if (marketListing == null)
             {
                 return NotFound();
             }
 
-            _context.MarketListings.Remove(marketListing);
+            _context.MarketListing.Remove(marketListing);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -131,7 +131,7 @@ namespace Abio.WS.API.Controllers
 
         private bool MarketListingExists(Guid id)
         {
-            return (_context.MarketListings?.Any(e => e.ListingId == id)).GetValueOrDefault();
+            return (_context.MarketListing?.Any(e => e.MarketListingId == id)).GetValueOrDefault();
         }
     }
 }
