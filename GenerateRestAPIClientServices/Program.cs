@@ -53,7 +53,7 @@ public class Program
 
     public static async Task GenerateRestServices(List<string> abioClasses)
     {
-        string header = "using Abio.Library.DatabaseModels;\r\nusing Newtonsoft.Json;\r\nusing System.Text;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n\tpublic class ApiService\r\n\t{";
+        string header = "using Abio.Library.DatabaseModels;\r\nusing Newtonsoft.Json;\r\nusing System.Text;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n\tpublic partial class ApiService\r\n\t{";
         string footer = "\t}\r\n}";
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.AppendLine(header);

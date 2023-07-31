@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Abio.Console.Application.Services
 {
-	public class ApiService
+	public partial class ApiService
 	{
 		public static async Task<HttpResponseMessage> CreateBuilding(Building building)
 		{
@@ -685,7 +685,7 @@ namespace Abio.Console.Application.Services
 			return deserializedResult;
 		}
 
-		public static async Task<List<Unit>> GetAllUnits()
+        public static async Task<List<Unit>> GetAllUnits()
 		{
 			string result = await Constants.GetClient().GetStringAsync(Constants.UnitUrl);
 			var deserializedResult = JsonConvert.DeserializeObject<List<Unit>>(result);

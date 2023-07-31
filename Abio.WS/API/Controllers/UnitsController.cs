@@ -49,6 +49,25 @@ namespace Abio.WS.API.Controllers
             return unit;
         }
 
+        [HttpGet("name/{name}")]
+        public async Task<Unit> GetUnitByName(string name)
+        {
+            if (_context.Unit == null)
+            {
+                return null;
+            }
+            var unit = from b in _context.Unit
+                       where b.UnitName == name
+                       select b;
+
+            if (unit == null)
+            {
+                return null;
+            }
+
+            return unit.FirstOrDefault();
+        }
+
         // PUT: api/Units/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -89,6 +108,16 @@ namespace Abio.WS.API.Controllers
           {
               return Problem("Entity set 'AbioContext.Unit'  is null.");
           }
+            unit.UnitId = Guid.NewGuid();
+            bool guidExists = await _context.Unit.AnyAsync(p => p.UnitId == unit.UnitId);
+            while (guidExists)
+            {
+                if (guidExists)
+                {
+                    unit.UnitId = Guid.NewGuid();
+                }
+                guidExists = await _context.Unit.AnyAsync(p => p.UnitId == unit.UnitId);
+            }
             _context.Unit.Add(unit);
             try
             {

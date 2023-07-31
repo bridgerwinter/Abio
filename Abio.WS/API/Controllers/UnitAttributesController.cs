@@ -89,6 +89,19 @@ namespace Abio.WS.API.Controllers
           {
               return Problem("Entity set 'AbioContext.UnitAttribute'  is null.");
           }
+
+          //Make these trigger only if we get a conflict error. Might save a minor amount of time in the long run. For all Create Commands. 
+            unitAttribute.UnitAttributeId = Guid.NewGuid();
+            bool guidExists = await _context.Unit.AnyAsync(p => p.UnitId == unitAttribute.UnitAttributeId);
+            while (guidExists)
+            {
+                if (guidExists)
+                {
+                    unitAttribute.UnitAttributeId = Guid.NewGuid();
+                }
+                guidExists = await _context.UnitAttribute.AnyAsync(p => p.UnitAttributeId == unitAttribute.UnitAttributeId);
+            }
+
             _context.UnitAttribute.Add(unitAttribute);
             try
             {

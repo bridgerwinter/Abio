@@ -89,6 +89,17 @@ namespace Abio.WS.API.Controllers
           {
               return Problem("Entity set 'AbioContext.UnitStat'  is null.");
           }
+
+            unitStat.UnitStatId = Guid.NewGuid();
+            bool guidExists = await _context.Unit.AnyAsync(p => p.UnitId == unitStat.UnitStatId);
+            while (guidExists)
+            {
+                if (guidExists)
+                {
+                    unitStat.UnitStatId = Guid.NewGuid();
+                }
+                guidExists = await _context.UnitStat.AnyAsync(p => p.UnitStatId == unitStat.UnitStatId);
+            }
             _context.UnitStat.Add(unitStat);
             try
             {
