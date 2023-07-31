@@ -2,16 +2,11 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("HiredUnits", Schema = "Player")]
 public partial class HiredUnit
 {
-    [Key]
     public Guid HiredUnitId { get; set; }
 
     public Guid? UserId { get; set; }
@@ -22,29 +17,13 @@ public partial class HiredUnit
 
     public Guid? HiredLeaderId { get; set; }
 
-    [Required]
-    [Column("created_at")]
-    public byte[] CreatedAt { get; set; }
+    public byte[] created_at { get; set; }
 
-    [ForeignKey("HiredLeaderId")]
-    [InverseProperty("HiredUnits")]
     public virtual HiredLeader HiredLeader { get; set; }
 
-    [InverseProperty("HiredUnit")]
-    public virtual ICollection<HiredUnitsStat> HiredUnitsStats { get; } = new List<HiredUnitsStat>();
+    public virtual ICollection<HiredUnitStat> HiredUnitStat { get; } = new List<HiredUnitStat>();
 
-    [ForeignKey("UnitId")]
-    [InverseProperty("HiredUnits")]
-    public virtual Unit Unit { get; set; }
+    public virtual ICollection<UnitGroup> UnitGroup { get; } = new List<UnitGroup>();
 
-    [InverseProperty("HiredUnit")]
-    public virtual ICollection<UnitGroup> UnitGroups { get; } = new List<UnitGroup>();
-
-    [ForeignKey("UnitLevel")]
-    [InverseProperty("HiredUnits")]
-    public virtual UnitLevel UnitLevelNavigation { get; set; }
-
-    [ForeignKey("UserId")]
-    [InverseProperty("HiredUnits")]
     public virtual User User { get; set; }
 }

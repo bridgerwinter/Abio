@@ -2,17 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("HiredUnitsStats", Schema = "Player")]
-public partial class HiredUnitsStat
+public partial class HiredUnitStat
 {
-    [Key]
-    public Guid HiredUnitStatsId { get; set; }
+    public Guid HiredUnitStatId { get; set; }
 
     public Guid? HiredUnitId { get; set; }
 
@@ -30,7 +25,5 @@ public partial class HiredUnitsStat
 
     public int? RangedRange { get; set; }
 
-    [ForeignKey("HiredUnitId")]
-    [InverseProperty("HiredUnitsStats")]
     public virtual HiredUnit HiredUnit { get; set; }
 }

@@ -2,17 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("MarketListings", Schema = "Economy")]
 public partial class MarketListing
 {
-    [Key]
-    public Guid ListingId { get; set; }
+    public Guid MarketListingId { get; set; }
 
     public Guid? MarketId { get; set; }
 
@@ -24,19 +19,11 @@ public partial class MarketListing
 
     public long? ItemQuantity { get; set; }
 
-    [ForeignKey("ItemId")]
-    [InverseProperty("MarketListings")]
     public virtual Item Item { get; set; }
 
-    [ForeignKey("ItemInventoryId")]
-    [InverseProperty("MarketListings")]
     public virtual ItemInventory ItemInventory { get; set; }
 
-    [ForeignKey("MarketId")]
-    [InverseProperty("MarketListings")]
     public virtual Market Market { get; set; }
 
-    [ForeignKey("UserId")]
-    [InverseProperty("MarketListings")]
     public virtual User User { get; set; }
 }

@@ -2,19 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("Units", Schema = "Lookup")]
 public partial class Unit
 {
-    [Key]
-    public int UnitId { get; set; }
+    public Guid UnitId { get; set; }
 
-    [Unicode(false)]
     public string UnitName { get; set; }
 
     public int? FactionId { get; set; }
@@ -24,11 +18,4 @@ public partial class Unit
     public int? Attack { get; set; }
 
     public int? Defense { get; set; }
-
-    [ForeignKey("FactionId")]
-    [InverseProperty("Units")]
-    public virtual Faction Faction { get; set; }
-
-    [InverseProperty("Unit")]
-    public virtual ICollection<HiredUnit> HiredUnits { get; } = new List<HiredUnit>();
 }

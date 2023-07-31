@@ -10,38 +10,38 @@ GO
 CREATE SCHEMA [Lookup]
 GO
 
-CREATE TABLE [Security].[Users] (
+CREATE TABLE [Security].[User] (
   [UserId] uniqueidentifier PRIMARY KEY,
   [created_at] timestamp
 )
 GO
 
-CREATE TABLE [Player].[Friends] (
+CREATE TABLE [Player].[Friend] (
   [UserId] uniqueidentifier PRIMARY KEY,
   [FriendsWith] uniqueidentifier
 )
 GO
 
-CREATE TABLE [Player].[Players] (
+CREATE TABLE [Player].[Player] (
   [UserId] uniqueidentifier PRIMARY KEY,
   [MaxCities] int,
   [MaxOwnedLand] int
 )
 GO
 
-CREATE TABLE [Player].[UserCities] (
-  [CityId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Player].[UserCity] (
+  [UserCityId] uniqueidentifier PRIMARY KEY,
   [UserId] uniqueidentifier,
   [XCoord] int,
   [YCoord] int
 )
 GO
 
-CREATE TABLE [Player].[UserCitiesLeaders] (
-  [UserCityLeadersId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Player].[UserCityLeader] (
+  [UserCityLeaderId] uniqueidentifier PRIMARY KEY,
   [UserId] uniqueidentifier,
   [HiredLeaderId] uniqueidentifier,
-  [CityId] uniqueidentifier
+  [UserCityId] uniqueidentifier
 )
 GO
 
@@ -53,8 +53,8 @@ CREATE TABLE [Player].[ResearchedTechnology] (
 )
 GO
 
-CREATE TABLE [Player].[ConstructedBuildings] (
-  [ConstructuredBuildingId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Player].[ConstructedBuilding] (
+  [ConstructedBuildingId] uniqueidentifier PRIMARY KEY,
   [BuildingId] int,
   [UserId] uniqueidentifier,
   [BuildingLevel] int,
@@ -62,7 +62,7 @@ CREATE TABLE [Player].[ConstructedBuildings] (
 )
 GO
 
-CREATE TABLE [Player].[HiredUnits] (
+CREATE TABLE [Player].[HiredUnit] (
   [HiredUnitId] uniqueidentifier PRIMARY KEY,
   [UserId] uniqueidentifier,
   [UnitId] int,
@@ -72,8 +72,8 @@ CREATE TABLE [Player].[HiredUnits] (
 )
 GO
 
-CREATE TABLE [Player].[HiredUnitsStats] (
-  [HiredUnitStatsId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Player].[HiredUnitStat] (
+  [HiredUnitStatId] uniqueidentifier PRIMARY KEY,
   [HiredUnitId] uniqueidentifier,
   [Leadership] int,
   [Attack] int,
@@ -85,7 +85,7 @@ CREATE TABLE [Player].[HiredUnitsStats] (
 )
 GO
 
-CREATE TABLE [Player].[HiredLeaders] (
+CREATE TABLE [Player].[HiredLeader] (
   [HiredLeaderId] uniqueidentifier PRIMARY KEY,
   [UserId] uniqueidentifier,
   [HiredLeaderName] varchar(24),
@@ -94,8 +94,8 @@ CREATE TABLE [Player].[HiredLeaders] (
 )
 GO
 
-CREATE TABLE [Player].[HiredLeaderStats] (
-  [HiredLeaderStatsId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Player].[HiredLeaderStat] (
+  [HiredLeaderStatId] uniqueidentifier PRIMARY KEY,
   [HiredLeaderId] uniqueidentifier,
   [Leadership] int,
   [Attack] int,
@@ -105,8 +105,8 @@ CREATE TABLE [Player].[HiredLeaderStats] (
 )
 GO
 
-CREATE TABLE [Player].[UnitGroups] (
-  [UnitGroupsId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Player].[UnitGroup] (
+  [UnitGroupId] uniqueidentifier PRIMARY KEY,
   [HiredUnitId] uniqueidentifier,
   [HiredLeaderId] uniqueidentifier,
   [GroupNumber] int
@@ -130,7 +130,7 @@ CREATE TABLE [Player].[ResourceInventory] (
 )
 GO
 
-CREATE TABLE [Economy].[Markets] (
+CREATE TABLE [Economy].[Market] (
   [MarketId] uniqueidentifier PRIMARY KEY,
   [MarketCoordinatesX] bigint,
   [MarketCoordinatesY] bigint,
@@ -140,8 +140,8 @@ CREATE TABLE [Economy].[Markets] (
 )
 GO
 
-CREATE TABLE [Economy].[MarketListings] (
-  [ListingId] uniqueidentifier PRIMARY KEY,
+CREATE TABLE [Economy].[MarketListing] (
+  [MarketListingId] uniqueidentifier PRIMARY KEY,
   [MarketId] uniqueidentifier,
   [ItemId] uniqueidentifier,
   [UserId] uniqueidentifier,
@@ -150,27 +150,27 @@ CREATE TABLE [Economy].[MarketListings] (
 )
 GO
 
-CREATE TABLE [Lookup].[Resources] (
+CREATE TABLE [Lookup].[Resource] (
   [ResourceId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [ResourceName] varchar(100)
 )
 GO
 
-CREATE TABLE [Lookup].[Items] (
+CREATE TABLE [Lookup].[Item] (
   [ItemId] uniqueidentifier PRIMARY KEY,
   [ItemName] varchar(100),
   [ItemDescription] varchar(max)
 )
 GO
 
-CREATE TABLE [Lookup].[Buildings] (
+CREATE TABLE [Lookup].[Building] (
   [BuildingId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [BuildingName] varchar(max),
   [FactionId] int
 )
 GO
 
-CREATE TABLE [Lookup].[Units] (
+CREATE TABLE [Lookup].[Unit] (
   [UnitId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [UnitName] varchar(max),
   [FactionId] int,
@@ -180,19 +180,19 @@ CREATE TABLE [Lookup].[Units] (
 )
 GO
 
-CREATE TABLE [Lookup].[UnitLevels] (
+CREATE TABLE [Lookup].[UnitLevel] (
   [UnitLevelId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [UnitRankName] varchar(max)
 )
 GO
 
-CREATE TABLE [Lookup].[BuildingsLevels] (
+CREATE TABLE [Lookup].[BuildingLevel] (
   [BuildingLevelId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [BuildingRankName] varchar(max)
 )
 GO
 
-CREATE TABLE [Lookup].[Factions] (
+CREATE TABLE [Lookup].[Faction] (
   [FactionId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
   [FactionName] varchar(max)
 )
@@ -204,92 +204,92 @@ CREATE TABLE [Lookup].[Technology] (
 )
 GO
 
-ALTER TABLE [Player].[Players] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[Player] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[UserCities] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[UserCity] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[UserCitiesLeaders] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[UserCityLeader] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[UserCitiesLeaders] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeaders] ([HiredLeaderId])
+ALTER TABLE [Player].[UserCityLeader] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeader] ([HiredLeaderId])
 GO
 
-ALTER TABLE [Player].[UserCitiesLeaders] ADD FOREIGN KEY ([CityId]) REFERENCES [Player].[UserCities] ([CityId])
+ALTER TABLE [Player].[UserCityLeader] ADD FOREIGN KEY ([UserCityId]) REFERENCES [Player].[UserCity] ([UserCityId])
 GO
 
-ALTER TABLE [Player].[HiredUnits] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeaders] ([HiredLeaderId])
+ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeader] ([HiredLeaderId])
 GO
 
-ALTER TABLE [Player].[HiredUnitsStats] ADD FOREIGN KEY ([HiredUnitId]) REFERENCES [Player].[HiredUnits] ([HiredUnitId])
+ALTER TABLE [Player].[HiredUnitStat] ADD FOREIGN KEY ([HiredUnitId]) REFERENCES [Player].[HiredUnit] ([HiredUnitId])
 GO
 
-ALTER TABLE [Player].[HiredLeaderStats] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeaders] ([HiredLeaderId])
+ALTER TABLE [Player].[HiredLeaderStat] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeader] ([HiredLeaderId])
 GO
 
-ALTER TABLE [Player].[UnitGroups] ADD FOREIGN KEY ([HiredUnitId]) REFERENCES [Player].[HiredUnits] ([HiredUnitId])
+ALTER TABLE [Player].[UnitGroup] ADD FOREIGN KEY ([HiredUnitId]) REFERENCES [Player].[HiredUnit] ([HiredUnitId])
 GO
 
-ALTER TABLE [Player].[UnitGroups] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeaders] ([HiredLeaderId])
+ALTER TABLE [Player].[UnitGroup] ADD FOREIGN KEY ([HiredLeaderId]) REFERENCES [Player].[HiredLeader] ([HiredLeaderId])
 GO
 
-ALTER TABLE [Player].[ConstructedBuildings] ADD FOREIGN KEY ([BuildingId]) REFERENCES [Lookup].[Buildings] ([BuildingId])
+ALTER TABLE [Player].[ConstructedBuilding] ADD FOREIGN KEY ([BuildingId]) REFERENCES [Lookup].[Building] ([BuildingId])
 GO
 
-ALTER TABLE [Player].[ConstructedBuildings] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[ConstructedBuilding] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[ConstructedBuildings] ADD FOREIGN KEY ([BuildingLevel]) REFERENCES [Lookup].[BuildingsLevels] ([BuildingLevelId])
+ALTER TABLE [Player].[ConstructedBuilding] ADD FOREIGN KEY ([BuildingLevel]) REFERENCES [Lookup].[BuildingLevel] ([BuildingLevelId])
 GO
 
 ALTER TABLE [Player].[ResearchedTechnology] ADD FOREIGN KEY ([TechnologyId]) REFERENCES [Lookup].[Technology] ([TechnologyId])
 GO
 
-ALTER TABLE [Player].[ResearchedTechnology] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[ResearchedTechnology] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[HiredUnits] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[HiredUnits] ADD FOREIGN KEY ([UnitId]) REFERENCES [Lookup].[Units] ([UnitId])
+ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([UnitId]) REFERENCES [Lookup].[Unit] ([UnitId])
 GO
 
-ALTER TABLE [Player].[HiredUnits] ADD FOREIGN KEY ([UnitLevel]) REFERENCES [Lookup].[UnitLevels] ([UnitLevelId])
+ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([UnitLevel]) REFERENCES [Lookup].[UnitLevel] ([UnitLevelId])
 GO
 
-ALTER TABLE [Player].[HiredLeaders] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[HiredLeader] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[ItemInventory] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[ItemInventory] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[ItemInventory] ADD FOREIGN KEY ([ItemId]) REFERENCES [Lookup].[Items] ([ItemId])
+ALTER TABLE [Player].[ItemInventory] ADD FOREIGN KEY ([ItemId]) REFERENCES [Lookup].[Item] ([ItemId])
 GO
 
-ALTER TABLE [Player].[ResourceInventory] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[ResourceInventory] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[ResourceInventory] ADD FOREIGN KEY ([ResourceId]) REFERENCES [Lookup].[Resources] ([ResourceId])
+ALTER TABLE [Player].[ResourceInventory] ADD FOREIGN KEY ([ResourceId]) REFERENCES [Lookup].[Resource] ([ResourceId])
 GO
 
-ALTER TABLE [Player].[Friends] ADD FOREIGN KEY ([FriendsWith]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Player].[Friend] ADD FOREIGN KEY ([FriendsWith]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Economy].[MarketListings] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[Users] ([UserId])
+ALTER TABLE [Economy].[MarketListing] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Economy].[MarketListings] ADD FOREIGN KEY ([ItemId]) REFERENCES [Lookup].[Items] ([ItemId])
+ALTER TABLE [Economy].[MarketListing] ADD FOREIGN KEY ([ItemId]) REFERENCES [Lookup].[Item] ([ItemId])
 GO
 
-ALTER TABLE [Economy].[MarketListings] ADD FOREIGN KEY ([ItemInventoryId]) REFERENCES [Player].[ItemInventory] ([ItemInventoryId])
+ALTER TABLE [Economy].[MarketListing] ADD FOREIGN KEY ([ItemInventoryId]) REFERENCES [Player].[ItemInventory] ([ItemInventoryId])
 GO
 
-ALTER TABLE [Economy].[MarketListings] ADD FOREIGN KEY ([MarketId]) REFERENCES [Economy].[Markets] ([MarketId])
+ALTER TABLE [Economy].[MarketListing] ADD FOREIGN KEY ([MarketId]) REFERENCES [Economy].[Market] ([MarketId])
 GO
 
-ALTER TABLE [Lookup].[Buildings] ADD FOREIGN KEY ([FactionId]) REFERENCES [Lookup].[Factions] ([FactionId])
+ALTER TABLE [Lookup].[Building] ADD FOREIGN KEY ([FactionId]) REFERENCES [Lookup].[Faction] ([FactionId])
 GO
 
-ALTER TABLE [Lookup].[Units] ADD FOREIGN KEY ([FactionId]) REFERENCES [Lookup].[Factions] ([FactionId])
+ALTER TABLE [Lookup].[Unit] ADD FOREIGN KEY ([FactionId]) REFERENCES [Lookup].[Faction] ([FactionId])
 GO

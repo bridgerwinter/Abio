@@ -22,10 +22,10 @@ public class Program
         unit.Health = 10;
         try
         {
-            var x = await ApiService.GetUnits();
-            var response = await ApiService.PostUnit(unit);
+            var x = await ApiService.GetAllUnits();
+            var response = await ApiService.CreateUnit(unit);
             await Console.Out.WriteLineAsync(response.StatusCode.ToString() + "A New Unit in the Database");
-            var units = await ApiService.GetUnits();
+            var units = await ApiService.GetAllUnits();
             await Console.Out.WriteLineAsync(string.Format("Reading Units in Database"));
 
             foreach (var item in units)

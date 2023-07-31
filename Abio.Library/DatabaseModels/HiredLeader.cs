@@ -2,43 +2,28 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("HiredLeaders", Schema = "Player")]
 public partial class HiredLeader
 {
-    [Key]
     public Guid HiredLeaderId { get; set; }
 
     public Guid? UserId { get; set; }
 
-    [StringLength(24)]
-    [Unicode(false)]
     public string HiredLeaderName { get; set; }
 
     public Guid? LeaderStatId { get; set; }
 
-    [Required]
-    [Column("created_at")]
-    public byte[] CreatedAt { get; set; }
+    public byte[] created_at { get; set; }
 
-    [InverseProperty("HiredLeader")]
-    public virtual ICollection<HiredLeaderStat> HiredLeaderStats { get; } = new List<HiredLeaderStat>();
+    public virtual ICollection<HiredLeaderStat> HiredLeaderStat { get; } = new List<HiredLeaderStat>();
 
-    [InverseProperty("HiredLeader")]
-    public virtual ICollection<HiredUnit> HiredUnits { get; } = new List<HiredUnit>();
+    public virtual ICollection<HiredUnit> HiredUnit { get; } = new List<HiredUnit>();
 
-    [InverseProperty("HiredLeader")]
-    public virtual ICollection<UnitGroup> UnitGroups { get; } = new List<UnitGroup>();
+    public virtual ICollection<UnitGroup> UnitGroup { get; } = new List<UnitGroup>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("HiredLeaders")]
     public virtual User User { get; set; }
 
-    [InverseProperty("HiredLeader")]
-    public virtual ICollection<UserCitiesLeader> UserCitiesLeaders { get; } = new List<UserCitiesLeader>();
+    public virtual ICollection<UserCityLeader> UserCityLeader { get; } = new List<UserCityLeader>();
 }

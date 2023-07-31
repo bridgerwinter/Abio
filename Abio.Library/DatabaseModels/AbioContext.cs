@@ -13,289 +13,398 @@ public partial class AbioContext : DbContext
     {
     }
 
-    public virtual DbSet<Building> Buildings { get; set; }
+    public virtual DbSet<Building> Building { get; set; }
 
-    public virtual DbSet<BuildingsLevel> BuildingsLevels { get; set; }
+    public virtual DbSet<BuildingLevel> BuildingLevel { get; set; }
 
-    public virtual DbSet<ConstructedBuilding> ConstructedBuildings { get; set; }
+    public virtual DbSet<ConstructedBuilding> ConstructedBuilding { get; set; }
 
-    public virtual DbSet<Faction> Factions { get; set; }
+    public virtual DbSet<Faction> Faction { get; set; }
 
-    public virtual DbSet<Friend> Friends { get; set; }
+    public virtual DbSet<Friend> Friend { get; set; }
 
-    public virtual DbSet<HiredLeader> HiredLeaders { get; set; }
+    public virtual DbSet<HiredLeader> HiredLeader { get; set; }
 
-    public virtual DbSet<HiredLeaderStat> HiredLeaderStats { get; set; }
+    public virtual DbSet<HiredLeaderStat> HiredLeaderStat { get; set; }
 
-    public virtual DbSet<HiredUnit> HiredUnits { get; set; }
+    public virtual DbSet<HiredUnit> HiredUnit { get; set; }
 
-    public virtual DbSet<HiredUnitsStat> HiredUnitsStats { get; set; }
+    public virtual DbSet<HiredUnitStat> HiredUnitStat { get; set; }
 
-    public virtual DbSet<Item> Items { get; set; }
+    public virtual DbSet<Item> Item { get; set; }
 
-    public virtual DbSet<ItemInventory> ItemInventories { get; set; }
+    public virtual DbSet<ItemInventory> ItemInventory { get; set; }
 
-    public virtual DbSet<Market> Markets { get; set; }
+    public virtual DbSet<Market> Market { get; set; }
 
-    public virtual DbSet<MarketListing> MarketListings { get; set; }
+    public virtual DbSet<MarketListing> MarketListing { get; set; }
 
-    public virtual DbSet<Player> Players { get; set; }
+    public virtual DbSet<Player> Player { get; set; }
 
-    public virtual DbSet<ResearchedTechnology> ResearchedTechnologies { get; set; }
+    public virtual DbSet<ResearchedTechnology> ResearchedTechnology { get; set; }
 
-    public virtual DbSet<Resource> Resources { get; set; }
+    public virtual DbSet<Resource> Resource { get; set; }
 
-    public virtual DbSet<ResourceInventory> ResourceInventories { get; set; }
+    public virtual DbSet<ResourceInventory> ResourceInventory { get; set; }
 
-    public virtual DbSet<Technology> Technologies { get; set; }
+    public virtual DbSet<Technology> Technology { get; set; }
 
-    public virtual DbSet<Unit> Units { get; set; }
+    public virtual DbSet<Unit> Unit { get; set; }
 
-    public virtual DbSet<UnitGroup> UnitGroups { get; set; }
+    public virtual DbSet<UnitGroup> UnitGroup { get; set; }
 
-    public virtual DbSet<UnitLevel> UnitLevels { get; set; }
+    public virtual DbSet<UnitLevel> UnitLevel { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<User> User { get; set; }
 
-    public virtual DbSet<UserCitiesLeader> UserCitiesLeaders { get; set; }
+    public virtual DbSet<UserCity> UserCity { get; set; }
 
-    public virtual DbSet<UserCity> UserCities { get; set; }
+    public virtual DbSet<UserCityLeader> UserCityLeader { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Building>(entity =>
         {
-            entity.HasKey(e => e.BuildingId).HasName("PK__Building__5463CDC493E51095");
+            entity.HasKey(e => e.BuildingId).HasName("PK__Building__5463CDC4C00E68C5");
 
-            entity.HasOne(d => d.Faction).WithMany(p => p.Buildings).HasConstraintName("FK__Buildings__Facti__6B0FDBE9");
+            entity.ToTable("Building", "Lookup");
+
+            entity.Property(e => e.BuildingId).ValueGeneratedNever();
+            entity.Property(e => e.BuildingName).IsUnicode(false);
         });
 
-        modelBuilder.Entity<BuildingsLevel>(entity =>
+        modelBuilder.Entity<BuildingLevel>(entity =>
         {
-            entity.HasKey(e => e.BuildingLevelId).HasName("PK__Building__17A713DC95E4A195");
+            entity.HasKey(e => e.BuildingLevelId).HasName("PK__Building__17A713DC7BE457C9");
+
+            entity.ToTable("BuildingLevel", "Lookup");
+
+            entity.Property(e => e.BuildingLevelId).ValueGeneratedNever();
+            entity.Property(e => e.BuildingRankName).IsUnicode(false);
         });
 
         modelBuilder.Entity<ConstructedBuilding>(entity =>
         {
-            entity.HasKey(e => e.ConstructuredBuildingId).HasName("PK__Construc__1DDC1A3C8FCE7AD5");
+            entity.HasKey(e => e.ConstructedBuildingId).HasName("PK__Construc__AAE9794C25324C3B");
 
-            entity.Property(e => e.ConstructuredBuildingId).ValueGeneratedNever();
-            entity.Property(e => e.CreatedAt)
+            entity.ToTable("ConstructedBuilding", "Player");
+
+            entity.Property(e => e.ConstructedBuildingId).ValueGeneratedNever();
+            entity.Property(e => e.created_at)
+                .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasOne(d => d.Building).WithMany(p => p.ConstructedBuildings).HasConstraintName("FK__Construct__Build__59E54FE7");
-
-            entity.HasOne(d => d.BuildingLevelNavigation).WithMany(p => p.ConstructedBuildings).HasConstraintName("FK__Construct__Build__5BCD9859");
-
-            entity.HasOne(d => d.User).WithMany(p => p.ConstructedBuildings).HasConstraintName("FK__Construct__UserI__21D600EE");
+            entity.HasOne(d => d.User).WithMany(p => p.ConstructedBuilding)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Construct__UserI__004AEFF1");
         });
 
         modelBuilder.Entity<Faction>(entity =>
         {
-            entity.HasKey(e => e.FactionId).HasName("PK__Factions__9321345AD3F337AF");
+            entity.HasKey(e => e.FactionId).HasName("PK__Faction__9321345A0C6347F1");
+
+            entity.ToTable("Faction", "Lookup");
+
+            entity.Property(e => e.FactionId).ValueGeneratedNever();
+            entity.Property(e => e.FactionName).IsUnicode(false);
         });
 
         modelBuilder.Entity<Friend>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Friends__1788CC4C264336DB");
+            entity.HasKey(e => e.UserId).HasName("PK__Friend__1788CC4C56684858");
+
+            entity.ToTable("Friend", "Player");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.FriendsWithNavigation).WithMany(p => p.Friends).HasConstraintName("FK__Friends__Friends__025D5595");
+            entity.HasOne(d => d.FriendsWithNavigation).WithMany(p => p.Friend)
+                .HasForeignKey(d => d.FriendsWith)
+                .HasConstraintName("FK__Friend__FriendsW__0BBCA29D");
         });
 
         modelBuilder.Entity<HiredLeader>(entity =>
         {
-            entity.HasKey(e => e.HiredLeaderId).HasName("PK__HiredLea__4982B2BD1DC437DC");
+            entity.HasKey(e => e.HiredLeaderId).HasName("PK__HiredLea__4982B2BDC5B84F46");
+
+            entity.ToTable("HiredLeader", "Player");
 
             entity.Property(e => e.HiredLeaderId).ValueGeneratedNever();
-            entity.Property(e => e.CreatedAt)
+            entity.Property(e => e.HiredLeaderName)
+                .HasMaxLength(24)
+                .IsUnicode(false);
+            entity.Property(e => e.created_at)
+                .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasOne(d => d.User).WithMany(p => p.HiredLeaders).HasConstraintName("FK__HiredLead__UserI__2882FE7D");
+            entity.HasOne(d => d.User).WithMany(p => p.HiredLeader)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__HiredLead__UserI__06F7ED80");
         });
 
         modelBuilder.Entity<HiredLeaderStat>(entity =>
         {
-            entity.HasKey(e => e.HiredLeaderStatsId).HasName("PK__HiredLea__EE52A8FCB630970C");
+            entity.HasKey(e => e.HiredLeaderStatId).HasName("PK__HiredLea__1DA705AC10C2F4EB");
 
-            entity.Property(e => e.HiredLeaderStatsId).ValueGeneratedNever();
+            entity.ToTable("HiredLeaderStat", "Player");
 
-            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredLeaderStats).HasConstraintName("FK__HiredLead__Hired__1E05700A");
+            entity.Property(e => e.HiredLeaderStatId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredLeaderStat)
+                .HasForeignKey(d => d.HiredLeaderId)
+                .HasConstraintName("FK__HiredLead__Hired__157B1701");
         });
 
         modelBuilder.Entity<HiredUnit>(entity =>
         {
-            entity.HasKey(e => e.HiredUnitId).HasName("PK__HiredUni__68A545150BC81DB9");
+            entity.HasKey(e => e.HiredUnitId).HasName("PK__HiredUni__68A54515493F1802");
+
+            entity.ToTable("HiredUnit", "Player");
 
             entity.Property(e => e.HiredUnitId).ValueGeneratedNever();
-            entity.Property(e => e.CreatedAt)
+            entity.Property(e => e.created_at)
+                .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredUnits).HasConstraintName("FK__HiredUnit__Hired__1C1D2798");
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredUnit)
+                .HasForeignKey(d => d.HiredLeaderId)
+                .HasConstraintName("FK__HiredUnit__Hired__1392CE8F");
 
-            entity.HasOne(d => d.Unit).WithMany(p => p.HiredUnits).HasConstraintName("FK__HiredUnit__UnitI__5F9E293D");
-
-            entity.HasOne(d => d.UnitLevelNavigation).WithMany(p => p.HiredUnits).HasConstraintName("FK__HiredUnit__UnitL__60924D76");
-
-            entity.HasOne(d => d.User).WithMany(p => p.HiredUnits).HasConstraintName("FK__HiredUnit__UserI__25A691D2");
+            entity.HasOne(d => d.User).WithMany(p => p.HiredUnit)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__HiredUnit__UserI__041B80D5");
         });
 
-        modelBuilder.Entity<HiredUnitsStat>(entity =>
+        modelBuilder.Entity<HiredUnitStat>(entity =>
         {
-            entity.HasKey(e => e.HiredUnitStatsId).HasName("PK__HiredUni__8E0F96A4F0D96888");
+            entity.HasKey(e => e.HiredUnitStatId).HasName("PK__HiredUni__976C0A014227FF86");
 
-            entity.Property(e => e.HiredUnitStatsId).ValueGeneratedNever();
+            entity.ToTable("HiredUnitStat", "Player");
 
-            entity.HasOne(d => d.HiredUnit).WithMany(p => p.HiredUnitsStats).HasConstraintName("FK__HiredUnit__Hired__1D114BD1");
+            entity.Property(e => e.HiredUnitStatId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredUnit).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitId)
+                .HasConstraintName("FK__HiredUnit__Hired__1486F2C8");
         });
 
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.HasKey(e => e.ItemId).HasName("PK__Items__727E838BAE1DE2A0");
+            entity.HasKey(e => e.ItemId).HasName("PK__Item__727E838B07292360");
+
+            entity.ToTable("Item", "Lookup");
 
             entity.Property(e => e.ItemId).ValueGeneratedNever();
+            entity.Property(e => e.ItemDescription).IsUnicode(false);
+            entity.Property(e => e.ItemName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<ItemInventory>(entity =>
         {
-            entity.HasKey(e => e.ItemInventoryId).HasName("PK__ItemInve__FCBE0BEBBFD71600");
+            entity.HasKey(e => e.ItemInventoryId).HasName("PK__ItemInve__FCBE0BEBA3B31D0C");
+
+            entity.ToTable("ItemInventory", "Player");
 
             entity.Property(e => e.ItemInventoryId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Item).WithMany(p => p.ItemInventories).HasConstraintName("FK__ItemInven__ItemI__004002F9");
+            entity.HasOne(d => d.Item).WithMany(p => p.ItemInventory)
+                .HasForeignKey(d => d.ItemId)
+                .HasConstraintName("FK__ItemInven__ItemI__08E035F2");
 
-            entity.HasOne(d => d.User).WithMany(p => p.ItemInventories).HasConstraintName("FK__ItemInven__UserI__297722B6");
+            entity.HasOne(d => d.User).WithMany(p => p.ItemInventory)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__ItemInven__UserI__07EC11B9");
         });
 
         modelBuilder.Entity<Market>(entity =>
         {
-            entity.HasKey(e => e.MarketId).HasName("PK__Markets__74B186AFFB3D2CF7");
+            entity.HasKey(e => e.MarketId).HasName("PK__Market__74B186AF02FBBBD2");
+
+            entity.ToTable("Market", "Economy");
 
             entity.Property(e => e.MarketId).ValueGeneratedNever();
+            entity.Property(e => e.MarketName).IsUnicode(false);
         });
 
         modelBuilder.Entity<MarketListing>(entity =>
         {
-            entity.HasKey(e => e.ListingId).HasName("PK__MarketLi__BF3EBED02DA6EE18");
+            entity.HasKey(e => e.MarketListingId).HasName("PK__MarketLi__9C448E51053F1EAD");
 
-            entity.Property(e => e.ListingId).ValueGeneratedNever();
+            entity.ToTable("MarketListing", "Economy");
 
-            entity.HasOne(d => d.Item).WithMany(p => p.MarketListings).HasConstraintName("FK__MarketLis__ItemI__04459E07");
+            entity.Property(e => e.MarketListingId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.ItemInventory).WithMany(p => p.MarketListings).HasConstraintName("FK__MarketLis__ItemI__0539C240");
+            entity.HasOne(d => d.Item).WithMany(p => p.MarketListing)
+                .HasForeignKey(d => d.ItemId)
+                .HasConstraintName("FK__MarketLis__ItemI__0DA4EB0F");
 
-            entity.HasOne(d => d.Market).WithMany(p => p.MarketListings).HasConstraintName("FK__MarketLis__Marke__062DE679");
+            entity.HasOne(d => d.ItemInventory).WithMany(p => p.MarketListing)
+                .HasForeignKey(d => d.ItemInventoryId)
+                .HasConstraintName("FK__MarketLis__ItemI__0E990F48");
 
-            entity.HasOne(d => d.User).WithMany(p => p.MarketListings).HasConstraintName("FK__MarketLis__UserI__035179CE");
+            entity.HasOne(d => d.Market).WithMany(p => p.MarketListing)
+                .HasForeignKey(d => d.MarketId)
+                .HasConstraintName("FK__MarketLis__Marke__0F8D3381");
+
+            entity.HasOne(d => d.User).WithMany(p => p.MarketListing)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__MarketLis__UserI__0CB0C6D6");
         });
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Players__1788CC4C0B0AFC99");
+            entity.HasKey(e => e.UserId).HasName("PK__Player__1788CC4C256283DE");
+
+            entity.ToTable("Player", "Player");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
 
             entity.HasOne(d => d.User).WithOne(p => p.Player)
+                .HasForeignKey<Player>(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Players__UserId__1758727B");
+                .HasConstraintName("FK__Player__UserId__0ECE1972");
         });
 
         modelBuilder.Entity<ResearchedTechnology>(entity =>
         {
-            entity.HasKey(e => e.ResearchedTechnologyId).HasName("PK__Research__927E67F603C48C3B");
+            entity.HasKey(e => e.ResearchedTechnologyId).HasName("PK__Research__927E67F628EDC50B");
+
+            entity.ToTable("ResearchedTechnology", "Player");
 
             entity.Property(e => e.ResearchedTechnologyId).ValueGeneratedNever();
-            entity.Property(e => e.CreatedAt)
+            entity.Property(e => e.created_at)
+                .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
 
-            entity.HasOne(d => d.Technology).WithMany(p => p.ResearchedTechnologies).HasConstraintName("FK__Researche__Techn__5CC1BC92");
-
-            entity.HasOne(d => d.User).WithMany(p => p.ResearchedTechnologies).HasConstraintName("FK__Researche__UserI__24B26D99");
+            entity.HasOne(d => d.User).WithMany(p => p.ResearchedTechnology)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Researche__UserI__03275C9C");
         });
 
         modelBuilder.Entity<Resource>(entity =>
         {
-            entity.HasKey(e => e.ResourceId).HasName("PK__Resource__4ED1816F5AA9E4A3");
+            entity.HasKey(e => e.ResourceId).HasName("PK__Resource__4ED1816FD84672EC");
+
+            entity.ToTable("Resource", "Lookup");
+
+            entity.Property(e => e.ResourceId).ValueGeneratedNever();
+            entity.Property(e => e.ResourceName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<ResourceInventory>(entity =>
         {
-            entity.HasKey(e => e.ResourceInventoryId).HasName("PK__Resource__CEE0280290546E3E");
+            entity.HasKey(e => e.ResourceInventoryId).HasName("PK__Resource__CEE028021187B35E");
+
+            entity.ToTable("ResourceInventory", "Player");
 
             entity.Property(e => e.ResourceInventoryId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Resource).WithMany(p => p.ResourceInventories).HasConstraintName("FK__ResourceI__Resou__65570293");
-
-            entity.HasOne(d => d.User).WithMany(p => p.ResourceInventories).HasConstraintName("FK__ResourceI__UserI__00750D23");
+            entity.HasOne(d => d.User).WithMany(p => p.ResourceInventory)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__ResourceI__UserI__09D45A2B");
         });
 
         modelBuilder.Entity<Technology>(entity =>
         {
-            entity.HasKey(e => e.TechnologyId).HasName("PK__Technolo__705701582BCEA478");
+            entity.HasKey(e => e.TechnologyId).HasName("PK__Technolo__70570158739530C8");
+
+            entity.ToTable("Technology", "Lookup");
+
+            entity.Property(e => e.TechnologyId).ValueGeneratedNever();
+            entity.Property(e => e.TechnologyName).IsUnicode(false);
         });
 
         modelBuilder.Entity<Unit>(entity =>
         {
-            entity.HasKey(e => e.UnitId).HasName("PK__Units__44F5ECB547EAA1A2");
+            entity.HasKey(e => e.UnitId).HasName("PK__Unit__44F5ECB5E536C5B7");
 
-            entity.HasOne(d => d.Faction).WithMany(p => p.Units).HasConstraintName("FK__Units__FactionId__6C040022");
+            entity.ToTable("Unit", "Lookup");
+
+            entity.Property(e => e.UnitId).ValueGeneratedNever();
+            entity.Property(e => e.UnitName).IsUnicode(false);
         });
 
         modelBuilder.Entity<UnitGroup>(entity =>
         {
-            entity.HasKey(e => e.UnitGroupsId).HasName("PK__UnitGrou__DD92915A99D47351");
+            entity.HasKey(e => e.UnitGroupId).HasName("PK__UnitGrou__46226B18B0F60162");
 
-            entity.Property(e => e.UnitGroupsId).ValueGeneratedNever();
+            entity.ToTable("UnitGroup", "Player");
 
-            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UnitGroups).HasConstraintName("FK__UnitGroup__Hired__1FEDB87C");
+            entity.Property(e => e.UnitGroupId).ValueGeneratedNever();
 
-            entity.HasOne(d => d.HiredUnit).WithMany(p => p.UnitGroups).HasConstraintName("FK__UnitGroup__Hired__1EF99443");
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UnitGroup)
+                .HasForeignKey(d => d.HiredLeaderId)
+                .HasConstraintName("FK__UnitGroup__Hired__17635F73");
+
+            entity.HasOne(d => d.HiredUnit).WithMany(p => p.UnitGroup)
+                .HasForeignKey(d => d.HiredUnitId)
+                .HasConstraintName("FK__UnitGroup__Hired__166F3B3A");
         });
 
         modelBuilder.Entity<UnitLevel>(entity =>
         {
-            entity.HasKey(e => e.UnitLevelId).HasName("PK__UnitLeve__4D7ADE0801C6E8B2");
+            entity.HasKey(e => e.UnitLevelId).HasName("PK__UnitLeve__4D7ADE08C1CD37EA");
+
+            entity.ToTable("UnitLevel", "Lookup");
+
+            entity.Property(e => e.UnitLevelId).ValueGeneratedNever();
+            entity.Property(e => e.UnitRankName).IsUnicode(false);
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4CE6E3CE9D");
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CC4C6422E7FA");
+
+            entity.ToTable("User", "Security");
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
-            entity.Property(e => e.CreatedAt)
+            entity.Property(e => e.created_at)
+                .IsRequired()
                 .IsRowVersion()
                 .IsConcurrencyToken();
         });
 
-        modelBuilder.Entity<UserCitiesLeader>(entity =>
-        {
-            entity.HasKey(e => e.UserCityLeadersId).HasName("PK__UserCiti__A6700AE6A839D220");
-
-            entity.Property(e => e.UserCityLeadersId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.City).WithMany(p => p.UserCitiesLeaders).HasConstraintName("FK__UserCitie__CityI__1B29035F");
-
-            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UserCitiesLeaders).HasConstraintName("FK__UserCitie__Hired__1A34DF26");
-
-            entity.HasOne(d => d.User).WithMany(p => p.UserCitiesLeaders).HasConstraintName("FK__UserCitie__UserI__1940BAED");
-        });
-
         modelBuilder.Entity<UserCity>(entity =>
         {
-            entity.HasKey(e => e.CityId).HasName("PK__UserCiti__F2D21B76E73E4874");
+            entity.HasKey(e => e.UserCityId).HasName("PK__UserCity__E130899E4EA317D6");
 
-            entity.Property(e => e.CityId).ValueGeneratedNever();
+            entity.ToTable("UserCity", "Player");
 
-            entity.HasOne(d => d.User).WithMany(p => p.UserCities).HasConstraintName("FK__UserCitie__UserI__184C96B4");
+            entity.Property(e => e.UserCityId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserCity)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__UserCity__UserId__0FC23DAB");
         });
 
-        OnModelCreatingGeneratedProcedures(modelBuilder);
-        OnModelCreatingGeneratedFunctions(modelBuilder);
+        modelBuilder.Entity<UserCityLeader>(entity =>
+        {
+            entity.HasKey(e => e.UserCityLeaderId).HasName("PK__UserCity__8EE7BD8857FE54D4");
+
+            entity.ToTable("UserCityLeader", "Player");
+
+            entity.Property(e => e.UserCityLeaderId).ValueGeneratedNever();
+
+            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UserCityLeader)
+                .HasForeignKey(d => d.HiredLeaderId)
+                .HasConstraintName("FK__UserCityL__Hired__11AA861D");
+
+            entity.HasOne(d => d.UserCity).WithMany(p => p.UserCityLeader)
+                .HasForeignKey(d => d.UserCityId)
+                .HasConstraintName("FK__UserCityL__UserC__129EAA56");
+
+            entity.HasOne(d => d.User).WithMany(p => p.UserCityLeader)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__UserCityL__UserI__10B661E4");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
 

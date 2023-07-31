@@ -2,21 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("Technology", Schema = "Lookup")]
 public partial class Technology
 {
-    [Key]
-    public int TechnologyId { get; set; }
+    public Guid TechnologyId { get; set; }
 
-    [Unicode(false)]
     public string TechnologyName { get; set; }
-
-    [InverseProperty("Technology")]
-    public virtual ICollection<ResearchedTechnology> ResearchedTechnologies { get; } = new List<ResearchedTechnology>();
 }

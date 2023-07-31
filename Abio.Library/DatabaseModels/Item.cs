@@ -2,28 +2,18 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("Items", Schema = "Lookup")]
 public partial class Item
 {
-    [Key]
     public Guid ItemId { get; set; }
 
-    [StringLength(100)]
-    [Unicode(false)]
     public string ItemName { get; set; }
 
-    [Unicode(false)]
     public string ItemDescription { get; set; }
 
-    [InverseProperty("Item")]
-    public virtual ICollection<ItemInventory> ItemInventories { get; } = new List<ItemInventory>();
+    public virtual ICollection<ItemInventory> ItemInventory { get; } = new List<ItemInventory>();
 
-    [InverseProperty("Item")]
-    public virtual ICollection<MarketListing> MarketListings { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
 }

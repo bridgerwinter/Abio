@@ -15,31 +15,31 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[Economy].[MarketListings]",
+         "Name": "[Economy].[Market]",
          "ObjectType": 0
       },
       {
-         "Name": "[Economy].[Markets]",
+         "Name": "[Economy].[MarketListing]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Buildings]",
+         "Name": "[Lookup].[Building]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[BuildingsLevels]",
+         "Name": "[Lookup].[BuildingLevel]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Factions]",
+         "Name": "[Lookup].[Faction]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Items]",
+         "Name": "[Lookup].[Item]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Resources]",
+         "Name": "[Lookup].[Resource]",
          "ObjectType": 0
       },
       {
@@ -47,35 +47,35 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[UnitLevels]",
+         "Name": "[Lookup].[Unit]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Units]",
+         "Name": "[Lookup].[UnitLevel]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[ConstructedBuildings]",
+         "Name": "[Player].[ConstructedBuilding]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[Friends]",
+         "Name": "[Player].[Friend]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[HiredLeaders]",
+         "Name": "[Player].[HiredLeader]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[HiredLeaderStats]",
+         "Name": "[Player].[HiredLeaderStat]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[HiredUnits]",
+         "Name": "[Player].[HiredUnit]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[HiredUnitsStats]",
+         "Name": "[Player].[HiredUnitStat]",
          "ObjectType": 0
       },
       {
@@ -83,7 +83,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[Players]",
+         "Name": "[Player].[Player]",
          "ObjectType": 0
       },
       {
@@ -95,23 +95,23 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[UnitGroups]",
+         "Name": "[Player].[UnitGroup]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[UserCities]",
+         "Name": "[Player].[UserCity]",
          "ObjectType": 0
       },
       {
-         "Name": "[Player].[UserCitiesLeaders]",
+         "Name": "[Player].[UserCityLeader]",
          "ObjectType": 0
       },
       {
-         "Name": "[Security].[Users]",
+         "Name": "[Security].[User]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "Abio.SQL\\Abio.SQL.sqlproj",
+   "UiHint": "sunbear\\sqlexpress.Abio.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
@@ -120,7 +120,7 @@
    "UseFluentApiOnly": true,
    "UseHandleBars": false,
    "UseHierarchyId": false,
-   "UseInflector": true,
+   "UseInflector": false,
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,

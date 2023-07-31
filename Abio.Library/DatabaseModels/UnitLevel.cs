@@ -2,21 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("UnitLevels", Schema = "Lookup")]
 public partial class UnitLevel
 {
-    [Key]
-    public int UnitLevelId { get; set; }
+    public Guid UnitLevelId { get; set; }
 
-    [Unicode(false)]
     public string UnitRankName { get; set; }
-
-    [InverseProperty("UnitLevelNavigation")]
-    public virtual ICollection<HiredUnit> HiredUnits { get; } = new List<HiredUnit>();
 }

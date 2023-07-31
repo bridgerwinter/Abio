@@ -2,52 +2,34 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("Users", Schema = "Security")]
 public partial class User
 {
-    [Key]
     public Guid UserId { get; set; }
 
-    [Required]
-    [Column("created_at")]
-    public byte[] CreatedAt { get; set; }
+    public byte[] created_at { get; set; }
 
-    [InverseProperty("User")]
-    public virtual ICollection<ConstructedBuilding> ConstructedBuildings { get; } = new List<ConstructedBuilding>();
+    public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; } = new List<ConstructedBuilding>();
 
-    [InverseProperty("FriendsWithNavigation")]
-    public virtual ICollection<Friend> Friends { get; } = new List<Friend>();
+    public virtual ICollection<Friend> Friend { get; } = new List<Friend>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<HiredLeader> HiredLeaders { get; } = new List<HiredLeader>();
+    public virtual ICollection<HiredLeader> HiredLeader { get; } = new List<HiredLeader>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<HiredUnit> HiredUnits { get; } = new List<HiredUnit>();
+    public virtual ICollection<HiredUnit> HiredUnit { get; } = new List<HiredUnit>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<ItemInventory> ItemInventories { get; } = new List<ItemInventory>();
+    public virtual ICollection<ItemInventory> ItemInventory { get; } = new List<ItemInventory>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<MarketListing> MarketListings { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
 
-    [InverseProperty("User")]
     public virtual Player Player { get; set; }
 
-    [InverseProperty("User")]
-    public virtual ICollection<ResearchedTechnology> ResearchedTechnologies { get; } = new List<ResearchedTechnology>();
+    public virtual ICollection<ResearchedTechnology> ResearchedTechnology { get; } = new List<ResearchedTechnology>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<ResourceInventory> ResourceInventories { get; } = new List<ResourceInventory>();
+    public virtual ICollection<ResourceInventory> ResourceInventory { get; } = new List<ResourceInventory>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<UserCity> UserCities { get; } = new List<UserCity>();
+    public virtual ICollection<UserCity> UserCity { get; } = new List<UserCity>();
 
-    [InverseProperty("User")]
-    public virtual ICollection<UserCitiesLeader> UserCitiesLeaders { get; } = new List<UserCitiesLeader>();
+    public virtual ICollection<UserCityLeader> UserCityLeader { get; } = new List<UserCityLeader>();
 }

@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Abio.Library.DatabaseModels;
 
-public partial class Faction
+public partial class BuildingLevel
 {
-    public Guid FactionId { get; set; }
+    public Guid BuildingLevelId { get; set; }
 
-    public string FactionName { get; set; }
+    public string BuildingRankName { get; set; }
 }

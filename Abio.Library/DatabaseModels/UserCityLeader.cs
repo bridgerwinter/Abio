@@ -5,15 +5,19 @@ using System.Collections.Generic;
 
 namespace Abio.Library.DatabaseModels;
 
-public partial class ResearchedTechnology
+public partial class UserCityLeader
 {
-    public Guid ResearchedTechnologyId { get; set; }
+    public Guid UserCityLeaderId { get; set; }
 
     public Guid? UserId { get; set; }
 
-    public int? TechnologyId { get; set; }
+    public Guid? HiredLeaderId { get; set; }
 
-    public byte[] created_at { get; set; }
+    public Guid? UserCityId { get; set; }
+
+    public virtual HiredLeader HiredLeader { get; set; }
 
     public virtual User User { get; set; }
+
+    public virtual UserCity UserCity { get; set; }
 }

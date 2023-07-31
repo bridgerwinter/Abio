@@ -2,30 +2,20 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("UserCities", Schema = "Player")]
 public partial class UserCity
 {
-    [Key]
-    public Guid CityId { get; set; }
+    public Guid UserCityId { get; set; }
 
     public Guid? UserId { get; set; }
 
-    [Column("XCoord")]
-    public int? Xcoord { get; set; }
+    public int? XCoord { get; set; }
 
-    [Column("YCoord")]
-    public int? Ycoord { get; set; }
+    public int? YCoord { get; set; }
 
-    [ForeignKey("UserId")]
-    [InverseProperty("UserCities")]
     public virtual User User { get; set; }
 
-    [InverseProperty("City")]
-    public virtual ICollection<UserCitiesLeader> UserCitiesLeaders { get; } = new List<UserCitiesLeader>();
+    public virtual ICollection<UserCityLeader> UserCityLeader { get; } = new List<UserCityLeader>();
 }

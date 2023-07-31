@@ -2,16 +2,11 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abio.Library.DatabaseModels;
 
-[Table("ItemInventory", Schema = "Player")]
 public partial class ItemInventory
 {
-    [Key]
     public Guid ItemInventoryId { get; set; }
 
     public Guid? UserId { get; set; }
@@ -22,14 +17,9 @@ public partial class ItemInventory
 
     public long? MaxInventory { get; set; }
 
-    [ForeignKey("ItemId")]
-    [InverseProperty("ItemInventories")]
     public virtual Item Item { get; set; }
 
-    [InverseProperty("ItemInventory")]
-    public virtual ICollection<MarketListing> MarketListings { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
 
-    [ForeignKey("UserId")]
-    [InverseProperty("ItemInventories")]
     public virtual User User { get; set; }
 }
