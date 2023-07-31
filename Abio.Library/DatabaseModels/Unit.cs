@@ -6,23 +6,29 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Abio.WS.API.DatabaseModels;
+namespace Abio.Library.DatabaseModels;
 
-[Table("Buildings", Schema = "Lookup")]
-public partial class Building
+[Table("Units", Schema = "Lookup")]
+public partial class Unit
 {
     [Key]
-    public int BuildingId { get; set; }
+    public int UnitId { get; set; }
 
     [Unicode(false)]
-    public string BuildingName { get; set; }
+    public string UnitName { get; set; }
 
     public int? FactionId { get; set; }
 
-    [InverseProperty("Building")]
-    public virtual ICollection<ConstructedBuilding> ConstructedBuildings { get; } = new List<ConstructedBuilding>();
+    public int? Health { get; set; }
+
+    public int? Attack { get; set; }
+
+    public int? Defense { get; set; }
 
     [ForeignKey("FactionId")]
-    [InverseProperty("Buildings")]
+    [InverseProperty("Units")]
     public virtual Faction Faction { get; set; }
+
+    [InverseProperty("Unit")]
+    public virtual ICollection<HiredUnit> HiredUnits { get; } = new List<HiredUnit>();
 }

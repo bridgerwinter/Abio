@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
-using Abio.WS.API.DatabaseModels;
+using Abio.Library.DatabaseModels;
 using InstantAPIs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,9 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddMvc();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<Abio.WS.API.DatabaseModels.AbioContext>(
+builder.Services.AddDbContext<AbioContext>(
    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddSqlServer<Abio.WS.API.DatabaseModels.AbioContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddSqlServer<AbioContext>(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 var app = builder.Build();
 

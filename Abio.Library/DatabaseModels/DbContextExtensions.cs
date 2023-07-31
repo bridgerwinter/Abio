@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Abio.WS.API.DatabaseModels
+namespace Abio.Library.DatabaseModels
 {
     public static class DbContextExtensions
     {

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Abio.WS.API.DatabaseModels;
+namespace Abio.Library.DatabaseModels;
 
 [Table("BuildingsLevels", Schema = "Lookup")]
 public partial class BuildingsLevel

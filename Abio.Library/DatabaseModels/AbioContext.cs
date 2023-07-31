@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Abio.WS.API.DatabaseModels;
+namespace Abio.Library.DatabaseModels;
 
 public partial class AbioContext : DbContext
 {

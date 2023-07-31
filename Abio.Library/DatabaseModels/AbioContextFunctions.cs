@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
 using System.Linq;
-using Abio.WS.API.DatabaseModels;
+using Abio.Library.DatabaseModels;
 
-namespace Abio.WS.API.DatabaseModels
+namespace Abio.Library.DatabaseModels
 {
     public partial class AbioContext
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using Abio.Library.Services;
 using Abio.WS.API;
 using Abio.WS.API.Controllers;
-using Abio.WS.API.DatabaseModels;
+using Abio.Library.DatabaseModels;
+using Abio.Console.Application.Services;
 
 public class Program
 {
@@ -14,7 +14,7 @@ public class Program
     static async Task MainAsync()
     { 
         
-        Abio.WS.API.DatabaseModels.Unit unit = new Abio.WS.API.DatabaseModels.Unit();
+        Unit unit = new Unit();
         unit.Attack = 10;
         unit.Defense = 10;
         unit.UnitName = "Test";

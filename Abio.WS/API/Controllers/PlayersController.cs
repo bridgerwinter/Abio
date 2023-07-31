@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Abio.WS.API.DatabaseModels;
+using Abio.Library.DatabaseModels;
 
 namespace Abio.WS.API.Controllers
 {
