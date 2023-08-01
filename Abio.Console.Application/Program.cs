@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics;
+using Abio.Library.Actions;
 
 public class Program
 {
@@ -17,39 +18,26 @@ public class Program
     }
     static async Task MainAsync()
     {
-        Unit unit = new Unit();
-        unit.UnitName = "Archer";
-        UnitStat stat = new UnitStat();
-        UnitAttribute attribute = new UnitAttribute();
+        var units = await ApiService.GetAllUnits();
 
-        stat.OneHanded = 25;
-        stat.Bow = 75;
-        stat.MeleeDefence = 10;
-        stat.RangedDefence = 20;
-        stat.MagicDefense = 0;
-        stat.Dueling = 0;
-        stat.Tank = 0;
+        List<Unit> army1 = new List<Unit>();
+        List<Unit> army2 = new List<Unit>();
 
+        var peasant = units.Where(p => p.UnitName == "Peasant").First();
+        var knight = units.Where(p => p.UnitName == "Knight").First();
+        for (int i = 0; i < 500; i++)
+        {
+            army1.Add(peasant);
+        }
 
-        attribute.Strength = 45;
-        attribute.Agility = 80;
-        attribute.Dexterity = 80;
-        attribute.Charisma = 40;
-        attribute.Intelligence = 50;
-        attribute.Willpower = 40;
-        attribute.Soul = 20;
-        attribute.Artistry = 40;
-        attribute.Creativity = 45;
-        attribute.Constitution = 60;
-        attribute.Sanity = 50;
-
-        var response = await ApiService.CreateUnit(unit);
-
-        var newUnit = await ApiService.GetUnitByName(unit.UnitName);
-        stat.UnitId = newUnit.UnitId;
-        attribute.UnitId = newUnit.UnitId;
-        await ApiService.CreateUnitAttribute(attribute);
-        await ApiService.CreateUnitStat(stat);
-
+        for (int i = 0;i < 250; i++)
+        {
+            army2.Add(knight);
+        }
+        CombatMessage message = new CombatMessage();
+        message.Army1 = army1;
+        message.Army2 = army2;
+        //var result = await ApiService.Fight(message);
+        Console.WriteLine(result.CombatLog);
     }
 }
