@@ -9,12 +9,15 @@ using System.Reflection;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics;
 using Abio.Library.Actions;
+using Microsoft.AspNetCore.SignalR.Client;
+using Abio.Console.Application;
 
 public class Program
 {
     static void Main(string[] args)
     {
-        MainAsync().Wait();
+        //   MainAsync().Wait();
+        SignalRTestMethod().Wait();
     }
     static async Task MainAsync()
     {
@@ -38,6 +41,14 @@ public class Program
         message.Army1 = army1;
         message.Army2 = army2;
         //var result = await ApiService.Fight(message);
-        Console.WriteLine(result.CombatLog);
+        //Console.WriteLine(result.CombatLog);
+    }
+
+    public static async Task SignalRTestMethod()
+    {
+        var signalRConnection = new SignalRConnection();
+        await signalRConnection.Start();
+
+        
     }
 }
