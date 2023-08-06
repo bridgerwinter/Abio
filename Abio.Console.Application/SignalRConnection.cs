@@ -35,8 +35,8 @@ namespace Abio.Console.Application
 
         public void OnReceiveMessage(CombatResult combatResult)
         {
-            //System.Console.WriteLine("Test");
-            //System.Console.WriteLine($"Test {combatResult.CombatLog}");
+            System.Console.WriteLine("Test");
+            System.Console.WriteLine($"Test {combatResult.CombatLog}");
         }
 
     }
