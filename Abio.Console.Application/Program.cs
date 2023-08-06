@@ -16,8 +16,8 @@ public class Program
 {
     static void Main(string[] args)
     {
-        //   MainAsync().Wait();
-        SignalRTestMethod().Wait();
+        // SignalRTestMethod().Wait();
+        MainAsync().Wait();
     }
     static async Task MainAsync()
     {
@@ -40,15 +40,19 @@ public class Program
         CombatMessage message = new CombatMessage();
         message.Army1 = army1;
         message.Army2 = army2;
+        var connection = await SignalRTestMethod();
+        await connection.SendChatHubMessageAsync(message);
         //var result = await ApiService.Fight(message);
         //Console.WriteLine(result.CombatLog);
     }
 
-    public static async Task SignalRTestMethod()
+    public static async Task<SignalRConnection> SignalRTestMethod()
     {
         var signalRConnection = new SignalRConnection();
         await signalRConnection.Start();
+        return signalRConnection;
+        //await signalRConnection.SendChatHubMessageAsync();
 
-        
+
     }
 }

@@ -10,30 +10,33 @@ namespace Abio.Console.Application
 {
     public class SignalRConnection
     {
+        public HubConnection Connection { get; set; }
+        string chatUrl = "http://localhost:5096/chathub";
+
+        public SignalRConnection()
+        {
+            Connection = new HubConnectionBuilder().WithUrl(chatUrl).WithAutomaticReconnect().Build();
+        }
         public async Task Start()
         {
-            var url = "http://localhost:5096/chathub";
-
-            var connection = new HubConnectionBuilder()
-                .WithUrl(url)
-                .WithAutomaticReconnect()
-                .Build();
-
+            
             // receive a message from the hub
-            connection.On<CombatResult>("ReceiveMessage", (result) => OnReceiveMessage(result));
+            Connection.On<CombatResult>("ReceiveMessage", (result) => OnReceiveMessage(result));
 
-            var t = connection.StartAsync();
+            var t = Connection.StartAsync();
 
             t.Wait();
-
-            // send a message to the hub
-            await connection.InvokeAsync("SendMessage", "ConsoleApp", "Message from the console app");
-            System.Console.WriteLine("Test A");
         }
 
-        private void OnReceiveMessage(CombatResult combatResult)
+        public async Task SendChatHubMessageAsync(CombatMessage combatMessage)
         {
-            System.Console.WriteLine($"Test {combatResult.CombatLog}");
+            await Connection.InvokeAsync("SendMessage", combatMessage);
+        }
+
+        public void OnReceiveMessage(CombatResult combatResult)
+        {
+            //System.Console.WriteLine("Test");
+            //System.Console.WriteLine($"Test {combatResult.CombatLog}");
         }
 
     }

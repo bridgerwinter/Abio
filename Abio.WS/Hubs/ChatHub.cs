@@ -1,14 +1,15 @@
 ﻿using Abio.Library.Actions;
+using Abio.Library.DatabaseModels;
+using Abio.WS.API.Logic;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Abio.WS.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(CombatMessage combatMessage)
         {
-            CombatResult combatResult = new CombatResult();
-            combatResult.CombatLog = "Combat Result Successfully passed back to client";
+            CombatResult combatResult = CombatLogic.GetCombatResult(combatMessage);
 
             await Clients.All.SendAsync("ReceiveMessage", combatResult);
         }
