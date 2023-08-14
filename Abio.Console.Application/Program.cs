@@ -43,6 +43,9 @@ public class Program
         var connection = await SignalRTestMethod();
         await connection.SendChatHubMessageAsync(message);
         //var result = await ApiService.Fight(message);
+        await connection.SendChatHubMessageAsync(message);
+        await connection.SendChatHubMessageAsync(message);
+
         //Console.WriteLine(result.CombatLog);
     }
 
