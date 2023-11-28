@@ -1,5 +1,7 @@
 ﻿using Abio.Library.Actions;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +17,14 @@ namespace Abio.Console.Application
 
         public SignalRConnection()
         {
-            Connection = new HubConnectionBuilder().WithUrl(chatUrl).WithAutomaticReconnect().Build();
+            Connection = new HubConnectionBuilder().WithUrl(chatUrl).AddNewtonsoftJsonProtocol(opts =>
+                opts.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Auto).Build();
         }
         public async Task Start()
         {
             
             // receive a message from the hub
-            Connection.On<CombatResult>("ReceiveMessage", (result) => OnReceiveMessage(result));
+            Connection.On<CombatResult>("ReceiveMessage", OnReceiveMessage);
 
             var t = Connection.StartAsync();
 
@@ -35,7 +38,6 @@ namespace Abio.Console.Application
 
         public void OnReceiveMessage(CombatResult combatResult)
         {
-            System.Console.WriteLine("Test");
             System.Console.WriteLine($"Test {combatResult.CombatLog}");
         }
 

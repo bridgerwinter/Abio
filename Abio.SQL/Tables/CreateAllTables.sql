@@ -11,26 +11,26 @@ CREATE SCHEMA [Lookup]
 GO
 
 CREATE TABLE [Security].[User] (
-  [UserId] uniqueidentifier PRIMARY KEY,
+  [UserId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [created_at] timestamp
 )
 GO
 
 CREATE TABLE [Player].[Friend] (
-  [UserId] uniqueidentifier PRIMARY KEY,
+  [UserId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [FriendsWith] uniqueidentifier
 )
 GO
 
 CREATE TABLE [Player].[Player] (
-  [UserId] uniqueidentifier PRIMARY KEY,
+  [UserId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [MaxCities] int,
   [MaxOwnedLand] int
 )
 GO
 
 CREATE TABLE [Player].[UserCity] (
-  [UserCityId] uniqueidentifier PRIMARY KEY,
+  [UserCityId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
   [XCoord] int,
   [YCoord] int
@@ -38,7 +38,7 @@ CREATE TABLE [Player].[UserCity] (
 GO
 
 CREATE TABLE [Player].[UserCityLeader] (
-  [UserCityLeaderId] uniqueidentifier PRIMARY KEY,
+  [UserCityLeaderId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
   [HiredLeaderId] uniqueidentifier,
   [UserCityId] uniqueidentifier
@@ -46,34 +46,34 @@ CREATE TABLE [Player].[UserCityLeader] (
 GO
 
 CREATE TABLE [Player].[ResearchedTechnology] (
-  [ResearchedTechnologyId] uniqueidentifier PRIMARY KEY,
+  [ResearchedTechnologyId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
-  [TechnologyId] int,
+  [TechnologyId] uniqueidentifier,
   [created_at] timestamp
 )
 GO
 
 CREATE TABLE [Player].[ConstructedBuilding] (
-  [ConstructedBuildingId] uniqueidentifier PRIMARY KEY,
-  [BuildingId] int,
+  [ConstructedBuildingId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
+  [BuildingId] uniqueidentifier,
   [UserId] uniqueidentifier,
-  [BuildingLevel] int,
+  [BuildingLevelId] uniqueidentifier,
   [created_at] timestamp
 )
 GO
 
 CREATE TABLE [Player].[HiredUnit] (
-  [HiredUnitId] uniqueidentifier PRIMARY KEY,
+  [HiredUnitId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
-  [UnitId] int,
-  [UnitLevel] int,
+  [UnitId] uniqueidentifier,
+  [UnitLevelId] uniqueidentifier,
   [HiredLeaderId] uniqueidentifier,
   [created_at] timestamp
 )
 GO
 
 CREATE TABLE [Player].[HiredUnitStat] (
-  [HiredUnitStatId] uniqueidentifier PRIMARY KEY,
+  [HiredUnitStatId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [HiredUnitId] uniqueidentifier,
   [Leadership] int,
   [Attack] int,
@@ -86,7 +86,7 @@ CREATE TABLE [Player].[HiredUnitStat] (
 GO
 
 CREATE TABLE [Player].[HiredLeader] (
-  [HiredLeaderId] uniqueidentifier PRIMARY KEY,
+  [HiredLeaderId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
   [HiredLeaderName] varchar(24),
   [LeaderStatId] uniqueidentifier,
@@ -95,7 +95,7 @@ CREATE TABLE [Player].[HiredLeader] (
 GO
 
 CREATE TABLE [Player].[HiredLeaderStat] (
-  [HiredLeaderStatId] uniqueidentifier PRIMARY KEY,
+  [HiredLeaderStatId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [HiredLeaderId] uniqueidentifier,
   [Leadership] int,
   [Attack] int,
@@ -106,7 +106,7 @@ CREATE TABLE [Player].[HiredLeaderStat] (
 GO
 
 CREATE TABLE [Player].[UnitGroup] (
-  [UnitGroupId] uniqueidentifier PRIMARY KEY,
+  [UnitGroupId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [HiredUnitId] uniqueidentifier,
   [HiredLeaderId] uniqueidentifier,
   [GroupNumber] int
@@ -114,7 +114,7 @@ CREATE TABLE [Player].[UnitGroup] (
 GO
 
 CREATE TABLE [Player].[ItemInventory] (
-  [ItemInventoryId] uniqueidentifier PRIMARY KEY,
+  [ItemInventoryId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
   [ItemId] uniqueidentifier,
   [Quantity] bigint,
@@ -123,15 +123,15 @@ CREATE TABLE [Player].[ItemInventory] (
 GO
 
 CREATE TABLE [Player].[ResourceInventory] (
-  [ResourceInventoryId] uniqueidentifier PRIMARY KEY,
+  [ResourceInventoryId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UserId] uniqueidentifier,
-  [ResourceId] int,
+  [ResourceId] uniqueidentifier,
   [Quantity] bigint
 )
 GO
 
 CREATE TABLE [Economy].[Market] (
-  [MarketId] uniqueidentifier PRIMARY KEY,
+  [MarketId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [MarketCoordinatesX] bigint,
   [MarketCoordinatesY] bigint,
   [MarketRadius] int,
@@ -141,7 +141,7 @@ CREATE TABLE [Economy].[Market] (
 GO
 
 CREATE TABLE [Economy].[MarketListing] (
-  [MarketListingId] uniqueidentifier PRIMARY KEY,
+  [MarketListingId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [MarketId] uniqueidentifier,
   [ItemId] uniqueidentifier,
   [UserId] uniqueidentifier,
@@ -151,29 +151,29 @@ CREATE TABLE [Economy].[MarketListing] (
 GO
 
 CREATE TABLE [Lookup].[Resource] (
-  [ResourceId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [ResourceId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [ResourceName] varchar(100)
 )
 GO
 
 CREATE TABLE [Lookup].[Item] (
-  [ItemId] uniqueidentifier PRIMARY KEY,
+  [ItemId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [ItemName] varchar(100),
   [ItemDescription] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[Building] (
-  [BuildingId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [BuildingId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [BuildingName] varchar(max),
-  [FactionId] int
+  [FactionId] uniqueidentifier,
 )
 GO
 
 CREATE TABLE [Lookup].[Unit] (
-  [UnitId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [UnitId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UnitName] varchar(max),
-  [FactionId] int,
+  [FactionId] uniqueidentifier,
   [Health] int,
   [Attack] int,
   [Defense] int
@@ -181,25 +181,25 @@ CREATE TABLE [Lookup].[Unit] (
 GO
 
 CREATE TABLE [Lookup].[UnitLevel] (
-  [UnitLevelId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [UnitLevelId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [UnitRankName] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[BuildingLevel] (
-  [BuildingLevelId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [BuildingLevelId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [BuildingRankName] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[Faction] (
-  [FactionId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [FactionId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [FactionName] varchar(max)
 )
 GO
 
 CREATE TABLE [Lookup].[Technology] (
-  [TechnologyId] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+  [TechnologyId] uniqueidentifier DEFAULT NEWID() PRIMARY KEY,
   [TechnologyName] varchar(max)
 )
 GO
@@ -240,7 +240,7 @@ GO
 ALTER TABLE [Player].[ConstructedBuilding] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])
 GO
 
-ALTER TABLE [Player].[ConstructedBuilding] ADD FOREIGN KEY ([BuildingLevel]) REFERENCES [Lookup].[BuildingLevel] ([BuildingLevelId])
+ALTER TABLE [Player].[ConstructedBuilding] ADD FOREIGN KEY ([BuildingLevelId]) REFERENCES [Lookup].[BuildingLevel] ([BuildingLevelId])
 GO
 
 ALTER TABLE [Player].[ResearchedTechnology] ADD FOREIGN KEY ([TechnologyId]) REFERENCES [Lookup].[Technology] ([TechnologyId])
@@ -255,7 +255,7 @@ GO
 ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([UnitId]) REFERENCES [Lookup].[Unit] ([UnitId])
 GO
 
-ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([UnitLevel]) REFERENCES [Lookup].[UnitLevel] ([UnitLevelId])
+ALTER TABLE [Player].[HiredUnit] ADD FOREIGN KEY ([UnitLevelId]) REFERENCES [Lookup].[UnitLevel] ([UnitLevelId])
 GO
 
 ALTER TABLE [Player].[HiredLeader] ADD FOREIGN KEY ([UserId]) REFERENCES [Security].[User] ([UserId])

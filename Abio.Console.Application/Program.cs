@@ -28,12 +28,12 @@ public class Program
 
         var peasant = units.Where(p => p.UnitName == "Peasant").First();
         var knight = units.Where(p => p.UnitName == "Knight").First();
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < 10; i++)
         {
             army1.Add(peasant);
         }
 
-        for (int i = 0;i < 250; i++)
+        for (int i = 0;i < 5; i++)
         {
             army2.Add(knight);
         }
@@ -42,11 +42,7 @@ public class Program
         message.Army2 = army2;
         var connection = await SignalRTestMethod();
         await connection.SendChatHubMessageAsync(message);
-        //var result = await ApiService.Fight(message);
-        await connection.SendChatHubMessageAsync(message);
-        await connection.SendChatHubMessageAsync(message);
 
-        //Console.WriteLine(result.CombatLog);
     }
 
     public static async Task<SignalRConnection> SignalRTestMethod()

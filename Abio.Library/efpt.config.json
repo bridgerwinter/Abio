@@ -13,6 +13,7 @@
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
    "Tables": [
       {
          "Name": "[Economy].[Market]",
@@ -51,15 +52,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[UnitAttribute]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[Lookup].[UnitLevel]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Lookup].[UnitStat]",
          "ObjectType": 0
       },
       {
@@ -80,10 +73,6 @@
       },
       {
          "Name": "[Player].[HiredUnit]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Player].[HiredUnitAttribute]",
          "ObjectType": 0
       },
       {
@@ -123,12 +112,13 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "sunbear\\sqlexpress.Abio.dbo",
+   "UiHint": "kodiak\\sqlexpress.Abio.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": true,
    "UseDateOnlyTimeOnly": false,
    "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
    "UseFluentApiOnly": true,
    "UseHandleBars": false,
    "UseHierarchyId": false,
@@ -136,10 +126,12 @@
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,
    "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
    "UseSpatial": false,
    "UseT4": false
 }

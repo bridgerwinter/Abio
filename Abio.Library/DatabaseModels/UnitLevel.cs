@@ -10,4 +10,6 @@ public partial class UnitLevel
     public Guid UnitLevelId { get; set; }
 
     public string UnitRankName { get; set; }
+
+    public virtual ICollection<HiredUnit> HiredUnit { get; set; } = new List<HiredUnit>();
 }

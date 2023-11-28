@@ -11,9 +11,11 @@ public partial class ResearchedTechnology
 
     public Guid? UserId { get; set; }
 
-    public int? TechnologyId { get; set; }
+    public Guid? TechnologyId { get; set; }
 
     public byte[] created_at { get; set; }
+
+    public virtual Technology Technology { get; set; }
 
     public virtual User User { get; set; }
 }

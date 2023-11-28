@@ -19,5 +19,5 @@ public partial class Market
 
     public bool? IsMainMarket { get; set; }
 
-    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; set; } = new List<MarketListing>();
 }

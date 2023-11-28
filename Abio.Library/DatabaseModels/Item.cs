@@ -13,7 +13,7 @@ public partial class Item
 
     public string ItemDescription { get; set; }
 
-    public virtual ICollection<ItemInventory> ItemInventory { get; } = new List<ItemInventory>();
+    public virtual ICollection<ItemInventory> ItemInventory { get; set; } = new List<ItemInventory>();
 
-    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; set; } = new List<MarketListing>();
 }

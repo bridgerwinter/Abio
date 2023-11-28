@@ -10,4 +10,6 @@ public partial class Technology
     public Guid TechnologyId { get; set; }
 
     public string TechnologyName { get; set; }
+
+    public virtual ICollection<ResearchedTechnology> ResearchedTechnology { get; set; } = new List<ResearchedTechnology>();
 }

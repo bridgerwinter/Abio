@@ -19,7 +19,7 @@ public partial class ItemInventory
 
     public virtual Item Item { get; set; }
 
-    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; set; } = new List<MarketListing>();
 
     public virtual User User { get; set; }
 }

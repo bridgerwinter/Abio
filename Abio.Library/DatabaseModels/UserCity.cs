@@ -17,5 +17,5 @@ public partial class UserCity
 
     public virtual User User { get; set; }
 
-    public virtual ICollection<UserCityLeader> UserCityLeader { get; } = new List<UserCityLeader>();
+    public virtual ICollection<UserCityLeader> UserCityLeader { get; set; } = new List<UserCityLeader>();
 }

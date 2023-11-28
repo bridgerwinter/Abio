@@ -10,4 +10,6 @@ public partial class BuildingLevel
     public Guid BuildingLevelId { get; set; }
 
     public string BuildingRankName { get; set; }
+
+    public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; set; } = new List<ConstructedBuilding>();
 }

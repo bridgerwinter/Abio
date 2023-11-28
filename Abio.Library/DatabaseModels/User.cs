@@ -11,25 +11,25 @@ public partial class User
 
     public byte[] created_at { get; set; }
 
-    public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; } = new List<ConstructedBuilding>();
+    public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; set; } = new List<ConstructedBuilding>();
 
-    public virtual ICollection<Friend> Friend { get; } = new List<Friend>();
+    public virtual ICollection<Friend> Friend { get; set; } = new List<Friend>();
 
-    public virtual ICollection<HiredLeader> HiredLeader { get; } = new List<HiredLeader>();
+    public virtual ICollection<HiredLeader> HiredLeader { get; set; } = new List<HiredLeader>();
 
-    public virtual ICollection<HiredUnit> HiredUnit { get; } = new List<HiredUnit>();
+    public virtual ICollection<HiredUnit> HiredUnit { get; set; } = new List<HiredUnit>();
 
-    public virtual ICollection<ItemInventory> ItemInventory { get; } = new List<ItemInventory>();
+    public virtual ICollection<ItemInventory> ItemInventory { get; set; } = new List<ItemInventory>();
 
-    public virtual ICollection<MarketListing> MarketListing { get; } = new List<MarketListing>();
+    public virtual ICollection<MarketListing> MarketListing { get; set; } = new List<MarketListing>();
 
     public virtual Player Player { get; set; }
 
-    public virtual ICollection<ResearchedTechnology> ResearchedTechnology { get; } = new List<ResearchedTechnology>();
+    public virtual ICollection<ResearchedTechnology> ResearchedTechnology { get; set; } = new List<ResearchedTechnology>();
 
-    public virtual ICollection<ResourceInventory> ResourceInventory { get; } = new List<ResourceInventory>();
+    public virtual ICollection<ResourceInventory> ResourceInventory { get; set; } = new List<ResourceInventory>();
 
-    public virtual ICollection<UserCity> UserCity { get; } = new List<UserCity>();
+    public virtual ICollection<UserCity> UserCity { get; set; } = new List<UserCity>();
 
-    public virtual ICollection<UserCityLeader> UserCityLeader { get; } = new List<UserCityLeader>();
+    public virtual ICollection<UserCityLeader> UserCityLeader { get; set; } = new List<UserCityLeader>();
 }

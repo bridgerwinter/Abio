@@ -61,7 +61,7 @@ namespace Abio.Console.Application.Services
 			return deserializedResult;
 		}
 
-		public static async Task<List<BuildingLevel>> GetAllBuildingLevel()
+		public static async Task<List<BuildingLevel>> GetAllBuildingLevels()
 		{
 			string result = await Constants.GetClient().GetStringAsync(Constants.BuildingLevelUrl);
 			var deserializedResult = JsonConvert.DeserializeObject<List<BuildingLevel>>(result);
@@ -275,45 +275,6 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteHiredUnit(HiredUnit hiredUnit)
 		{
 			 var url = Constants.HiredUnitUrl + hiredUnit.HiredUnitId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateHiredUnitAttribute(HiredUnitAttribute hiredUnitAttribute)
-		{
-			string jsonChore = JsonConvert.SerializeObject(hiredUnitAttribute);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.HiredUnitAttributeUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<HiredUnitAttribute> GetHiredUnitAttribute(Guid id)
-		{
-			var url = Constants.HiredUnitAttributeUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitAttribute>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<HiredUnitAttribute>> GetAllHiredUnitAttributes()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.HiredUnitAttributeUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<HiredUnitAttribute>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateHiredUnitAttribute(HiredUnitAttribute hiredUnitAttribute)
-		{
-			var url = Constants.HiredUnitAttributeUrl + hiredUnitAttribute.HiredUnitAttributeId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(hiredUnitAttribute);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteHiredUnitAttribute(HiredUnitAttribute hiredUnitAttribute)
-		{
-			 var url = Constants.HiredUnitAttributeUrl + hiredUnitAttribute.HiredUnitAttributeId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
@@ -685,7 +646,7 @@ namespace Abio.Console.Application.Services
 			return deserializedResult;
 		}
 
-        public static async Task<List<Unit>> GetAllUnits()
+		public static async Task<List<Unit>> GetAllUnits()
 		{
 			string result = await Constants.GetClient().GetStringAsync(Constants.UnitUrl);
 			var deserializedResult = JsonConvert.DeserializeObject<List<Unit>>(result);
@@ -704,45 +665,6 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteUnit(Unit unit)
 		{
 			 var url = Constants.UnitUrl + unit.UnitId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateUnitAttribute(UnitAttribute unitAttribute)
-		{
-			string jsonChore = JsonConvert.SerializeObject(unitAttribute);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UnitAttributeUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<UnitAttribute> GetUnitAttribute(Guid id)
-		{
-			var url = Constants.UnitAttributeUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<UnitAttribute>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<UnitAttribute>> GetAllUnitAttributes()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.UnitAttributeUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<UnitAttribute>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateUnitAttribute(UnitAttribute unitAttribute)
-		{
-			var url = Constants.UnitAttributeUrl + unitAttribute.UnitAttributeId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(unitAttribute);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteUnitAttribute(UnitAttribute unitAttribute)
-		{
-			 var url = Constants.UnitAttributeUrl + unitAttribute.UnitAttributeId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
@@ -821,45 +743,6 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteUnitLevel(UnitLevel unitLevel)
 		{
 			 var url = Constants.UnitLevelUrl + unitLevel.UnitLevelId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateUnitStat(UnitStat unitStat)
-		{
-			string jsonChore = JsonConvert.SerializeObject(unitStat);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UnitStatUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<UnitStat> GetUnitStat(Guid id)
-		{
-			var url = Constants.UnitStatUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<UnitStat>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<UnitStat>> GetAllUnitStats()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.UnitStatUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<UnitStat>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateUnitStat(UnitStat unitStat)
-		{
-			var url = Constants.UnitStatUrl + unitStat.UnitStatId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(unitStat);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteUnitStat(UnitStat unitStat)
-		{
-			 var url = Constants.UnitStatUrl + unitStat.UnitStatId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}

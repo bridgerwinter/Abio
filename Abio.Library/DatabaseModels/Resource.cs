@@ -10,4 +10,6 @@ public partial class Resource
     public Guid ResourceId { get; set; }
 
     public string ResourceName { get; set; }
+
+    public virtual ICollection<ResourceInventory> ResourceInventory { get; set; } = new List<ResourceInventory>();
 }

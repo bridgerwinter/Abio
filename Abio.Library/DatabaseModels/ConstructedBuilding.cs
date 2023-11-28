@@ -9,13 +9,17 @@ public partial class ConstructedBuilding
 {
     public Guid ConstructedBuildingId { get; set; }
 
-    public int? BuildingId { get; set; }
+    public Guid? BuildingId { get; set; }
 
     public Guid? UserId { get; set; }
 
-    public int? BuildingLevel { get; set; }
+    public Guid? BuildingLevelId { get; set; }
 
     public byte[] created_at { get; set; }
+
+    public virtual Building Building { get; set; }
+
+    public virtual BuildingLevel BuildingLevel { get; set; }
 
     public virtual User User { get; set; }
 }

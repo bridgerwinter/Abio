@@ -9,39 +9,21 @@ public partial class HiredUnitStat
 {
     public Guid HiredUnitStatId { get; set; }
 
-    public Guid HiredUnitId { get; set; }
+    public Guid? HiredUnitId { get; set; }
 
-    public int? ShortBlade { get; set; }
+    public int? Leadership { get; set; }
 
-    public int? Unarmed { get; set; }
+    public int? Attack { get; set; }
 
-    public int? OneHanded { get; set; }
+    public int? Defense { get; set; }
 
-    public int? TwoHanded { get; set; }
+    public int? MovementSpeed { get; set; }
 
-    public int? Staff { get; set; }
+    public int? AttackSpeed { get; set; }
 
-    public int? ThrownWeapons { get; set; }
+    public int? MeleeRange { get; set; }
 
-    public int? Bow { get; set; }
-
-    public int? Rifle { get; set; }
-
-    public int? Shield { get; set; }
-
-    public int? MeleeDefence { get; set; }
-
-    public int? RangedDefence { get; set; }
-
-    public int? MagicDefense { get; set; }
-
-    public int? Dueling { get; set; }
-
-    public int? DualWielding { get; set; }
-
-    public int? Bruiser { get; set; }
-
-    public int? Tank { get; set; }
+    public int? RangedRange { get; set; }
 
     public virtual HiredUnit HiredUnit { get; set; }
 }

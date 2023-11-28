@@ -10,4 +10,8 @@ public partial class Faction
     public Guid FactionId { get; set; }
 
     public string FactionName { get; set; }
+
+    public virtual ICollection<Building> Building { get; set; } = new List<Building>();
+
+    public virtual ICollection<Unit> Unit { get; set; } = new List<Unit>();
 }
