@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abio.Library", "Abio.Librar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AbioShell", "AbioShell\AbioShell.csproj", "{8C01B195-50F0-4F0A-A0C6-9E39CB5F7FF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateRestAPIClientServices", "GenerateRestAPIClientServices\GenerateRestAPIClientServices.csproj", "{BC60302E-3709-4B13-8C10-2E1FAB7AF5E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateRestAPIClientServices", "GenerateRestAPIClientServices\GenerateRestAPIClientServices.csproj", "{BC60302E-3709-4B13-8C10-2E1FAB7AF5E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{27991E41-E818-4233-80FB-17F006959D56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abio.Test.Client", "Abio.Test.Client\Abio.Test.Client.csproj", "{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,12 @@ Global
 		{BC60302E-3709-4B13-8C10-2E1FAB7AF5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC60302E-3709-4B13-8C10-2E1FAB7AF5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC60302E-3709-4B13-8C10-2E1FAB7AF5E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
