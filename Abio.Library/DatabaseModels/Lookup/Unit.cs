@@ -7,17 +7,13 @@ namespace Abio.Library.DatabaseModels;
 
 public partial class Unit
 {
-    public Guid UnitId { get; set; }
+    public int UnitId { get; set; }
 
     public string UnitName { get; set; }
 
-    public Guid? FactionId { get; set; }
+    public string UnitDescription { get; set; }
 
-    public int? Health { get; set; }
-
-    public int? Attack { get; set; }
-
-    public int? Defense { get; set; }
+    public int? FactionId { get; set; }
 
     public virtual Faction Faction { get; set; }
 

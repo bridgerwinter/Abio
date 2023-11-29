@@ -9,11 +9,11 @@ public partial class ConstructedBuilding
 {
     public Guid ConstructedBuildingId { get; set; }
 
-    public Guid? BuildingId { get; set; }
+    public int? BuildingId { get; set; }
 
     public Guid? UserId { get; set; }
 
-    public Guid? BuildingLevelId { get; set; }
+    public int? BuildingLevelId { get; set; }
 
     public byte[] created_at { get; set; }
 

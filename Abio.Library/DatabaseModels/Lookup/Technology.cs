@@ -7,9 +7,11 @@ namespace Abio.Library.DatabaseModels;
 
 public partial class Technology
 {
-    public Guid TechnologyId { get; set; }
+    public int TechnologyId { get; set; }
 
     public string TechnologyName { get; set; }
+
+    public string TechnologyDescription { get; set; }
 
     public virtual ICollection<ResearchedTechnology> ResearchedTechnology { get; set; } = new List<ResearchedTechnology>();
 }

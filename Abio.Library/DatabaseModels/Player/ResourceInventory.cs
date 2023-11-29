@@ -11,7 +11,7 @@ public partial class ResourceInventory
 
     public Guid? UserId { get; set; }
 
-    public Guid? ResourceId { get; set; }
+    public int? ResourceId { get; set; }
 
     public long? Quantity { get; set; }
 

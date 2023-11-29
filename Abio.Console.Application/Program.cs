@@ -40,18 +40,15 @@ public class Program
         CombatMessage message = new CombatMessage();
         message.Army1 = army1;
         message.Army2 = army2;
-        var connection = await SignalRTestMethod();
-        await connection.SendChatHubMessageAsync(message);
+        var connection = await SignalRConnection();
+        await connection.DoCombatLogicAsync(message);
 
     }
 
-    public static async Task<SignalRConnection> SignalRTestMethod()
+    public static async Task<SignalRConnection> SignalRConnection()
     {
         var signalRConnection = new SignalRConnection();
         await signalRConnection.Start();
         return signalRConnection;
-        //await signalRConnection.SendChatHubMessageAsync();
-
-
     }
 }

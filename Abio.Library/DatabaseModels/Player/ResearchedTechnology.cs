@@ -11,7 +11,7 @@ public partial class ResearchedTechnology
 
     public Guid? UserId { get; set; }
 
-    public Guid? TechnologyId { get; set; }
+    public int? TechnologyId { get; set; }
 
     public byte[] created_at { get; set; }
 

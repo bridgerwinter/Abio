@@ -24,6 +24,14 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Lookup].[Attribute]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[BodyPart]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Lookup].[Building]",
          "ObjectType": 0
       },
@@ -32,7 +40,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Lookup].[Emotion]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Lookup].[Faction]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Feat]",
          "ObjectType": 0
       },
       {
@@ -40,7 +56,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Lookup].[PersonalityTrait]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Lookup].[Resource]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Skill]",
          "ObjectType": 0
       },
       {
@@ -130,7 +154,7 @@
    "UseNoObjectFilter": false,
    "UseNodaTime": false,
    "UseNullableReferences": false,
-   "UseSchemaFolders": false,
+   "UseSchemaFolders": true,
    "UseSchemaNamespaces": false,
    "UseSpatial": false,
    "UseT4": false

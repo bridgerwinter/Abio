@@ -13,33 +13,32 @@ namespace Abio.Console.Application
     public class SignalRConnection
     {
         public HubConnection Connection { get; set; }
-        string chatUrl = "http://localhost:5096/chathub";
+        string combatUrl = "http://localhost:5096/combathub";
 
         public SignalRConnection()
         {
-            Connection = new HubConnectionBuilder().WithUrl(chatUrl).AddNewtonsoftJsonProtocol(opts =>
+            Connection = new HubConnectionBuilder().WithUrl(combatUrl).AddNewtonsoftJsonProtocol(opts =>
                 opts.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Auto).Build();
         }
         public async Task Start()
         {
             
             // receive a message from the hub
-            Connection.On<CombatResult>("ReceiveMessage", OnReceiveMessage);
+            Connection.On<CombatResult>("OnReceiveCombatResult", OnReceiveCombatResult);
 
             var t = Connection.StartAsync();
 
             t.Wait();
         }
 
-        public async Task SendChatHubMessageAsync(CombatMessage combatMessage)
+        public async Task DoCombatLogicAsync(CombatMessage combatMessage)
         {
-            await Connection.InvokeAsync("SendMessage", combatMessage);
+            await Connection.InvokeAsync("DoCombatLogic", combatMessage);
         }
 
-        public void OnReceiveMessage(CombatResult combatResult)
+        public void OnReceiveCombatResult(CombatResult combatResult)
         {
             System.Console.WriteLine($"Test {combatResult.CombatLog}");
         }
-
     }
 }

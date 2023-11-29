@@ -35,5 +35,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<ChatHub>("/chatHub");
+app.MapHub<CombatHub>("/combatHub");
 
 app.Run();

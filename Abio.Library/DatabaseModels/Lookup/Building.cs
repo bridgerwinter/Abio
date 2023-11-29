@@ -5,11 +5,17 @@ using System.Collections.Generic;
 
 namespace Abio.Library.DatabaseModels;
 
-public partial class BuildingLevel
+public partial class Building
 {
-    public Guid BuildingLevelId { get; set; }
+    public int BuildingId { get; set; }
 
-    public string BuildingRankName { get; set; }
+    public string BuildingName { get; set; }
+
+    public string BuildingDescription { get; set; }
+
+    public int? FactionId { get; set; }
 
     public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; set; } = new List<ConstructedBuilding>();
+
+    public virtual Faction Faction { get; set; }
 }

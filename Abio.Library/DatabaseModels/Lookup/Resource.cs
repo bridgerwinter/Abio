@@ -7,9 +7,11 @@ namespace Abio.Library.DatabaseModels;
 
 public partial class Resource
 {
-    public Guid ResourceId { get; set; }
+    public int ResourceId { get; set; }
 
     public string ResourceName { get; set; }
+
+    public string ResourceDescription { get; set; }
 
     public virtual ICollection<ResourceInventory> ResourceInventory { get; set; } = new List<ResourceInventory>();
 }

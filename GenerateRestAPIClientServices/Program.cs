@@ -8,36 +8,59 @@ public class Program
 {
     static void Main(string[] args)
     {
-        MainAsync().Wait();
+        string idType = "Guid";
+        var economyPath = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\Economy\\";
+        var lookupPath = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\Lookup\\";
+        var playerPath = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\Player\\";
+        var securityPath = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\Security\\";
+
+        List<string> schemas = new List<string>()
+        {
+            economyPath, playerPath, securityPath, lookupPath
+        };
+
+        List<string> allFiles = new List<string>();
+
+        if (File.Exists("..\\..\\..\\..\\Abio.Library\\DatabaseModels\\AbioContext.cs"))
+        {
+            string header = "using Abio.Library.DatabaseModels;\r\nusing Newtonsoft.Json;\r\nusing System.Text;\r\nusing Attribute = Abio.Library.DatabaseModels.Attribute;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n\tpublic partial class ApiService\r\n\t{";
+            string footer = "\t}\r\n}";
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(header);
+
+            foreach (var path in schemas)
+            {
+                if (path.EndsWith("Lookup\\"))
+                    idType = "int";
+
+
+                var fileDirectories = Directory.GetFiles(path).Where(p => !p.Contains("Context") && !p.Contains("Friend.cs") && !p.Contains("Player.cs"));
+                List<string> files = new List<string>();
+                foreach (var file in fileDirectories)
+                {
+                    files.Add(Path.GetFileNameWithoutExtension(file));
+                }
+                stringBuilder = GenerateRestServices(files, idType, stringBuilder);
+                allFiles.AddRange(files);
+            }
+            GenerateRestUrls(allFiles);
+            stringBuilder.Append(footer).ToString();
+            GenerateFiles(stringBuilder.ToString(), apiServiceFiles);
+        }
+
     }
 
     public static readonly string path = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\";
     public static readonly string apiServiceFiles = "..\\..\\..\\..\\Abio.Console.Application\\Services\\ApiService";
     public static readonly string constantsFile = "..\\..\\..\\..\\Abio.Console.Application\\Services\\Constants";
 
-    public static async Task MainAsync()
-    {
-        var path = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\";
-        if (File.Exists("..\\..\\..\\..\\Abio.Library\\DatabaseModels\\AbioContext.cs"))
-        {
-            var fileDirectories = Directory.GetFiles(path).Where(p => !p.Contains("Context") && !p.Contains("Friend.cs") && !p.Contains("Player.cs"));
-            List<string> files = new List<string>();
-            foreach (var file in fileDirectories)
-            {
-                files.Add(Path.GetFileNameWithoutExtension(file)); 
-            }
-
-            await GenerateRestUrls(files);
-            await GenerateRestServices(files);
-        }
-    }
 
     public static void GenerateFiles(string fileText, string filePath)
     {
         File.WriteAllText(string.Concat(filePath,".cs"), fileText);
     }
 
-    public static async Task GenerateRestUrls(List<string> abioClasses)
+    public static void GenerateRestUrls(List<string> abioClasses)
     {
         StringBuilder stringBuilder = new StringBuilder();
         string header = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing System.Net.Http;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n    internal class Constants\r\n    {        \r\n        private static HttpClient client = new HttpClient();\r\n        public static HttpClient GetClient()\r\n        {\r\n            return client;\r\n        }\r\n        public static string RestUrl = \"http://localhost:5096/api/\";";
@@ -51,25 +74,19 @@ public class Program
         GenerateFiles(stringBuilder.ToString(), constantsFile);
     }
 
-    public static async Task GenerateRestServices(List<string> abioClasses)
+    public static StringBuilder GenerateRestServices(List<string> abioClasses, string idType, StringBuilder stringBuilder)
     {
-        string header = "using Abio.Library.DatabaseModels;\r\nusing Newtonsoft.Json;\r\nusing System.Text;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n\tpublic partial class ApiService\r\n\t{";
-        string footer = "\t}\r\n}";
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine(header);
         foreach (var abioClass in abioClasses)
         {
             var classNameLower = string.Concat(abioClass[0].ToString().ToLower(), abioClass.Remove(0, 1));
             var classNameUpper = abioClass;
             stringBuilder = GenerateCreateService(classNameUpper, classNameLower, stringBuilder); // post
-            stringBuilder = GenerateReadService(classNameUpper, classNameLower, stringBuilder); // get one
+            stringBuilder = GenerateReadService(classNameUpper, classNameLower, stringBuilder, idType); // get one
             stringBuilder = GenerateReadAllService(classNameUpper,classNameLower, stringBuilder); // get all
             stringBuilder = GenerateUpdateService(classNameUpper, classNameLower, stringBuilder); //put
             stringBuilder = GenerateDeleteService(classNameUpper, classNameLower, stringBuilder); // delete
-            
         }
-        stringBuilder.Append(footer).ToString();
-        GenerateFiles(stringBuilder.ToString(), apiServiceFiles);
+        return stringBuilder;
     }
 
     private static StringBuilder GenerateCreateService(string classNameUpper, string classNameLower, StringBuilder stringBuilder)
@@ -93,10 +110,10 @@ public class Program
         return stringBuilder;
     }
 
-    public static StringBuilder GenerateReadService(string classNameUpper, string classNameLower, StringBuilder stringBuilder)
+    public static StringBuilder GenerateReadService(string classNameUpper, string classNameLower, StringBuilder stringBuilder,string idType)
     {
         // READ
-        var createFunctionName = string.Format("\t\tpublic static async Task<{0}> Get{0}(Guid id)", classNameUpper);
+        var createFunctionName = string.Format("\t\tpublic static async Task<{0}> Get{0}({1} id)", classNameUpper, idType);
         var openingBracket = "\t\t{";
         var url = string.Format("\t\t\tvar url = Constants.{0}Url + id.ToString();", classNameUpper, classNameLower, classNameUpper);
         var get = string.Format("\t\t\tstring result = await Constants.GetClient().GetStringAsync(url);", classNameUpper);

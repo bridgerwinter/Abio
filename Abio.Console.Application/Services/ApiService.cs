@@ -1,85 +1,86 @@
 using Abio.Library.DatabaseModels;
 using Newtonsoft.Json;
 using System.Text;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
 
 namespace Abio.Console.Application.Services
 {
 	public partial class ApiService
 	{
-		public static async Task<HttpResponseMessage> CreateBuilding(Building building)
+		public static async Task<HttpResponseMessage> CreateMarket(Market market)
 		{
-			string jsonChore = JsonConvert.SerializeObject(building);
+			string jsonChore = JsonConvert.SerializeObject(market);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.BuildingUrl,httpContent);
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.MarketUrl,httpContent);
 			return result;
 		}
 
-		public static async Task<Building> GetBuilding(Guid id)
+		public static async Task<Market> GetMarket(Guid id)
 		{
-			var url = Constants.BuildingUrl + id.ToString();
+			var url = Constants.MarketUrl + id.ToString();
 			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Building>(result);
+			var deserializedResult = JsonConvert.DeserializeObject<Market>(result);
 			return deserializedResult;
 		}
 
-		public static async Task<List<Building>> GetAllBuildings()
+		public static async Task<List<Market>> GetAllMarkets()
 		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.BuildingUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Building>>(result);
+			string result = await Constants.GetClient().GetStringAsync(Constants.MarketUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Market>>(result);
 			return deserializedResult;
 		}
 
-		public static async Task<HttpResponseMessage> UpdateBuilding(Building building)
+		public static async Task<HttpResponseMessage> UpdateMarket(Market market)
 		{
-			var url = Constants.BuildingUrl + building.BuildingId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(building);
+			var url = Constants.MarketUrl + market.MarketId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(market);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
 			return result;
 		}
 
-		public static async Task<HttpResponseMessage> DeleteBuilding(Building building)
+		public static async Task<HttpResponseMessage> DeleteMarket(Market market)
 		{
-			 var url = Constants.BuildingUrl + building.BuildingId.ToString();
+			 var url = Constants.MarketUrl + market.MarketId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
 
-		public static async Task<HttpResponseMessage> CreateBuildingLevel(BuildingLevel buildingLevel)
+		public static async Task<HttpResponseMessage> CreateMarketListing(MarketListing marketListing)
 		{
-			string jsonChore = JsonConvert.SerializeObject(buildingLevel);
+			string jsonChore = JsonConvert.SerializeObject(marketListing);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.BuildingLevelUrl,httpContent);
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.MarketListingUrl,httpContent);
 			return result;
 		}
 
-		public static async Task<BuildingLevel> GetBuildingLevel(Guid id)
+		public static async Task<MarketListing> GetMarketListing(Guid id)
 		{
-			var url = Constants.BuildingLevelUrl + id.ToString();
+			var url = Constants.MarketListingUrl + id.ToString();
 			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<BuildingLevel>(result);
+			var deserializedResult = JsonConvert.DeserializeObject<MarketListing>(result);
 			return deserializedResult;
 		}
 
-		public static async Task<List<BuildingLevel>> GetAllBuildingLevels()
+		public static async Task<List<MarketListing>> GetAllMarketListings()
 		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.BuildingLevelUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<BuildingLevel>>(result);
+			string result = await Constants.GetClient().GetStringAsync(Constants.MarketListingUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<MarketListing>>(result);
 			return deserializedResult;
 		}
 
-		public static async Task<HttpResponseMessage> UpdateBuildingLevel(BuildingLevel buildingLevel)
+		public static async Task<HttpResponseMessage> UpdateMarketListing(MarketListing marketListing)
 		{
-			var url = Constants.BuildingLevelUrl + buildingLevel.BuildingLevelId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(buildingLevel);
+			var url = Constants.MarketListingUrl + marketListing.MarketListingId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(marketListing);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
 			return result;
 		}
 
-		public static async Task<HttpResponseMessage> DeleteBuildingLevel(BuildingLevel buildingLevel)
+		public static async Task<HttpResponseMessage> DeleteMarketListing(MarketListing marketListing)
 		{
-			 var url = Constants.BuildingLevelUrl + buildingLevel.BuildingLevelId.ToString();
+			 var url = Constants.MarketListingUrl + marketListing.MarketListingId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
@@ -119,45 +120,6 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteConstructedBuilding(ConstructedBuilding constructedBuilding)
 		{
 			 var url = Constants.ConstructedBuildingUrl + constructedBuilding.ConstructedBuildingId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateFaction(Faction faction)
-		{
-			string jsonChore = JsonConvert.SerializeObject(faction);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.FactionUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<Faction> GetFaction(Guid id)
-		{
-			var url = Constants.FactionUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Faction>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<Faction>> GetAllFactions()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.FactionUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Faction>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateFaction(Faction faction)
-		{
-			var url = Constants.FactionUrl + faction.FactionId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(faction);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteFaction(Faction faction)
-		{
-			 var url = Constants.FactionUrl + faction.FactionId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
@@ -318,45 +280,6 @@ namespace Abio.Console.Application.Services
 			return result;
 		}
 
-		public static async Task<HttpResponseMessage> CreateItem(Item item)
-		{
-			string jsonChore = JsonConvert.SerializeObject(item);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.ItemUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<Item> GetItem(Guid id)
-		{
-			var url = Constants.ItemUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Item>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<Item>> GetAllItems()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.ItemUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Item>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateItem(Item item)
-		{
-			var url = Constants.ItemUrl + item.ItemId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(item);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteItem(Item item)
-		{
-			 var url = Constants.ItemUrl + item.ItemId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
 		public static async Task<HttpResponseMessage> CreateItemInventory(ItemInventory itemInventory)
 		{
 			string jsonChore = JsonConvert.SerializeObject(itemInventory);
@@ -392,84 +315,6 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteItemInventory(ItemInventory itemInventory)
 		{
 			 var url = Constants.ItemInventoryUrl + itemInventory.ItemInventoryId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateMarket(Market market)
-		{
-			string jsonChore = JsonConvert.SerializeObject(market);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.MarketUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<Market> GetMarket(Guid id)
-		{
-			var url = Constants.MarketUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Market>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<Market>> GetAllMarkets()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.MarketUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Market>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateMarket(Market market)
-		{
-			var url = Constants.MarketUrl + market.MarketId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(market);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteMarket(Market market)
-		{
-			 var url = Constants.MarketUrl + market.MarketId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateMarketListing(MarketListing marketListing)
-		{
-			string jsonChore = JsonConvert.SerializeObject(marketListing);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.MarketListingUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<MarketListing> GetMarketListing(Guid id)
-		{
-			var url = Constants.MarketListingUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<MarketListing>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<MarketListing>> GetAllMarketListings()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.MarketListingUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<MarketListing>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateMarketListing(MarketListing marketListing)
-		{
-			var url = Constants.MarketListingUrl + marketListing.MarketListingId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(marketListing);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteMarketListing(MarketListing marketListing)
-		{
-			 var url = Constants.MarketListingUrl + marketListing.MarketListingId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
@@ -513,45 +358,6 @@ namespace Abio.Console.Application.Services
 			return result;
 		}
 
-		public static async Task<HttpResponseMessage> CreateResource(Resource resource)
-		{
-			string jsonChore = JsonConvert.SerializeObject(resource);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.ResourceUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<Resource> GetResource(Guid id)
-		{
-			var url = Constants.ResourceUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Resource>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<Resource>> GetAllResources()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.ResourceUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Resource>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateResource(Resource resource)
-		{
-			var url = Constants.ResourceUrl + resource.ResourceId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(resource);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteResource(Resource resource)
-		{
-			 var url = Constants.ResourceUrl + resource.ResourceId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
 		public static async Task<HttpResponseMessage> CreateResourceInventory(ResourceInventory resourceInventory)
 		{
 			string jsonChore = JsonConvert.SerializeObject(resourceInventory);
@@ -591,84 +397,6 @@ namespace Abio.Console.Application.Services
 			return result;
 		}
 
-		public static async Task<HttpResponseMessage> CreateTechnology(Technology technology)
-		{
-			string jsonChore = JsonConvert.SerializeObject(technology);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.TechnologyUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<Technology> GetTechnology(Guid id)
-		{
-			var url = Constants.TechnologyUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Technology>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<Technology>> GetAllTechnologys()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.TechnologyUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Technology>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateTechnology(Technology technology)
-		{
-			var url = Constants.TechnologyUrl + technology.TechnologyId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(technology);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteTechnology(Technology technology)
-		{
-			 var url = Constants.TechnologyUrl + technology.TechnologyId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateUnit(Unit unit)
-		{
-			string jsonChore = JsonConvert.SerializeObject(unit);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UnitUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<Unit> GetUnit(Guid id)
-		{
-			var url = Constants.UnitUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<Unit>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<Unit>> GetAllUnits()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.UnitUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<Unit>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateUnit(Unit unit)
-		{
-			var url = Constants.UnitUrl + unit.UnitId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(unit);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteUnit(Unit unit)
-		{
-			 var url = Constants.UnitUrl + unit.UnitId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
 		public static async Task<HttpResponseMessage> CreateUnitGroup(UnitGroup unitGroup)
 		{
 			string jsonChore = JsonConvert.SerializeObject(unitGroup);
@@ -704,84 +432,6 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteUnitGroup(UnitGroup unitGroup)
 		{
 			 var url = Constants.UnitGroupUrl + unitGroup.UnitGroupId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateUnitLevel(UnitLevel unitLevel)
-		{
-			string jsonChore = JsonConvert.SerializeObject(unitLevel);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UnitLevelUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<UnitLevel> GetUnitLevel(Guid id)
-		{
-			var url = Constants.UnitLevelUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<UnitLevel>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<UnitLevel>> GetAllUnitLevels()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.UnitLevelUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<UnitLevel>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateUnitLevel(UnitLevel unitLevel)
-		{
-			var url = Constants.UnitLevelUrl + unitLevel.UnitLevelId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(unitLevel);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteUnitLevel(UnitLevel unitLevel)
-		{
-			 var url = Constants.UnitLevelUrl + unitLevel.UnitLevelId.ToString();
-			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> CreateUser(User user)
-		{
-			string jsonChore = JsonConvert.SerializeObject(user);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UserUrl,httpContent);
-			return result;
-		}
-
-		public static async Task<User> GetUser(Guid id)
-		{
-			var url = Constants.UserUrl + id.ToString();
-			string result = await Constants.GetClient().GetStringAsync(url);
-			var deserializedResult = JsonConvert.DeserializeObject<User>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<List<User>> GetAllUsers()
-		{
-			string result = await Constants.GetClient().GetStringAsync(Constants.UserUrl);
-			var deserializedResult = JsonConvert.DeserializeObject<List<User>>(result);
-			return deserializedResult;
-		}
-
-		public static async Task<HttpResponseMessage> UpdateUser(User user)
-		{
-			var url = Constants.UserUrl + user.UserId.ToString();
-			string jsonChore = JsonConvert.SerializeObject(user);
-			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
-			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
-			return result;
-		}
-
-		public static async Task<HttpResponseMessage> DeleteUser(User user)
-		{
-			 var url = Constants.UserUrl + user.UserId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}
@@ -860,6 +510,591 @@ namespace Abio.Console.Application.Services
 		public static async Task<HttpResponseMessage> DeleteUserCityLeader(UserCityLeader userCityLeader)
 		{
 			 var url = Constants.UserCityLeaderUrl + userCityLeader.UserCityLeaderId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateUser(User user)
+		{
+			string jsonChore = JsonConvert.SerializeObject(user);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UserUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<User> GetUser(Guid id)
+		{
+			var url = Constants.UserUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<User>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<User>> GetAllUsers()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.UserUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<User>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateUser(User user)
+		{
+			var url = Constants.UserUrl + user.UserId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(user);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteUser(User user)
+		{
+			 var url = Constants.UserUrl + user.UserId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateAttribute(Attribute attribute)
+		{
+			string jsonChore = JsonConvert.SerializeObject(attribute);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.AttributeUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Attribute> GetAttribute(int id)
+		{
+			var url = Constants.AttributeUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Attribute>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Attribute>> GetAllAttributes()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.AttributeUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Attribute>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateAttribute(Attribute attribute)
+		{
+			var url = Constants.AttributeUrl + attribute.AttributeId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(attribute);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteAttribute(Attribute attribute)
+		{
+			 var url = Constants.AttributeUrl + attribute.AttributeId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateBodyPart(BodyPart bodyPart)
+		{
+			string jsonChore = JsonConvert.SerializeObject(bodyPart);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.BodyPartUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<BodyPart> GetBodyPart(int id)
+		{
+			var url = Constants.BodyPartUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<BodyPart>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<BodyPart>> GetAllBodyParts()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.BodyPartUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<BodyPart>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateBodyPart(BodyPart bodyPart)
+		{
+			var url = Constants.BodyPartUrl + bodyPart.BodyPartId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(bodyPart);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteBodyPart(BodyPart bodyPart)
+		{
+			 var url = Constants.BodyPartUrl + bodyPart.BodyPartId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateBuilding(Building building)
+		{
+			string jsonChore = JsonConvert.SerializeObject(building);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.BuildingUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Building> GetBuilding(int id)
+		{
+			var url = Constants.BuildingUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Building>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Building>> GetAllBuildings()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.BuildingUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Building>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateBuilding(Building building)
+		{
+			var url = Constants.BuildingUrl + building.BuildingId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(building);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteBuilding(Building building)
+		{
+			 var url = Constants.BuildingUrl + building.BuildingId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateBuildingLevel(BuildingLevel buildingLevel)
+		{
+			string jsonChore = JsonConvert.SerializeObject(buildingLevel);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.BuildingLevelUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<BuildingLevel> GetBuildingLevel(int id)
+		{
+			var url = Constants.BuildingLevelUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<BuildingLevel>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<BuildingLevel>> GetAllBuildingLevels()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.BuildingLevelUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<BuildingLevel>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateBuildingLevel(BuildingLevel buildingLevel)
+		{
+			var url = Constants.BuildingLevelUrl + buildingLevel.BuildingLevelId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(buildingLevel);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteBuildingLevel(BuildingLevel buildingLevel)
+		{
+			 var url = Constants.BuildingLevelUrl + buildingLevel.BuildingLevelId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateEmotion(Emotion emotion)
+		{
+			string jsonChore = JsonConvert.SerializeObject(emotion);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.EmotionUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Emotion> GetEmotion(int id)
+		{
+			var url = Constants.EmotionUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Emotion>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Emotion>> GetAllEmotions()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.EmotionUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Emotion>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateEmotion(Emotion emotion)
+		{
+			var url = Constants.EmotionUrl + emotion.EmotionId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(emotion);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteEmotion(Emotion emotion)
+		{
+			 var url = Constants.EmotionUrl + emotion.EmotionId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateFaction(Faction faction)
+		{
+			string jsonChore = JsonConvert.SerializeObject(faction);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.FactionUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Faction> GetFaction(int id)
+		{
+			var url = Constants.FactionUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Faction>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Faction>> GetAllFactions()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.FactionUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Faction>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateFaction(Faction faction)
+		{
+			var url = Constants.FactionUrl + faction.FactionId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(faction);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteFaction(Faction faction)
+		{
+			 var url = Constants.FactionUrl + faction.FactionId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateFeat(Feat feat)
+		{
+			string jsonChore = JsonConvert.SerializeObject(feat);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.FeatUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Feat> GetFeat(int id)
+		{
+			var url = Constants.FeatUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Feat>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Feat>> GetAllFeats()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.FeatUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Feat>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateFeat(Feat feat)
+		{
+			var url = Constants.FeatUrl + feat.FeatId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(feat);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteFeat(Feat feat)
+		{
+			 var url = Constants.FeatUrl + feat.FeatId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateItem(Item item)
+		{
+			string jsonChore = JsonConvert.SerializeObject(item);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.ItemUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Item> GetItem(int id)
+		{
+			var url = Constants.ItemUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Item>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Item>> GetAllItems()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.ItemUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Item>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateItem(Item item)
+		{
+			var url = Constants.ItemUrl + item.ItemId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(item);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteItem(Item item)
+		{
+			 var url = Constants.ItemUrl + item.ItemId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreatePersonalityTrait(PersonalityTrait personalityTrait)
+		{
+			string jsonChore = JsonConvert.SerializeObject(personalityTrait);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.PersonalityTraitUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<PersonalityTrait> GetPersonalityTrait(int id)
+		{
+			var url = Constants.PersonalityTraitUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<PersonalityTrait>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<PersonalityTrait>> GetAllPersonalityTraits()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.PersonalityTraitUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<PersonalityTrait>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdatePersonalityTrait(PersonalityTrait personalityTrait)
+		{
+			var url = Constants.PersonalityTraitUrl + personalityTrait.PersonalityTraitId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(personalityTrait);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeletePersonalityTrait(PersonalityTrait personalityTrait)
+		{
+			 var url = Constants.PersonalityTraitUrl + personalityTrait.PersonalityTraitId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateResource(Resource resource)
+		{
+			string jsonChore = JsonConvert.SerializeObject(resource);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.ResourceUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Resource> GetResource(int id)
+		{
+			var url = Constants.ResourceUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Resource>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Resource>> GetAllResources()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.ResourceUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Resource>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateResource(Resource resource)
+		{
+			var url = Constants.ResourceUrl + resource.ResourceId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(resource);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteResource(Resource resource)
+		{
+			 var url = Constants.ResourceUrl + resource.ResourceId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateSkill(Skill skill)
+		{
+			string jsonChore = JsonConvert.SerializeObject(skill);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.SkillUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Skill> GetSkill(int id)
+		{
+			var url = Constants.SkillUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Skill>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Skill>> GetAllSkills()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.SkillUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Skill>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateSkill(Skill skill)
+		{
+			var url = Constants.SkillUrl + skill.SkillId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(skill);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteSkill(Skill skill)
+		{
+			 var url = Constants.SkillUrl + skill.SkillId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateTechnology(Technology technology)
+		{
+			string jsonChore = JsonConvert.SerializeObject(technology);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.TechnologyUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Technology> GetTechnology(int id)
+		{
+			var url = Constants.TechnologyUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Technology>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Technology>> GetAllTechnologys()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.TechnologyUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Technology>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateTechnology(Technology technology)
+		{
+			var url = Constants.TechnologyUrl + technology.TechnologyId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(technology);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteTechnology(Technology technology)
+		{
+			 var url = Constants.TechnologyUrl + technology.TechnologyId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateUnit(Unit unit)
+		{
+			string jsonChore = JsonConvert.SerializeObject(unit);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UnitUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<Unit> GetUnit(int id)
+		{
+			var url = Constants.UnitUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<Unit>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<Unit>> GetAllUnits()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.UnitUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<Unit>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateUnit(Unit unit)
+		{
+			var url = Constants.UnitUrl + unit.UnitId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(unit);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteUnit(Unit unit)
+		{
+			 var url = Constants.UnitUrl + unit.UnitId.ToString();
+			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> CreateUnitLevel(UnitLevel unitLevel)
+		{
+			string jsonChore = JsonConvert.SerializeObject(unitLevel);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PostAsync(Constants.UnitLevelUrl,httpContent);
+			return result;
+		}
+
+		public static async Task<UnitLevel> GetUnitLevel(int id)
+		{
+			var url = Constants.UnitLevelUrl + id.ToString();
+			string result = await Constants.GetClient().GetStringAsync(url);
+			var deserializedResult = JsonConvert.DeserializeObject<UnitLevel>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<List<UnitLevel>> GetAllUnitLevels()
+		{
+			string result = await Constants.GetClient().GetStringAsync(Constants.UnitLevelUrl);
+			var deserializedResult = JsonConvert.DeserializeObject<List<UnitLevel>>(result);
+			return deserializedResult;
+		}
+
+		public static async Task<HttpResponseMessage> UpdateUnitLevel(UnitLevel unitLevel)
+		{
+			var url = Constants.UnitLevelUrl + unitLevel.UnitLevelId.ToString();
+			string jsonChore = JsonConvert.SerializeObject(unitLevel);
+			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
+			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
+			return result;
+		}
+
+		public static async Task<HttpResponseMessage> DeleteUnitLevel(UnitLevel unitLevel)
+		{
+			 var url = Constants.UnitLevelUrl + unitLevel.UnitLevelId.ToString();
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
 			return result;
 		}

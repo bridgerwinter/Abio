@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace Abio.Library.DatabaseModels;
 
-public partial class UnitLevel
+public partial class BodyPart
 {
-    public Guid UnitLevelId { get; set; }
+    public int BodyPartId { get; set; }
 
-    public string UnitRankName { get; set; }
+    public string BodyPartName { get; set; }
 
-    public virtual ICollection<HiredUnit> HiredUnit { get; set; } = new List<HiredUnit>();
+    public string BodyPartDescription { get; set; }
 }

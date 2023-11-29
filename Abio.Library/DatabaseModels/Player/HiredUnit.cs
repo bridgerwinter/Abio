@@ -11,9 +11,9 @@ public partial class HiredUnit
 
     public Guid? UserId { get; set; }
 
-    public Guid? UnitId { get; set; }
+    public int? UnitId { get; set; }
 
-    public Guid? UnitLevelId { get; set; }
+    public int? UnitLevel { get; set; }
 
     public Guid? HiredLeaderId { get; set; }
 
@@ -27,7 +27,7 @@ public partial class HiredUnit
 
     public virtual ICollection<UnitGroup> UnitGroup { get; set; } = new List<UnitGroup>();
 
-    public virtual UnitLevel UnitLevel { get; set; }
+    public virtual UnitLevel UnitLevelNavigation { get; set; }
 
     public virtual User User { get; set; }
 }
