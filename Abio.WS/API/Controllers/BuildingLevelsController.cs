@@ -33,7 +33,7 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/BuildingLevels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<BuildingLevel>> GetBuildingLevel(Guid id)
+        public async Task<ActionResult<BuildingLevel>> GetBuildingLevel(int id)
         {
           if (_context.BuildingLevel == null)
           {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/BuildingLevels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuildingLevel(Guid id, BuildingLevel buildingLevel)
+        public async Task<IActionResult> PutBuildingLevel(int id, BuildingLevel buildingLevel)
         {
             if (id != buildingLevel.BuildingLevelId)
             {
@@ -111,7 +111,7 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/BuildingLevels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBuildingLevel(Guid id)
+        public async Task<IActionResult> DeleteBuildingLevel(int id)
         {
             if (_context.BuildingLevel == null)
             {
@@ -129,7 +129,7 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        private bool BuildingLevelExists(Guid id)
+        private bool BuildingLevelExists(int id)
         {
             return (_context.BuildingLevel?.Any(e => e.BuildingLevelId == id)).GetValueOrDefault();
         }

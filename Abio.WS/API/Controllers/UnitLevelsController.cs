@@ -33,7 +33,7 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/UnitLevels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UnitLevel>> GetUnitLevel(Guid id)
+        public async Task<ActionResult<UnitLevel>> GetUnitLevel(int id)
         {
           if (_context.UnitLevel == null)
           {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/UnitLevels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUnitLevel(Guid id, UnitLevel unitLevel)
+        public async Task<IActionResult> PutUnitLevel(int id, UnitLevel unitLevel)
         {
             if (id != unitLevel.UnitLevelId)
             {
@@ -111,7 +111,7 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/UnitLevels/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUnitLevel(Guid id)
+        public async Task<IActionResult> DeleteUnitLevel(int id)
         {
             if (_context.UnitLevel == null)
             {
@@ -129,7 +129,7 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        private bool UnitLevelExists(Guid id)
+        private bool UnitLevelExists(int id)
         {
             return (_context.UnitLevel?.Any(e => e.UnitLevelId == id)).GetValueOrDefault();
         }

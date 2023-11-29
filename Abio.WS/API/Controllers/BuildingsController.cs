@@ -33,7 +33,7 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Buildings/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Building>> GetBuilding(Guid id)
+        public async Task<ActionResult<Building>> GetBuilding(int id)
         {
           if (_context.Building == null)
           {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Buildings/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuilding(Guid id, Building building)
+        public async Task<IActionResult> PutBuilding(int id, Building building)
         {
             if (id != building.BuildingId)
             {
@@ -111,7 +111,7 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Buildings/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBuilding(Guid id)
+        public async Task<IActionResult> DeleteBuilding(int id)
         {
             if (_context.Building == null)
             {
@@ -129,7 +129,7 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        private bool BuildingExists(Guid id)
+        private bool BuildingExists(int id)
         {
             return (_context.Building?.Any(e => e.BuildingId == id)).GetValueOrDefault();
         }

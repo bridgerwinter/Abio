@@ -33,7 +33,7 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Units/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Unit>> GetUnit(Guid id)
+        public async Task<ActionResult<Unit>> GetUnit(int id)
         {
           if (_context.Unit == null)
           {
@@ -71,7 +71,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Units/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUnit(Guid id, Unit unit)
+        public async Task<IActionResult> PutUnit(int id, Unit unit)
         {
             if (id != unit.UnitId)
             {
@@ -104,19 +104,9 @@ namespace Abio.WS.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Unit>> PostUnit(Unit unit)
         {
-          if (_context.Unit == null)
-          {
-              return Problem("Entity set 'AbioContext.Unit'  is null.");
-          }
-            unit.UnitId = Guid.NewGuid();
-            bool guidExists = await _context.Unit.AnyAsync(p => p.UnitId == unit.UnitId);
-            while (guidExists)
+            if (_context.Unit == null)
             {
-                if (guidExists)
-                {
-                    unit.UnitId = Guid.NewGuid();
-                }
-                guidExists = await _context.Unit.AnyAsync(p => p.UnitId == unit.UnitId);
+                return Problem("Entity set 'AbioContext.Units'  is null.");
             }
             _context.Unit.Add(unit);
             try
@@ -158,7 +148,7 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        private bool UnitExists(Guid id)
+        private bool UnitExists(int id)
         {
             return (_context.Unit?.Any(e => e.UnitId == id)).GetValueOrDefault();
         }

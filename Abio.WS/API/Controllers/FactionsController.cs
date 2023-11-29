@@ -33,7 +33,7 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Factions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Faction>> GetFaction(Guid id)
+        public async Task<ActionResult<Faction>> GetFaction(int id)
         {
           if (_context.Faction == null)
           {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Factions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFaction(Guid id, Faction faction)
+        public async Task<IActionResult> PutFaction(int id, Faction faction)
         {
             if (id != faction.FactionId)
             {
@@ -111,7 +111,7 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Factions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFaction(Guid id)
+        public async Task<IActionResult> DeleteFaction(int id)
         {
             if (_context.Faction == null)
             {
@@ -129,7 +129,7 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        private bool FactionExists(Guid id)
+        private bool FactionExists(int id)
         {
             return (_context.Faction?.Any(e => e.FactionId == id)).GetValueOrDefault();
         }

@@ -33,7 +33,7 @@ namespace Abio.WS.API.Controllers
 
         // GET: api/Technologies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Technology>> GetTechnology(Guid id)
+        public async Task<ActionResult<Technology>> GetTechnology(int id)
         {
           if (_context.Technology == null)
           {
@@ -52,7 +52,7 @@ namespace Abio.WS.API.Controllers
         // PUT: api/Technologies/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTechnology(Guid id, Technology technology)
+        public async Task<IActionResult> PutTechnology(int id, Technology technology)
         {
             if (id != technology.TechnologyId)
             {
@@ -111,7 +111,7 @@ namespace Abio.WS.API.Controllers
 
         // DELETE: api/Technologies/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTechnology(Guid id)
+        public async Task<IActionResult> DeleteTechnology(int id)
         {
             if (_context.Technology == null)
             {
@@ -129,7 +129,7 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        private bool TechnologyExists(Guid id)
+        private bool TechnologyExists(int id)
         {
             return (_context.Technology?.Any(e => e.TechnologyId == id)).GetValueOrDefault();
         }
