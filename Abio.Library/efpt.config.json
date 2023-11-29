@@ -104,6 +104,30 @@
          "ObjectType": 0
       },
       {
+         "Name": "[Player].[HiredUnitStatBody]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatCivil]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatCombat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatEmotion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatFeat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatMagic]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[Player].[ItemInventory]",
          "ObjectType": 0
       },
@@ -117,10 +141,6 @@
       },
       {
          "Name": "[Player].[ResourceInventory]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[Player].[UnitGroup]",
          "ObjectType": 0
       },
       {

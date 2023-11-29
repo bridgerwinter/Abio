@@ -9,21 +9,29 @@ public partial class HiredUnitStat
 {
     public Guid HiredUnitStatId { get; set; }
 
-    public Guid? HiredUnitId { get; set; }
+    public Guid? HiredUnitStatCombatId { get; set; }
 
-    public int? Leadership { get; set; }
+    public Guid? HiredUnitStatCivilId { get; set; }
 
-    public int? Attack { get; set; }
+    public Guid? HiredUnitStatMagicId { get; set; }
 
-    public int? Defense { get; set; }
+    public Guid? HiredUnitStatBodyId { get; set; }
 
-    public int? MovementSpeed { get; set; }
+    public Guid? HiredUnitStatEmotionId { get; set; }
 
-    public int? AttackSpeed { get; set; }
+    public Guid? HiredUnitStatFeatId { get; set; }
 
-    public int? MeleeRange { get; set; }
+    public virtual ICollection<HiredUnit> HiredUnit { get; set; } = new List<HiredUnit>();
 
-    public int? RangedRange { get; set; }
+    public virtual HiredUnitStatBody HiredUnitStatBody { get; set; }
 
-    public virtual HiredUnit HiredUnit { get; set; }
+    public virtual HiredUnitStatCivil HiredUnitStatCivil { get; set; }
+
+    public virtual HiredUnitStatCombat HiredUnitStatCombat { get; set; }
+
+    public virtual HiredUnitStatEmotion HiredUnitStatEmotion { get; set; }
+
+    public virtual HiredUnitStatFeat HiredUnitStatFeat { get; set; }
+
+    public virtual HiredUnitStatMagic HiredUnitStatMagic { get; set; }
 }

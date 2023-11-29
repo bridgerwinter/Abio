@@ -9,25 +9,19 @@ public partial class HiredUnit
 {
     public Guid HiredUnitId { get; set; }
 
-    public Guid? UserId { get; set; }
+    public string Name { get; set; }
+
+    public byte? Age { get; set; }
 
     public int? UnitId { get; set; }
 
-    public int? UnitLevel { get; set; }
+    public Guid? UserId { get; set; }
 
-    public Guid? HiredLeaderId { get; set; }
+    public Guid? HiredUnitStatId { get; set; }
 
-    public byte[] created_at { get; set; }
-
-    public virtual HiredLeader HiredLeader { get; set; }
-
-    public virtual ICollection<HiredUnitStat> HiredUnitStat { get; set; } = new List<HiredUnitStat>();
+    public virtual HiredUnitStat HiredUnitStat { get; set; }
 
     public virtual Unit Unit { get; set; }
-
-    public virtual ICollection<UnitGroup> UnitGroup { get; set; } = new List<UnitGroup>();
-
-    public virtual UnitLevel UnitLevelNavigation { get; set; }
 
     public virtual User User { get; set; }
 }

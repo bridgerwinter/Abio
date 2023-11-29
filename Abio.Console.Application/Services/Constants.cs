@@ -23,10 +23,15 @@ namespace Abio.Console.Application.Services
 		public static string HiredLeaderStatUrl = string.Concat(RestUrl,"HiredLeaderStats");
 		public static string HiredUnitUrl = string.Concat(RestUrl,"HiredUnits");
 		public static string HiredUnitStatUrl = string.Concat(RestUrl,"HiredUnitStats");
+		public static string HiredUnitStatBodyUrl = string.Concat(RestUrl,"HiredUnitStatBodys");
+		public static string HiredUnitStatCivilUrl = string.Concat(RestUrl,"HiredUnitStatCivils");
+		public static string HiredUnitStatCombatUrl = string.Concat(RestUrl,"HiredUnitStatCombats");
+		public static string HiredUnitStatEmotionUrl = string.Concat(RestUrl,"HiredUnitStatEmotions");
+		public static string HiredUnitStatFeatUrl = string.Concat(RestUrl,"HiredUnitStatFeats");
+		public static string HiredUnitStatMagicUrl = string.Concat(RestUrl,"HiredUnitStatMagics");
 		public static string ItemInventoryUrl = string.Concat(RestUrl,"ItemInventorys");
 		public static string ResearchedTechnologyUrl = string.Concat(RestUrl,"ResearchedTechnologys");
 		public static string ResourceInventoryUrl = string.Concat(RestUrl,"ResourceInventorys");
-		public static string UnitGroupUrl = string.Concat(RestUrl,"UnitGroups");
 		public static string UserCityUrl = string.Concat(RestUrl,"UserCitys");
 		public static string UserCityLeaderUrl = string.Concat(RestUrl,"UserCityLeaders");
 		public static string UserUrl = string.Concat(RestUrl,"Users");

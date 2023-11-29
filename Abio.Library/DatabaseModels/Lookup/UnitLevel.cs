@@ -12,6 +12,4 @@ public partial class UnitLevel
     public string UnitLevelName { get; set; }
 
     public string UnitLevelDescription { get; set; }
-
-    public virtual ICollection<HiredUnit> HiredUnit { get; set; } = new List<HiredUnit>();
 }

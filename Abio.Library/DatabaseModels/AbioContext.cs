@@ -39,6 +39,18 @@ public partial class AbioContext : DbContext
 
     public virtual DbSet<HiredUnitStat> HiredUnitStat { get; set; }
 
+    public virtual DbSet<HiredUnitStatBody> HiredUnitStatBody { get; set; }
+
+    public virtual DbSet<HiredUnitStatCivil> HiredUnitStatCivil { get; set; }
+
+    public virtual DbSet<HiredUnitStatCombat> HiredUnitStatCombat { get; set; }
+
+    public virtual DbSet<HiredUnitStatEmotion> HiredUnitStatEmotion { get; set; }
+
+    public virtual DbSet<HiredUnitStatFeat> HiredUnitStatFeat { get; set; }
+
+    public virtual DbSet<HiredUnitStatMagic> HiredUnitStatMagic { get; set; }
+
     public virtual DbSet<Item> Item { get; set; }
 
     public virtual DbSet<ItemInventory> ItemInventory { get; set; }
@@ -62,8 +74,6 @@ public partial class AbioContext : DbContext
     public virtual DbSet<Technology> Technology { get; set; }
 
     public virtual DbSet<Unit> Unit { get; set; }
-
-    public virtual DbSet<UnitGroup> UnitGroup { get; set; }
 
     public virtual DbSet<UnitLevel> UnitLevel { get; set; }
 
@@ -236,44 +246,206 @@ public partial class AbioContext : DbContext
 
         modelBuilder.Entity<HiredUnit>(entity =>
         {
-            entity.HasKey(e => e.HiredUnitId).HasName("PK__HiredUni__68A54515802B0B4C");
+            entity.HasKey(e => e.HiredUnitId).HasName("PK__HiredUni__68A54515CE5D2F5D");
 
             entity.ToTable("HiredUnit", "Player");
 
-            entity.Property(e => e.HiredUnitId).ValueGeneratedNever();
-            entity.Property(e => e.created_at)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+            entity.Property(e => e.HiredUnitId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.Age).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Name)
+                .HasMaxLength(24)
+                .IsUnicode(false);
 
-            entity.HasOne(d => d.HiredLeader).WithMany(p => p.HiredUnit)
-                .HasForeignKey(d => d.HiredLeaderId)
-                .HasConstraintName("FK__HiredUnit__Hired__6D4D2A16");
+            entity.HasOne(d => d.HiredUnitStat).WithMany(p => p.HiredUnit)
+                .HasForeignKey(d => d.HiredUnitStatId)
+                .HasConstraintName("FK__HiredUnit__Hired__00EA0E6F");
 
             entity.HasOne(d => d.Unit).WithMany(p => p.HiredUnit)
                 .HasForeignKey(d => d.UnitId)
-                .HasConstraintName("FK__HiredUnit__UnitI__77CAB889");
-
-            entity.HasOne(d => d.UnitLevelNavigation).WithMany(p => p.HiredUnit)
-                .HasForeignKey(d => d.UnitLevel)
-                .HasConstraintName("FK__HiredUnit__UnitL__78BEDCC2");
+                .HasConstraintName("FK__HiredUnit__UnitI__7F01C5FD");
 
             entity.HasOne(d => d.User).WithMany(p => p.HiredUnit)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__HiredUnit__UserI__76D69450");
+                .HasConstraintName("FK__HiredUnit__UserI__7FF5EA36");
         });
 
         modelBuilder.Entity<HiredUnitStat>(entity =>
         {
-            entity.HasKey(e => e.HiredUnitStatId).HasName("PK__HiredUni__976C0A016304B2F8");
+            entity.HasKey(e => e.HiredUnitStatId).HasName("PK__HiredUni__976C0A01D568DA02");
 
             entity.ToTable("HiredUnitStat", "Player");
 
-            entity.Property(e => e.HiredUnitStatId).ValueGeneratedNever();
+            entity.Property(e => e.HiredUnitStatId).HasDefaultValueSql("(newsequentialid())");
 
-            entity.HasOne(d => d.HiredUnit).WithMany(p => p.HiredUnitStat)
-                .HasForeignKey(d => d.HiredUnitId)
-                .HasConstraintName("FK__HiredUnit__Hired__6E414E4F");
+            entity.HasOne(d => d.HiredUnitStatBody).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitStatBodyId)
+                .HasConstraintName("FK__HiredUnit__Hired__7854C86E");
+
+            entity.HasOne(d => d.HiredUnitStatCivil).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitStatCivilId)
+                .HasConstraintName("FK__HiredUnit__Hired__766C7FFC");
+
+            entity.HasOne(d => d.HiredUnitStatCombat).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitStatCombatId)
+                .HasConstraintName("FK__HiredUnit__Hired__75785BC3");
+
+            entity.HasOne(d => d.HiredUnitStatEmotion).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitStatEmotionId)
+                .HasConstraintName("FK__HiredUnit__Hired__7948ECA7");
+
+            entity.HasOne(d => d.HiredUnitStatFeat).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitStatFeatId)
+                .HasConstraintName("FK__HiredUnit__Hired__7A3D10E0");
+
+            entity.HasOne(d => d.HiredUnitStatMagic).WithMany(p => p.HiredUnitStat)
+                .HasForeignKey(d => d.HiredUnitStatMagicId)
+                .HasConstraintName("FK__HiredUnit__Hired__7760A435");
+        });
+
+        modelBuilder.Entity<HiredUnitStatBody>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatBodyId).HasName("PK__HiredUni__99967EFA12D4AA1F");
+
+            entity.ToTable("HiredUnitStatBody", "Player");
+
+            entity.Property(e => e.HiredUnitStatBodyId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.Arteries).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Brain).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Butt).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Chest).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Genitals).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Hair).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Head).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Heart).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Larynx).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftEar).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftElbow).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftEye).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftFoot).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftHand).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftKnee).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftLowerArm).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftLowerLeg).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftShoulder).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftUpperArm).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LeftUpperLeg).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Lungs).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Mouth).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Neck).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Nose).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightEar).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightElbow).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightEye).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightFoot).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightHand).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightKnee).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightLowerArm).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightLowerLeg).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightShoulder).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightUpperArm).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RightUpperLeg).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Stomach).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Teeth).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Trachea).HasDefaultValueSql("((0))");
+        });
+
+        modelBuilder.Entity<HiredUnitStatCivil>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatCivilId).HasName("PK__HiredUni__E1F82CE55128B63B");
+
+            entity.ToTable("HiredUnitStatCivil", "Player");
+
+            entity.Property(e => e.HiredUnitStatCivilId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.Adaptability).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Alchemy).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Artifice).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Blacksmithing).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Clothier).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Cobbling).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Comedy).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Construction).HasDefaultValueSql("((0))");
+            entity.Property(e => e.CriticalThinking).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Deception).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Farming).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Fletching).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Hatter).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Horsemanship).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Leadership).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Leatherworking).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Medicine).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Mining).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Music).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Negotiation).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Painting).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Persuasion).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Planning).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Quarrying).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Teamwork).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Woodcutting).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Writing).HasDefaultValueSql("((0))");
+        });
+
+        modelBuilder.Entity<HiredUnitStatCombat>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatCombatId).HasName("PK__HiredUni__ACEC443E45128889");
+
+            entity.ToTable("HiredUnitStatCombat", "Player");
+
+            entity.Property(e => e.HiredUnitStatCombatId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.Archery).HasDefaultValueSql("((0))");
+            entity.Property(e => e.DualWielding).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Dueling).HasDefaultValueSql("((0))");
+            entity.Property(e => e.HeavyArmor).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LightArmor).HasDefaultValueSql("((0))");
+            entity.Property(e => e.LongBlade).HasDefaultValueSql("((0))");
+            entity.Property(e => e.MeleeDefence).HasDefaultValueSql("((0))");
+            entity.Property(e => e.RangedDefence).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Shield).HasDefaultValueSql("((0))");
+            entity.Property(e => e.ShortBlade).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Siege).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Staff).HasDefaultValueSql("((0))");
+            entity.Property(e => e.ThrownWeapons).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Unarmed).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Unarmored).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Ward).HasDefaultValueSql("((0))");
+        });
+
+        modelBuilder.Entity<HiredUnitStatEmotion>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatEmotionId).HasName("PK__HiredUni__7DD21A9BAF15B05A");
+
+            entity.ToTable("HiredUnitStatEmotion", "Player");
+
+            entity.Property(e => e.HiredUnitStatEmotionId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.Angry).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Fear).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Happy).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Sad).HasDefaultValueSql("((0))");
+        });
+
+        modelBuilder.Entity<HiredUnitStatFeat>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatFeatId).HasName("PK__HiredUni__97AD709DA82F6A60");
+
+            entity.ToTable("HiredUnitStatFeat", "Player");
+
+            entity.Property(e => e.HiredUnitStatFeatId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.HasNoble).HasDefaultValueSql("((0))");
+            entity.Property(e => e.HasQuick).HasDefaultValueSql("((0))");
+            entity.Property(e => e.HasSavant).HasDefaultValueSql("((0))");
+            entity.Property(e => e.HasSurvivor).HasDefaultValueSql("((0))");
+        });
+
+        modelBuilder.Entity<HiredUnitStatMagic>(entity =>
+        {
+            entity.HasKey(e => e.HiredUnitStatMagicId).HasName("PK__HiredUni__E36A5DE782695BC0");
+
+            entity.ToTable("HiredUnitStatMagic", "Player");
+
+            entity.Property(e => e.HiredUnitStatMagicId).HasDefaultValueSql("(newsequentialid())");
+            entity.Property(e => e.Death).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Life).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Nature).HasDefaultValueSql("((0))");
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -455,23 +627,6 @@ public partial class AbioContext : DbContext
             entity.HasOne(d => d.Faction).WithMany(p => p.Unit)
                 .HasForeignKey(d => d.FactionId)
                 .HasConstraintName("FK__Unit__FactionId__04308F6E");
-        });
-
-        modelBuilder.Entity<UnitGroup>(entity =>
-        {
-            entity.HasKey(e => e.UnitGroupId).HasName("PK__UnitGrou__46226B183D55728E");
-
-            entity.ToTable("UnitGroup", "Player");
-
-            entity.Property(e => e.UnitGroupId).ValueGeneratedNever();
-
-            entity.HasOne(d => d.HiredLeader).WithMany(p => p.UnitGroup)
-                .HasForeignKey(d => d.HiredLeaderId)
-                .HasConstraintName("FK__UnitGroup__Hired__711DBAFA");
-
-            entity.HasOne(d => d.HiredUnit).WithMany(p => p.UnitGroup)
-                .HasForeignKey(d => d.HiredUnitId)
-                .HasConstraintName("FK__UnitGroup__Hired__702996C1");
         });
 
         modelBuilder.Entity<UnitLevel>(entity =>

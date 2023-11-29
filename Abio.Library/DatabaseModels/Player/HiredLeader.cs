@@ -19,10 +19,6 @@ public partial class HiredLeader
 
     public virtual ICollection<HiredLeaderStat> HiredLeaderStat { get; set; } = new List<HiredLeaderStat>();
 
-    public virtual ICollection<HiredUnit> HiredUnit { get; set; } = new List<HiredUnit>();
-
-    public virtual ICollection<UnitGroup> UnitGroup { get; set; } = new List<UnitGroup>();
-
     public virtual User User { get; set; }
 
     public virtual ICollection<UserCityLeader> UserCityLeader { get; set; } = new List<UserCityLeader>();
