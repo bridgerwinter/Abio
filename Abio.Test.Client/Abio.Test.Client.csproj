@@ -68,4 +68,10 @@
 	  <ProjectReference Include="..\Abio.WS\Abio.WS.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="UI\Views\HomePageView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
