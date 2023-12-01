@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 
-namespace Abio.Console.Application.Services
+namespace Abio.Library.Services
 {
     internal class Constants
     {        

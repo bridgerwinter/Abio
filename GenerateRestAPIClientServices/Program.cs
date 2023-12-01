@@ -6,6 +6,10 @@ using Newtonsoft.Json;
 
 public class Program
 {
+    public static readonly string path = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\";
+    public static readonly string apiServiceFiles = "..\\..\\..\\..\\Abio.Library\\Services\\ApiService";
+    public static readonly string constantsFile = "..\\..\\..\\..\\Abio.Library\\Services\\Constants";
+
     static void Main(string[] args)
     {
         string idType = "Guid";
@@ -23,7 +27,7 @@ public class Program
 
         if (File.Exists("..\\..\\..\\..\\Abio.Library\\DatabaseModels\\AbioContext.cs"))
         {
-            string header = "using Abio.Library.DatabaseModels;\r\nusing Newtonsoft.Json;\r\nusing System.Text;\r\nusing Attribute = Abio.Library.DatabaseModels.Attribute;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n\tpublic partial class ApiService\r\n\t{";
+            string header = "using Abio.Library.DatabaseModels;\r\nusing Newtonsoft.Json;\r\nusing System.Text;\r\nusing Attribute = Abio.Library.DatabaseModels.Attribute;\r\n\r\nnamespace Abio.Library.Services\r\n{\r\n\tpublic partial class ApiService\r\n\t{";
             string footer = "\t}\r\n}";
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendLine(header);
@@ -50,11 +54,6 @@ public class Program
 
     }
 
-    public static readonly string path = "..\\..\\..\\..\\Abio.Library\\DatabaseModels\\";
-    public static readonly string apiServiceFiles = "..\\..\\..\\..\\Abio.Console.Application\\Services\\ApiService";
-    public static readonly string constantsFile = "..\\..\\..\\..\\Abio.Console.Application\\Services\\Constants";
-
-
     public static void GenerateFiles(string fileText, string filePath)
     {
         File.WriteAllText(string.Concat(filePath,".cs"), fileText);
@@ -63,7 +62,7 @@ public class Program
     public static void GenerateRestUrls(List<string> abioClasses)
     {
         StringBuilder stringBuilder = new StringBuilder();
-        string header = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing System.Net.Http;\r\n\r\nnamespace Abio.Console.Application.Services\r\n{\r\n    internal class Constants\r\n    {        \r\n        private static HttpClient client = new HttpClient();\r\n        public static HttpClient GetClient()\r\n        {\r\n            return client;\r\n        }\r\n        public static string RestUrl = \"http://localhost:5096/api/\";";
+        string header = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Text;\r\nusing System.Threading.Tasks;\r\nusing System.Net.Http;\r\n\r\nnamespace Abio.Library.Services\r\n{\r\n    internal class Constants\r\n    {        \r\n        private static HttpClient client = new HttpClient();\r\n        public static HttpClient GetClient()\r\n        {\r\n            return client;\r\n        }\r\n        public static string RestUrl = \"http://localhost:5096/api/\";";
         string footer = "\t}\r\n}";
         stringBuilder.AppendLine(header).AppendLine();
         foreach (var abioClass in abioClasses)

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Attribute = Abio.Library.DatabaseModels.Attribute;
 
-namespace Abio.Console.Application.Services
+namespace Abio.Library.Services
 {
 	public partial class ApiService
 	{

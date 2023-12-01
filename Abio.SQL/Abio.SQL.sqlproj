@@ -60,7 +60,7 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\CreateAllTables.sql" />
+    <None Include="Tables\CreateAllTables.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\DropAllTables.sql" />

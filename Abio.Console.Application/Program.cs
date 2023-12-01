@@ -3,7 +3,7 @@ using System.IO;
 using Abio.WS.API;
 using Abio.WS.API.Controllers;
 using Abio.Library.DatabaseModels;
-using Abio.Console.Application.Services;
+using Abio.Library.Services;
 using System.ComponentModel;
 using System.Reflection;
 using System.Data.Entity.Core.Metadata.Edm;

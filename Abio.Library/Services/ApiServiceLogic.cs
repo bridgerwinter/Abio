@@ -1,4 +1,5 @@
 ﻿using Abio.Library.DatabaseModels;
+using Abio.Library.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Abio.Console.Application.Services
+namespace Abio.Library.Services
 {
     public partial class ApiService
     {
