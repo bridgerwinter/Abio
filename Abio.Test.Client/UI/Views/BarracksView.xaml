@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Abio.Test.Client.UI.Views.BarracksView"
+             xmlns:local="clr-namespace:Abio.Test.Client.UI.ViewModels"
+             Title="BarracksView">
+    
+    <ContentPage.BindingContext>
+        <local:BarracksViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!--<Image Source="" Grid.Column="0"/>-->
+                        <StackLayout Grid.Column="1">
+                            <Label Text=""/>
+                            <Label Text=""/>
+                            <!-- Add more bindings as needed -->
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

@@ -8,11 +8,24 @@
     <ContentPage.BindingContext>
         <local:HomePageViewModel />
     </ContentPage.BindingContext>
-    
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition>*</RowDefinition>
+                <RowDefinition>*</RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition>*</ColumnDefinition>
+                <ColumnDefinition>*</ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Text="Hire Unit" Command="{Binding CreateUnitCommand}"></Button>
+            <CollectionView ItemsSource="{Binding HiredUnits}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Name}"></Label>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

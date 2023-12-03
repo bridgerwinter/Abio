@@ -7,9 +7,14 @@
     Shell.FlyoutBehavior="Disabled"
     Title="Abio.Test.Client">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:HomePageView}"
-        Route="MainPage" />
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Home"
+                      Route="home" 
+                      ContentTemplate="{DataTemplate local:MainMenuView}" />
+        <ShellContent Title="Army List" 
+                      ContentTemplate="{DataTemplate local:HomePageView}" />
+        <ShellContent Title="Barracks" 
+                      ContentTemplate="{DataTemplate local:BarracksView}" />
+    </FlyoutItem>
 
 </Shell>
