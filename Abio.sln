@@ -66,6 +66,7 @@ Global
 		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.TestClientRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.TestClientRelease|Any CPU.Build.0 = Release|Any CPU
+		{DE17634C-7BFA-42DB-AC8A-0BC34E79F04E}.TestClientRelease|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 using Abio.Library.DatabaseModels;
 using Abio.Library.Services;
 using Abio.Test.Client.Business.Builder;
+using Abio.Test.Client.UI.Views;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Collections.ObjectModel;
@@ -61,10 +62,13 @@ public class HomePageViewModel : INotifyPropertyChanged
     #region Methods
     private async void CreateUnit()
     {
-        HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();
-        var unit = hiredUnitDefaultBuilder.Build();
-        await ApiService.CreateHiredUnit(unit);
-        await RefreshUnits();
+        await Shell.Current.GoToAsync("//HireUnit");
+        //Window window = new Window(new HireUnitScreenView());
+        //Application.Current.(window);
+        //HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();
+        //var unit = hiredUnitDefaultBuilder.Build();
+        //await ApiService.CreateHiredUnit(unit);
+        //await RefreshUnits();
     }
 
     public async Task RefreshUnits()

@@ -9,12 +9,16 @@
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home"
-                      Route="home" 
+                      Route="Home" 
                       ContentTemplate="{DataTemplate local:MainMenuView}" />
-        <ShellContent Title="Army List" 
+        <ShellContent Title="Army List"
+                      Route="ArmyList"
                       ContentTemplate="{DataTemplate local:HomePageView}" />
         <ShellContent Title="Barracks" 
+                      Route="Barracks"
                       ContentTemplate="{DataTemplate local:BarracksView}" />
     </FlyoutItem>
-
+    <ShellContent Title="HireUnit"
+                      Route="HireUnit"
+                      ContentTemplate="{DataTemplate local:HireUnitView}" />
 </Shell>
