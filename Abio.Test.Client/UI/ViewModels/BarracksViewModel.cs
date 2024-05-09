@@ -1,5 +1,6 @@
 ﻿using Abio.Library.DatabaseModels;
 using Abio.Library.Services;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,6 +35,10 @@ namespace Abio.Test.Client.UI.ViewModels
             this.AllUnits = new ObservableCollection<Unit>(units);
         }
 
+        public RelayCommand<int> HireUnitCommand => _hireUnitCommand ??= new RelayCommand<int>(HireUnitAsync);
+        private RelayCommand<int> _hireUnitCommand;
+
+
         public ObservableCollection<Unit> AllUnits
         {
             get
@@ -48,6 +53,14 @@ namespace Abio.Test.Client.UI.ViewModels
         }
 
         private ObservableCollection<Unit> _allUnits = new ObservableCollection<Unit>();
+
+        //Generate Helper during initialization? Like how we pass in the interfaces at work. 
+        //To do update all ApiServices that get a specific value with a "/"
+        // Refresh Army List
+        private async void HireUnitAsync(int unitId)
+        {
+            await Business.ApiHelper.HireUnitHelper.HireUnitAsync(unitId);
+        }
 
     }
 }

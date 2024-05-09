@@ -12,16 +12,16 @@ namespace Abio.Test.Client.Business.Builder
     {
         readonly Guid testguid = Guid.Parse("77754478-B688-42FB-BD4C-26E3831F1E2B");
 
-        public HiredUnit Build()
+        public HiredUnit Build(Unit unit)
         {
-            HiredUnit unit = new HiredUnit();
-            unit.Name = "Test Unit2";
-            unit.Age = 18;
-            unit.UnitId = (int?)UnitType.Militia;
-            unit.UserId = testguid;
+            HiredUnit hiredUnit = new HiredUnit();
+            hiredUnit.Name = unit.UnitName;
+            hiredUnit.Age = (byte?)new Random().Next(18,45);
+            hiredUnit.UnitId = unit.UnitId;
+            hiredUnit.UserId = testguid;
 
-            unit.HiredUnitStat = HiredUnitStatBuilder();
-            return unit;
+            hiredUnit.HiredUnitStat = HiredUnitStatBuilder();
+            return hiredUnit;
         }
 
         public HiredUnitStat HiredUnitStatBuilder()

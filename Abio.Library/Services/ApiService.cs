@@ -1226,7 +1226,7 @@ namespace Abio.Library.Services
 
 		public static async Task<Unit> GetUnit(int id)
 		{
-			var url = Constants.UnitUrl + id.ToString();
+			var url = Constants.UnitUrl + "/" + id.ToString();
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Unit>(result);
 			return deserializedResult;

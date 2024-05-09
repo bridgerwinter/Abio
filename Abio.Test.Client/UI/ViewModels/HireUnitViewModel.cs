@@ -20,7 +20,7 @@ namespace Abio.Test.Client.UI.ViewModels
         public void Initialize()
         {
             HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();
-            DefaultHiredUnit = hiredUnitDefaultBuilder.Build();
+            //DefaultHiredUnit = hiredUnitDefaultBuilder.Build();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

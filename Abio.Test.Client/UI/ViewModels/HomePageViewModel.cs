@@ -65,10 +65,10 @@ public class HomePageViewModel : INotifyPropertyChanged
         await Shell.Current.GoToAsync("//HireUnit");
         //Window window = new Window(new HireUnitScreenView());
         //Application.Current.(window);
-        HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();
-        var unit = hiredUnitDefaultBuilder.Build();
-        await ApiService.CreateHiredUnit(unit);
-        await RefreshUnits();
+        //HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();
+        //var unit = hiredUnitDefaultBuilder.Build();
+        //await ApiService.CreateHiredUnit(unit);
+        //await RefreshUnits();
     }
 
     public async Task RefreshUnits()

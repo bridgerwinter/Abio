@@ -19,10 +19,11 @@
         <CollectionView ItemsSource="{Binding AllUnits}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <HorizontalStackLayout>
+                    <VerticalStackLayout>
                         <Label Text="{Binding UnitName}" FontSize="Medium" VerticalTextAlignment="Center"/>
                         <Label Text="{Binding UnitDescription}" FontAttributes="Italic" FontSize="Small" VerticalTextAlignment="End"/>
-                    </HorizontalStackLayout>
+                        <Button Text="Hire" Command="{Binding Source={RelativeSource AncestorType={x:Type local:BarracksViewModel}}, Path=HireUnitCommand}" CommandParameter="{Binding UnitId}"/>
+                    </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
