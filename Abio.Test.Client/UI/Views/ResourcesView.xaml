@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Abio.Test.Client.UI.Views.ResourcesView"             
+             xmlns:local="clr-namespace:Abio.Test.Client.UI.ViewModels"
+             Title="ResourcesView">
+
+    <ContentPage.BindingContext>
+        <local:ResourcesViewModel/>
+    </ContentPage.BindingContext>
+
+    <!-- Make this into resource times and bind it to a collection view -->
+    <VerticalStackLayout>
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Gatherable Wheat: "/>
+                <Label Text="{Binding GatherableWheat}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Gatherable Gold:  "/>
+                <Label Text="{Binding GatherableGold}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Total Wheat:  "/>
+                <Label Text="{Binding TotalWheat}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <Label Text="Total Gold:  "/>
+                <Label Text="{Binding TotalGold}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <Button Text="Get Wheat" Command="{Binding Source={RelativeSource AncestorType={x:Type local:ResourcesViewModel}}, Path=GatherWheatCommand}" />
+        <Button Text="Get Wood" Command="{Binding Source={RelativeSource AncestorType={x:Type local:ResourcesViewModel}}, Path=GatherWoodCommand}" />
+        <Button Text="Get Gold" Command="{Binding Source={RelativeSource AncestorType={x:Type local:ResourcesViewModel}}, Path=GatherGoldCommand}" />
+    </VerticalStackLayout>
+</ContentPage>
