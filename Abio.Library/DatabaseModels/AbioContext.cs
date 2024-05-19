@@ -67,6 +67,8 @@ public partial class AbioContext : DbContext
 
     public virtual DbSet<Resource> Resource { get; set; }
 
+    public virtual DbSet<ResourceGain> ResourceGain { get; set; }
+
     public virtual DbSet<ResourceInventory> ResourceInventory { get; set; }
 
     public virtual DbSet<Skill> Skill { get; set; }
@@ -251,7 +253,7 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnit", "Player");
 
             entity.Property(e => e.HiredUnitId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.Age).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Age).HasDefaultValue((byte)0);
             entity.Property(e => e.Name)
                 .HasMaxLength(24)
                 .IsUnicode(false);
@@ -309,44 +311,44 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnitStatBody", "Player");
 
             entity.Property(e => e.HiredUnitStatBodyId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.Arteries).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Brain).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Butt).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Chest).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Genitals).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Hair).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Head).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Heart).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Larynx).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftEar).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftElbow).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftEye).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftFoot).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftHand).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftKnee).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftLowerArm).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftLowerLeg).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftShoulder).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftUpperArm).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LeftUpperLeg).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Lungs).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Mouth).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Neck).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Nose).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightEar).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightElbow).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightEye).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightFoot).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightHand).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightKnee).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightLowerArm).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightLowerLeg).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightShoulder).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightUpperArm).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RightUpperLeg).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Stomach).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Teeth).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Trachea).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Arteries).HasDefaultValue((byte)0);
+            entity.Property(e => e.Brain).HasDefaultValue((byte)0);
+            entity.Property(e => e.Butt).HasDefaultValue((byte)0);
+            entity.Property(e => e.Chest).HasDefaultValue((byte)0);
+            entity.Property(e => e.Genitals).HasDefaultValue((byte)0);
+            entity.Property(e => e.Hair).HasDefaultValue((byte)0);
+            entity.Property(e => e.Head).HasDefaultValue((byte)0);
+            entity.Property(e => e.Heart).HasDefaultValue((byte)0);
+            entity.Property(e => e.Larynx).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftEar).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftElbow).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftEye).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftFoot).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftHand).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftKnee).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftLowerArm).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftLowerLeg).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftShoulder).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftUpperArm).HasDefaultValue((byte)0);
+            entity.Property(e => e.LeftUpperLeg).HasDefaultValue((byte)0);
+            entity.Property(e => e.Lungs).HasDefaultValue((byte)0);
+            entity.Property(e => e.Mouth).HasDefaultValue((byte)0);
+            entity.Property(e => e.Neck).HasDefaultValue((byte)0);
+            entity.Property(e => e.Nose).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightEar).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightElbow).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightEye).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightFoot).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightHand).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightKnee).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightLowerArm).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightLowerLeg).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightShoulder).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightUpperArm).HasDefaultValue((byte)0);
+            entity.Property(e => e.RightUpperLeg).HasDefaultValue((byte)0);
+            entity.Property(e => e.Stomach).HasDefaultValue((byte)0);
+            entity.Property(e => e.Teeth).HasDefaultValue((byte)0);
+            entity.Property(e => e.Trachea).HasDefaultValue((byte)0);
         });
 
         modelBuilder.Entity<HiredUnitStatCivil>(entity =>
@@ -356,33 +358,33 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnitStatCivil", "Player");
 
             entity.Property(e => e.HiredUnitStatCivilId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.Adaptability).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Alchemy).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Artifice).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Blacksmithing).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Clothier).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Cobbling).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Comedy).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Construction).HasDefaultValueSql("((0))");
-            entity.Property(e => e.CriticalThinking).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Deception).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Farming).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Fletching).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Hatter).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Horsemanship).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Leadership).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Leatherworking).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Medicine).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Mining).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Music).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Negotiation).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Painting).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Persuasion).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Planning).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Quarrying).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Teamwork).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Woodcutting).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Writing).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Adaptability).HasDefaultValue((byte)0);
+            entity.Property(e => e.Alchemy).HasDefaultValue((byte)0);
+            entity.Property(e => e.Artifice).HasDefaultValue((byte)0);
+            entity.Property(e => e.Blacksmithing).HasDefaultValue((byte)0);
+            entity.Property(e => e.Clothier).HasDefaultValue((byte)0);
+            entity.Property(e => e.Cobbling).HasDefaultValue((byte)0);
+            entity.Property(e => e.Comedy).HasDefaultValue((byte)0);
+            entity.Property(e => e.Construction).HasDefaultValue((byte)0);
+            entity.Property(e => e.CriticalThinking).HasDefaultValue((byte)0);
+            entity.Property(e => e.Deception).HasDefaultValue((byte)0);
+            entity.Property(e => e.Farming).HasDefaultValue((byte)0);
+            entity.Property(e => e.Fletching).HasDefaultValue((byte)0);
+            entity.Property(e => e.Hatter).HasDefaultValue((byte)0);
+            entity.Property(e => e.Horsemanship).HasDefaultValue((byte)0);
+            entity.Property(e => e.Leadership).HasDefaultValue((byte)0);
+            entity.Property(e => e.Leatherworking).HasDefaultValue((byte)0);
+            entity.Property(e => e.Medicine).HasDefaultValue((byte)0);
+            entity.Property(e => e.Mining).HasDefaultValue((byte)0);
+            entity.Property(e => e.Music).HasDefaultValue((byte)0);
+            entity.Property(e => e.Negotiation).HasDefaultValue((byte)0);
+            entity.Property(e => e.Painting).HasDefaultValue((byte)0);
+            entity.Property(e => e.Persuasion).HasDefaultValue((byte)0);
+            entity.Property(e => e.Planning).HasDefaultValue((byte)0);
+            entity.Property(e => e.Quarrying).HasDefaultValue((byte)0);
+            entity.Property(e => e.Teamwork).HasDefaultValue((byte)0);
+            entity.Property(e => e.Woodcutting).HasDefaultValue((byte)0);
+            entity.Property(e => e.Writing).HasDefaultValue((byte)0);
         });
 
         modelBuilder.Entity<HiredUnitStatCombat>(entity =>
@@ -392,22 +394,22 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnitStatCombat", "Player");
 
             entity.Property(e => e.HiredUnitStatCombatId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.Archery).HasDefaultValueSql("((0))");
-            entity.Property(e => e.DualWielding).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Dueling).HasDefaultValueSql("((0))");
-            entity.Property(e => e.HeavyArmor).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LightArmor).HasDefaultValueSql("((0))");
-            entity.Property(e => e.LongBlade).HasDefaultValueSql("((0))");
-            entity.Property(e => e.MeleeDefence).HasDefaultValueSql("((0))");
-            entity.Property(e => e.RangedDefence).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Shield).HasDefaultValueSql("((0))");
-            entity.Property(e => e.ShortBlade).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Siege).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Staff).HasDefaultValueSql("((0))");
-            entity.Property(e => e.ThrownWeapons).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Unarmed).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Unarmored).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Ward).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Archery).HasDefaultValue((byte)0);
+            entity.Property(e => e.DualWielding).HasDefaultValue((byte)0);
+            entity.Property(e => e.Dueling).HasDefaultValue((byte)0);
+            entity.Property(e => e.HeavyArmor).HasDefaultValue((byte)0);
+            entity.Property(e => e.LightArmor).HasDefaultValue((byte)0);
+            entity.Property(e => e.LongBlade).HasDefaultValue((byte)0);
+            entity.Property(e => e.MeleeDefence).HasDefaultValue((byte)0);
+            entity.Property(e => e.RangedDefence).HasDefaultValue((byte)0);
+            entity.Property(e => e.Shield).HasDefaultValue((byte)0);
+            entity.Property(e => e.ShortBlade).HasDefaultValue((byte)0);
+            entity.Property(e => e.Siege).HasDefaultValue((byte)0);
+            entity.Property(e => e.Staff).HasDefaultValue((byte)0);
+            entity.Property(e => e.ThrownWeapons).HasDefaultValue((byte)0);
+            entity.Property(e => e.Unarmed).HasDefaultValue((byte)0);
+            entity.Property(e => e.Unarmored).HasDefaultValue((byte)0);
+            entity.Property(e => e.Ward).HasDefaultValue((byte)0);
         });
 
         modelBuilder.Entity<HiredUnitStatEmotion>(entity =>
@@ -417,10 +419,10 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnitStatEmotion", "Player");
 
             entity.Property(e => e.HiredUnitStatEmotionId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.Angry).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Fear).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Happy).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Sad).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Angry).HasDefaultValue((byte)0);
+            entity.Property(e => e.Fear).HasDefaultValue((byte)0);
+            entity.Property(e => e.Happy).HasDefaultValue((byte)0);
+            entity.Property(e => e.Sad).HasDefaultValue((byte)0);
         });
 
         modelBuilder.Entity<HiredUnitStatFeat>(entity =>
@@ -430,10 +432,10 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnitStatFeat", "Player");
 
             entity.Property(e => e.HiredUnitStatFeatId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.HasNoble).HasDefaultValueSql("((0))");
-            entity.Property(e => e.HasQuick).HasDefaultValueSql("((0))");
-            entity.Property(e => e.HasSavant).HasDefaultValueSql("((0))");
-            entity.Property(e => e.HasSurvivor).HasDefaultValueSql("((0))");
+            entity.Property(e => e.HasNoble).HasDefaultValue(false);
+            entity.Property(e => e.HasQuick).HasDefaultValue(false);
+            entity.Property(e => e.HasSavant).HasDefaultValue(false);
+            entity.Property(e => e.HasSurvivor).HasDefaultValue(false);
         });
 
         modelBuilder.Entity<HiredUnitStatMagic>(entity =>
@@ -443,9 +445,9 @@ public partial class AbioContext : DbContext
             entity.ToTable("HiredUnitStatMagic", "Player");
 
             entity.Property(e => e.HiredUnitStatMagicId).HasDefaultValueSql("(newsequentialid())");
-            entity.Property(e => e.Death).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Life).HasDefaultValueSql("((0))");
-            entity.Property(e => e.Nature).HasDefaultValueSql("((0))");
+            entity.Property(e => e.Death).HasDefaultValue((byte)0);
+            entity.Property(e => e.Life).HasDefaultValue((byte)0);
+            entity.Property(e => e.Nature).HasDefaultValue((byte)0);
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -570,6 +572,21 @@ public partial class AbioContext : DbContext
             entity.Property(e => e.ResourceName)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<ResourceGain>(entity =>
+        {
+            entity.HasKey(e => e.ResourceGainlId);
+
+            entity.ToTable("ResourceGain", "Player");
+
+            entity.Property(e => e.ResourceGainlId).ValueGeneratedNever();
+            entity.Property(e => e.TimeSinceLastGathered).HasColumnType("datetime");
+
+            entity.HasOne(d => d.Resource).WithMany(p => p.ResourceGain)
+                .HasForeignKey(d => d.ResourceId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ResourceGain_Resource");
         });
 
         modelBuilder.Entity<ResourceInventory>(entity =>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Abio.Test.Client.UI.Views.PlayerBuildingsView"
+             xmlns:local="clr-namespace:Abio.Test.Client.UI.ViewModels"
+             Title="PlayerBuildings">
+
+    <ContentPage.BindingContext>
+        <local:PlayerBuildingsViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <CollectionView ItemsSource="{Binding Buildings}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                        <Label Text="{Binding BuildingName}" FontSize="Medium" VerticalTextAlignment="Center"/>
+                        <Label Text="{Binding BuildingDescription}" FontAttributes="Italic" FontSize="Small" VerticalTextAlignment="End"/>
+                        <Button Text="Construct" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PlayerBuildingsViewModel}}, Path=ConstructBuildingCommand}" CommandParameter="{Binding BuildingId}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

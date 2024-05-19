@@ -8,7 +8,7 @@ using System.Net.Http;
 namespace Abio.Library.Services
 {
     internal class Constants
-    {        
+    {
         private static HttpClient client = new HttpClient();
         public static HttpClient GetClient()
         {
@@ -45,7 +45,9 @@ namespace Abio.Library.Services
 		public static string ItemUrl = string.Concat(RestUrl,"Items");
 		public static string PersonalityTraitUrl = string.Concat(RestUrl,"PersonalityTraits");
 		public static string ResourceUrl = string.Concat(RestUrl,"Resources");
-		public static string SkillUrl = string.Concat(RestUrl,"Skills");
+        public static string ResourceGain = string.Concat(RestUrl, "ResourceGain");
+
+        public static string SkillUrl = string.Concat(RestUrl,"Skills");
 		public static string TechnologyUrl = string.Concat(RestUrl,"Technologys");
 		public static string UnitUrl = string.Concat(RestUrl,"Units");
 		public static string UnitLevelUrl = string.Concat(RestUrl,"UnitLevels");

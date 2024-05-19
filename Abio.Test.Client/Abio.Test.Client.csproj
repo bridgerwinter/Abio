@@ -68,12 +68,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="UI\Views\PlayerBuildingsView.xaml.cs">
+	    <DependentUpon>PlayerBuildingsView.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="UI\Views\HireUnitView.xaml.cs">
 	    <DependentUpon>HireUnitView.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="UI\Views\PlayerBuildingsView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\Views\BarracksView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

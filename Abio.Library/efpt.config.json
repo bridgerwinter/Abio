@@ -1,5 +1,5 @@
 ﻿{
-   "CodeGenerationMode": 3,
+   "CodeGenerationMode": 4,
    "ContextClassName": "Abio.Context",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
@@ -137,6 +137,10 @@
       },
       {
          "Name": "[Player].[ResearchedTechnology]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ResourceGain]",
          "ObjectType": 0
       },
       {

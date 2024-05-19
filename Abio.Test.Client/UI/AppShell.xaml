@@ -21,8 +21,11 @@
         <ShellContent Title="Barracks" 
                       Route="Barracks"
                       ContentTemplate="{DataTemplate local:BarracksView}" />
-        <ShellContent Title="{Binding Test}"
+        <ShellContent Title="Resources"
                       Route="Resources"
                       ContentTemplate="{DataTemplate local:ResourcesView}" />
+        <ShellContent Title="Buildings"
+                      Route="Buildings"
+                      ContentTemplate="{DataTemplate local:PlayerBuildingsView}" />
     </FlyoutItem>
 </Shell>

@@ -18,5 +18,13 @@ namespace Abio.Library.Services
             var deserializedResult = JsonConvert.DeserializeObject<Unit>(result);
             return deserializedResult;
         }
+
+        public static async Task<ResourceGain> GetLastAccessedResource(Guid resourceGainId)
+        {
+            var url = Constants.ResourceGain + "/" + resourceGainId;
+            string result = await Constants.GetClient().GetStringAsync(url);
+            var deserializedResult = JsonConvert.DeserializeObject<ResourceGain>(result);
+            return deserializedResult;
+        }
     }
 }
