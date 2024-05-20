@@ -14,9 +14,9 @@ namespace Abio.Test.Client.Business.ApiHelper
         {
             HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();
             // Pass this off to the server to find the unit
-            var unit = await ApiService.GetUnit(unitId);
-            var hiredUnit = hiredUnitDefaultBuilder.Build(unit);
-            await ApiService.CreateHiredUnit(hiredUnit);
+            //var unit = await ApiService.GetUnit(unitId);
+            //var hiredUnit = hiredUnitDefaultBuilder.Build(unit);
+            //await ApiService.CreateHiredUnit(hiredUnit);
         }
     }
 }

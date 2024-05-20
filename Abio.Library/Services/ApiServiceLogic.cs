@@ -21,7 +21,7 @@ namespace Abio.Library.Services
 
         public static async Task<ResourceGain> GetLastAccessedResource(Guid resourceGainId)
         {
-            var url = Constants.ResourceGain + "/" + resourceGainId;
+            var url = Constants.ResourceGainUrl + "/" + resourceGainId;
             string result = await Constants.GetClient().GetStringAsync(url);
             var deserializedResult = JsonConvert.DeserializeObject<ResourceGain>(result);
             return deserializedResult;

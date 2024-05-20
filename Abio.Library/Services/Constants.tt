@@ -1,0 +1,59 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+<#
+var path = "Abio.Library\\DatabaseModels\\";
+var fileDirectories = Directory.GetDirectories(path);
+Dictionary<string,List<string>> dictionaryOfLookupFiles = new Dictionary<string,List<string>>();
+foreach (var schema in fileDirectories)
+{
+	List<string> files = new List<string>();
+	var schemaFiles = Directory.GetFiles(schema);
+	foreach (var schemaFile in schemaFiles)
+	{
+		files.Add(Path.GetFileNameWithoutExtension(schemaFile));
+	}
+	dictionaryOfLookupFiles.Add(schema,files);
+}
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Abio.Library.DatabaseModels;
+<# var baseUrl = "http://localhost:5096/api/"; #>
+namespace Abio.Library.Services
+{   
+	internal class Constants    
+	{                
+		private static HttpClient client = new HttpClient();        
+		public static HttpClient GetClient()        
+		{            
+			return client;        
+		}
+
+		public static string RestUrl = "<#= baseUrl #>";
+
+		<#
+
+			foreach(var key in dictionaryOfLookupFiles.Keys)
+			{
+				foreach(var abioClass in dictionaryOfLookupFiles[key])
+				{
+					var classNameLower = string.Concat(abioClass.ToString().ToLower());
+					var classNameUpper = abioClass;
+		#>
+public static string <#= classNameUpper #>Url = $"{RestUrl}<#= classNameUpper #>s";
+		<#
+				}
+			}
+		#>
+	
+	}
+}

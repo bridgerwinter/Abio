@@ -1,5 +1,5 @@
 ﻿{
-   "CodeGenerationMode": 3,
+   "CodeGenerationMode": 4,
    "ContextClassName": "Abio.Context",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
@@ -13,9 +13,26 @@
    "Schemas": null,
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[Lookup].[Buildings]",
+         "Name": "[Economy].[Market]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Economy].[MarketListing]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Attribute]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[BodyPart]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Building]",
          "ObjectType": 0
       },
       {
@@ -23,15 +40,31 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Factions]",
+         "Name": "[Lookup].[Emotion]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Items]",
+         "Name": "[Lookup].[Faction]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Resources]",
+         "Name": "[Lookup].[Feat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Item]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[PersonalityTrait]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Resource]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Lookup].[Skill]",
          "ObjectType": 0
       },
       {
@@ -39,20 +72,101 @@
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[UnitLevels]",
+         "Name": "[Lookup].[Unit]",
          "ObjectType": 0
       },
       {
-         "Name": "[Lookup].[Units]",
+         "Name": "[Lookup].[UnitLevel]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ConstructedBuilding]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[Friend]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredLeader]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredLeaderStat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnit]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatBody]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatCivil]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatCombat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatEmotion]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatFeat]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[HiredUnitStatMagic]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ItemInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[Player]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ResearchedTechnology]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ResourceGain]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[ResourceInventory]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[UserCity]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Player].[UserCityLeader]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[Security].[User]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "sunbear\\sqlexpress.Abio.dbo",
+   "UiHint": "kodiak\\sqlexpress.Abio.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
    "UseDateOnlyTimeOnly": false,
    "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
    "UseFluentApiOnly": false,
    "UseHandleBars": false,
    "UseHierarchyId": false,
@@ -60,10 +174,12 @@
    "UseLegacyPluralizer": false,
    "UseManyToManyEntity": false,
    "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
    "UseNoObjectFilter": true,
    "UseNodaTime": false,
    "UseNullableReferences": false,
    "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
    "UseSpatial": false,
    "UseT4": false
 }

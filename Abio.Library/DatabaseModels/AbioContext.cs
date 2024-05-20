@@ -576,17 +576,23 @@ public partial class AbioContext : DbContext
 
         modelBuilder.Entity<ResourceGain>(entity =>
         {
-            entity.HasKey(e => e.ResourceGainlId);
+            entity
+                .HasNoKey()
+                .ToTable("ResourceGain", "Player");
 
-            entity.ToTable("ResourceGain", "Player");
+            entity.Property(e => e.TimeSinceLastGathered)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
 
-            entity.Property(e => e.ResourceGainlId).ValueGeneratedNever();
-            entity.Property(e => e.TimeSinceLastGathered).HasColumnType("datetime");
-
-            entity.HasOne(d => d.Resource).WithMany(p => p.ResourceGain)
+            entity.HasOne(d => d.Resource).WithMany()
                 .HasForeignKey(d => d.ResourceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ResourceGain_Resource");
+
+            entity.HasOne(d => d.User).WithMany()
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ResourceGain_User");
         });
 
         modelBuilder.Entity<ResourceInventory>(entity =>

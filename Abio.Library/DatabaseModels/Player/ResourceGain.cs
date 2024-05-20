@@ -7,11 +7,15 @@ namespace Abio.Library.DatabaseModels;
 
 public partial class ResourceGain
 {
-    public Guid ResourceGainlId { get; set; }
+    public Guid ResourceGainId { get; set; }
 
     public int ResourceId { get; set; }
 
-    public DateTime? TimeSinceLastGathered { get; set; }
+    public DateTime TimeSinceLastGathered { get; set; }
+
+    public Guid UserId { get; set; }
 
     public virtual Resource Resource { get; set; }
+
+    public virtual User User { get; set; }
 }
