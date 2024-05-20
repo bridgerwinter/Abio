@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayersController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class PlayersController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public PlayersController(AbioContext context)
-        {
-            _context = context;
-        }
+		public PlayersController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/Players
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayer()
         {
@@ -31,17 +33,16 @@ namespace Abio.WS.API.Controllers
             return await _context.Player.ToListAsync();
         }
 
-        // GET: api/Players/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Player>> GetPlayer(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Player>> GetPlayer(Guid id)
+		{
           if (_context.Player == null)
           {
               return NotFound();
           }
             var player = await _context.Player.FindAsync(id);
 
-            if (player == null)
+            if (player  == null)
             {
                 return NotFound();
             }
@@ -49,9 +50,7 @@ namespace Abio.WS.API.Controllers
             return player;
         }
 
-        // PUT: api/Players/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutPlayer(Guid id, Player player)
         {
             if (id != player.UserId)
@@ -80,8 +79,6 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Players
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Player>> PostPlayer(Player player)
         {
@@ -108,8 +105,7 @@ namespace Abio.WS.API.Controllers
 
             return CreatedAtAction("GetPlayer", new { id = player.UserId }, player);
         }
-
-        // DELETE: api/Players/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlayer(Guid id)
         {
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.Player?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

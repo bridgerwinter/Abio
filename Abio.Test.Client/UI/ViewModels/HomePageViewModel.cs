@@ -62,7 +62,7 @@ public class HomePageViewModel : INotifyPropertyChanged
     #region Methods
     private async void CreateUnit()
     {
-        await Shell.Current.GoToAsync("//HireUnit");
+        //await Shell.Current.GoToAsync("//HireUnit");
         //Window window = new Window(new HireUnitScreenView());
         //Application.Current.(window);
         //HiredUnitDefaultBuilder hiredUnitDefaultBuilder = new HiredUnitDefaultBuilder();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResearchedTechnologiesController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class ResearchedTechnologysController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public ResearchedTechnologiesController(AbioContext context)
-        {
-            _context = context;
-        }
+		public ResearchedTechnologysController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/ResearchedTechnologies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ResearchedTechnology>>> GetResearchedTechnology()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.ResearchedTechnology.ToListAsync();
         }
 
-        // GET: api/ResearchedTechnologies/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ResearchedTechnology>> GetResearchedTechnology(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<ResearchedTechnology>> GetResearchedTechnology(Guid id)
+		{
           if (_context.ResearchedTechnology == null)
           {
               return NotFound();
           }
-            var researchedTechnology = await _context.ResearchedTechnology.FindAsync(id);
+            var researchedtechnology = await _context.ResearchedTechnology.FindAsync(id);
 
-            if (researchedTechnology == null)
+            if (researchedtechnology  == null)
             {
                 return NotFound();
             }
 
-            return researchedTechnology;
+            return researchedtechnology;
         }
 
-        // PUT: api/ResearchedTechnologies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutResearchedTechnology(Guid id, ResearchedTechnology researchedTechnology)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutResearchedTechnology(Guid id, ResearchedTechnology researchedtechnology)
         {
-            if (id != researchedTechnology.ResearchedTechnologyId)
+            if (id != researchedtechnology.ResearchedTechnologyId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(researchedTechnology).State = EntityState.Modified;
+            _context.Entry(researchedtechnology).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/ResearchedTechnologies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ResearchedTechnology>> PostResearchedTechnology(ResearchedTechnology researchedTechnology)
+        public async Task<ActionResult<ResearchedTechnology>> PostResearchedTechnology(ResearchedTechnology researchedtechnology)
         {
           if (_context.ResearchedTechnology == null)
           {
               return Problem("Entity set 'AbioContext.ResearchedTechnology'  is null.");
           }
-            _context.ResearchedTechnology.Add(researchedTechnology);
+            _context.ResearchedTechnology.Add(researchedtechnology);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ResearchedTechnologyExists(researchedTechnology.ResearchedTechnologyId))
+                if (ResearchedTechnologyExists(researchedtechnology.ResearchedTechnologyId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetResearchedTechnology", new { id = researchedTechnology.ResearchedTechnologyId }, researchedTechnology);
+            return CreatedAtAction("GetResearchedTechnology", new { id = researchedtechnology.ResearchedTechnologyId }, researchedtechnology);
         }
-
-        // DELETE: api/ResearchedTechnologies/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteResearchedTechnology(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var researchedTechnology = await _context.ResearchedTechnology.FindAsync(id);
-            if (researchedTechnology == null)
+            var researchedtechnology = await _context.ResearchedTechnology.FindAsync(id);
+            if (researchedtechnology == null)
             {
                 return NotFound();
             }
 
-            _context.ResearchedTechnology.Remove(researchedTechnology);
+            _context.ResearchedTechnology.Remove(researchedtechnology);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.ResearchedTechnology?.Any(e => e.ResearchedTechnologyId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

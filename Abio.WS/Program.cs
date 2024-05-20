@@ -34,6 +34,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 app.MapControllers();
+app.MapDefaultControllerRoute();
 app.MapHub<ChatHub>("/chatHub");
 app.MapHub<CombatHub>("/combatHub");
 

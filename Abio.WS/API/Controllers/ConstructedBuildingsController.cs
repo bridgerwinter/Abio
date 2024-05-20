@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ConstructedBuildingsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class ConstructedBuildingsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public ConstructedBuildingsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public ConstructedBuildingsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/ConstructedBuildings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ConstructedBuilding>>> GetConstructedBuilding()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.ConstructedBuilding.ToListAsync();
         }
 
-        // GET: api/ConstructedBuildings/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ConstructedBuilding>> GetConstructedBuilding(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<ConstructedBuilding>> GetConstructedBuilding(Guid id)
+		{
           if (_context.ConstructedBuilding == null)
           {
               return NotFound();
           }
-            var constructedBuilding = await _context.ConstructedBuilding.FindAsync(id);
+            var constructedbuilding = await _context.ConstructedBuilding.FindAsync(id);
 
-            if (constructedBuilding == null)
+            if (constructedbuilding  == null)
             {
                 return NotFound();
             }
 
-            return constructedBuilding;
+            return constructedbuilding;
         }
 
-        // PUT: api/ConstructedBuildings/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutConstructedBuilding(Guid id, ConstructedBuilding constructedBuilding)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutConstructedBuilding(Guid id, ConstructedBuilding constructedbuilding)
         {
-            if (id != constructedBuilding.ConstructedBuildingId)
+            if (id != constructedbuilding.ConstructedBuildingId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(constructedBuilding).State = EntityState.Modified;
+            _context.Entry(constructedbuilding).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/ConstructedBuildings
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ConstructedBuilding>> PostConstructedBuilding(ConstructedBuilding constructedBuilding)
+        public async Task<ActionResult<ConstructedBuilding>> PostConstructedBuilding(ConstructedBuilding constructedbuilding)
         {
           if (_context.ConstructedBuilding == null)
           {
               return Problem("Entity set 'AbioContext.ConstructedBuilding'  is null.");
           }
-            _context.ConstructedBuilding.Add(constructedBuilding);
+            _context.ConstructedBuilding.Add(constructedbuilding);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ConstructedBuildingExists(constructedBuilding.ConstructedBuildingId))
+                if (ConstructedBuildingExists(constructedbuilding.ConstructedBuildingId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetConstructedBuilding", new { id = constructedBuilding.ConstructedBuildingId }, constructedBuilding);
+            return CreatedAtAction("GetConstructedBuilding", new { id = constructedbuilding.ConstructedBuildingId }, constructedbuilding);
         }
-
-        // DELETE: api/ConstructedBuildings/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConstructedBuilding(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var constructedBuilding = await _context.ConstructedBuilding.FindAsync(id);
-            if (constructedBuilding == null)
+            var constructedbuilding = await _context.ConstructedBuilding.FindAsync(id);
+            if (constructedbuilding == null)
             {
                 return NotFound();
             }
 
-            _context.ConstructedBuilding.Remove(constructedBuilding);
+            _context.ConstructedBuilding.Remove(constructedbuilding);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.ConstructedBuilding?.Any(e => e.ConstructedBuildingId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

@@ -14,51 +14,51 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class UsersController : ControllerBase
+	public class AttributesController : ControllerBase
 	{
 		private readonly AbioContext _context;
 
-		public UsersController(AbioContext context)
+		public AttributesController(AbioContext context)
 		{
 			_context = context;
 		}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Attribute>>> GetAttribute()
         {
-          if (_context.User == null)
+          if (_context.Attribute == null)
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.Attribute.ToListAsync();
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(Guid id)
+		public async Task<ActionResult<Attribute>> GetAttribute(int id)
 		{
-          if (_context.User == null)
+          if (_context.Attribute == null)
           {
               return NotFound();
           }
-            var user = await _context.User.FindAsync(id);
+            var attribute = await _context.Attribute.FindAsync(id);
 
-            if (user  == null)
+            if (attribute  == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return attribute;
         }
 
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutAttribute(int id, Attribute attribute)
         {
-            if (id != user.UserId)
+            if (id != attribute.AttributeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(attribute).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!AttributeExists(id))
                 {
                     return NotFound();
                 }
@@ -80,20 +80,20 @@ namespace Abio.WS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Attribute>> PostAttribute(Attribute attribute)
         {
-          if (_context.User == null)
+          if (_context.Attribute == null)
           {
-              return Problem("Entity set 'AbioContext.User'  is null.");
+              return Problem("Entity set 'AbioContext.Attribute'  is null.");
           }
-            _context.User.Add(user);
+            _context.Attribute.Add(attribute);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (AttributeExists(attribute.AttributeId))
                 {
                     return Conflict();
                 }
@@ -103,31 +103,31 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetAttribute", new { id = attribute.AttributeId }, attribute);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteAttribute(int id)
         {
-            if (_context.User == null)
+            if (_context.Attribute == null)
             {
                 return NotFound();
             }
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var attribute = await _context.Attribute.FindAsync(id);
+            if (attribute == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Attribute.Remove(attribute);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool AttributeExists(int id)
         {
-            return (_context.User?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Attribute?.Any(e => e.AttributeId == id)).GetValueOrDefault();
         }
 	}
 }

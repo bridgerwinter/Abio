@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserCitiesController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class UserCitysController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public UserCitiesController(AbioContext context)
-        {
-            _context = context;
-        }
+		public UserCitysController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/UserCities
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserCity>>> GetUserCity()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.UserCity.ToListAsync();
         }
 
-        // GET: api/UserCities/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserCity>> GetUserCity(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<UserCity>> GetUserCity(Guid id)
+		{
           if (_context.UserCity == null)
           {
               return NotFound();
           }
-            var userCity = await _context.UserCity.FindAsync(id);
+            var usercity = await _context.UserCity.FindAsync(id);
 
-            if (userCity == null)
+            if (usercity  == null)
             {
                 return NotFound();
             }
 
-            return userCity;
+            return usercity;
         }
 
-        // PUT: api/UserCities/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserCity(Guid id, UserCity userCity)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutUserCity(Guid id, UserCity usercity)
         {
-            if (id != userCity.UserCityId)
+            if (id != usercity.UserCityId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(userCity).State = EntityState.Modified;
+            _context.Entry(usercity).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/UserCities
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserCity>> PostUserCity(UserCity userCity)
+        public async Task<ActionResult<UserCity>> PostUserCity(UserCity usercity)
         {
           if (_context.UserCity == null)
           {
               return Problem("Entity set 'AbioContext.UserCity'  is null.");
           }
-            _context.UserCity.Add(userCity);
+            _context.UserCity.Add(usercity);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserCityExists(userCity.UserCityId))
+                if (UserCityExists(usercity.UserCityId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUserCity", new { id = userCity.UserCityId }, userCity);
+            return CreatedAtAction("GetUserCity", new { id = usercity.UserCityId }, usercity);
         }
-
-        // DELETE: api/UserCities/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserCity(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var userCity = await _context.UserCity.FindAsync(id);
-            if (userCity == null)
+            var usercity = await _context.UserCity.FindAsync(id);
+            if (usercity == null)
             {
                 return NotFound();
             }
 
-            _context.UserCity.Remove(userCity);
+            _context.UserCity.Remove(usercity);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.UserCity?.Any(e => e.UserCityId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

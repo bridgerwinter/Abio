@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HiredLeadersController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class HiredLeadersController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public HiredLeadersController(AbioContext context)
-        {
-            _context = context;
-        }
+		public HiredLeadersController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/HiredLeaders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HiredLeader>>> GetHiredLeader()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.HiredLeader.ToListAsync();
         }
 
-        // GET: api/HiredLeaders/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HiredLeader>> GetHiredLeader(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<HiredLeader>> GetHiredLeader(Guid id)
+		{
           if (_context.HiredLeader == null)
           {
               return NotFound();
           }
-            var hiredLeader = await _context.HiredLeader.FindAsync(id);
+            var hiredleader = await _context.HiredLeader.FindAsync(id);
 
-            if (hiredLeader == null)
+            if (hiredleader  == null)
             {
                 return NotFound();
             }
 
-            return hiredLeader;
+            return hiredleader;
         }
 
-        // PUT: api/HiredLeaders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHiredLeader(Guid id, HiredLeader hiredLeader)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutHiredLeader(Guid id, HiredLeader hiredleader)
         {
-            if (id != hiredLeader.HiredLeaderId)
+            if (id != hiredleader.HiredLeaderId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hiredLeader).State = EntityState.Modified;
+            _context.Entry(hiredleader).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/HiredLeaders
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HiredLeader>> PostHiredLeader(HiredLeader hiredLeader)
+        public async Task<ActionResult<HiredLeader>> PostHiredLeader(HiredLeader hiredleader)
         {
           if (_context.HiredLeader == null)
           {
               return Problem("Entity set 'AbioContext.HiredLeader'  is null.");
           }
-            _context.HiredLeader.Add(hiredLeader);
+            _context.HiredLeader.Add(hiredleader);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (HiredLeaderExists(hiredLeader.HiredLeaderId))
+                if (HiredLeaderExists(hiredleader.HiredLeaderId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetHiredLeader", new { id = hiredLeader.HiredLeaderId }, hiredLeader);
+            return CreatedAtAction("GetHiredLeader", new { id = hiredleader.HiredLeaderId }, hiredleader);
         }
-
-        // DELETE: api/HiredLeaders/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHiredLeader(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var hiredLeader = await _context.HiredLeader.FindAsync(id);
-            if (hiredLeader == null)
+            var hiredleader = await _context.HiredLeader.FindAsync(id);
+            if (hiredleader == null)
             {
                 return NotFound();
             }
 
-            _context.HiredLeader.Remove(hiredLeader);
+            _context.HiredLeader.Remove(hiredleader);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.HiredLeader?.Any(e => e.HiredLeaderId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

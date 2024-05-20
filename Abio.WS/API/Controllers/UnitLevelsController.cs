@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UnitLevelsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class UnitLevelsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public UnitLevelsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public UnitLevelsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/UnitLevels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UnitLevel>>> GetUnitLevel()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.UnitLevel.ToListAsync();
         }
 
-        // GET: api/UnitLevels/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UnitLevel>> GetUnitLevel(int id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<UnitLevel>> GetUnitLevel(int id)
+		{
           if (_context.UnitLevel == null)
           {
               return NotFound();
           }
-            var unitLevel = await _context.UnitLevel.FindAsync(id);
+            var unitlevel = await _context.UnitLevel.FindAsync(id);
 
-            if (unitLevel == null)
+            if (unitlevel  == null)
             {
                 return NotFound();
             }
 
-            return unitLevel;
+            return unitlevel;
         }
 
-        // PUT: api/UnitLevels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUnitLevel(int id, UnitLevel unitLevel)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutUnitLevel(int id, UnitLevel unitlevel)
         {
-            if (id != unitLevel.UnitLevelId)
+            if (id != unitlevel.UnitLevelId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(unitLevel).State = EntityState.Modified;
+            _context.Entry(unitlevel).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/UnitLevels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UnitLevel>> PostUnitLevel(UnitLevel unitLevel)
+        public async Task<ActionResult<UnitLevel>> PostUnitLevel(UnitLevel unitlevel)
         {
           if (_context.UnitLevel == null)
           {
               return Problem("Entity set 'AbioContext.UnitLevel'  is null.");
           }
-            _context.UnitLevel.Add(unitLevel);
+            _context.UnitLevel.Add(unitlevel);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UnitLevelExists(unitLevel.UnitLevelId))
+                if (UnitLevelExists(unitlevel.UnitLevelId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUnitLevel", new { id = unitLevel.UnitLevelId }, unitLevel);
+            return CreatedAtAction("GetUnitLevel", new { id = unitlevel.UnitLevelId }, unitlevel);
         }
-
-        // DELETE: api/UnitLevels/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUnitLevel(int id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var unitLevel = await _context.UnitLevel.FindAsync(id);
-            if (unitLevel == null)
+            var unitlevel = await _context.UnitLevel.FindAsync(id);
+            if (unitlevel == null)
             {
                 return NotFound();
             }
 
-            _context.UnitLevel.Remove(unitLevel);
+            _context.UnitLevel.Remove(unitlevel);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.UnitLevel?.Any(e => e.UnitLevelId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

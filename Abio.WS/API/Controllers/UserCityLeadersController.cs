@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserCityLeadersController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class UserCityLeadersController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public UserCityLeadersController(AbioContext context)
-        {
-            _context = context;
-        }
+		public UserCityLeadersController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/UserCityLeaders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserCityLeader>>> GetUserCityLeader()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.UserCityLeader.ToListAsync();
         }
 
-        // GET: api/UserCityLeaders/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserCityLeader>> GetUserCityLeader(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<UserCityLeader>> GetUserCityLeader(Guid id)
+		{
           if (_context.UserCityLeader == null)
           {
               return NotFound();
           }
-            var userCityLeader = await _context.UserCityLeader.FindAsync(id);
+            var usercityleader = await _context.UserCityLeader.FindAsync(id);
 
-            if (userCityLeader == null)
+            if (usercityleader  == null)
             {
                 return NotFound();
             }
 
-            return userCityLeader;
+            return usercityleader;
         }
 
-        // PUT: api/UserCityLeaders/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserCityLeader(Guid id, UserCityLeader userCityLeader)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutUserCityLeader(Guid id, UserCityLeader usercityleader)
         {
-            if (id != userCityLeader.UserCityLeaderId)
+            if (id != usercityleader.UserCityLeaderId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(userCityLeader).State = EntityState.Modified;
+            _context.Entry(usercityleader).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/UserCityLeaders
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<UserCityLeader>> PostUserCityLeader(UserCityLeader userCityLeader)
+        public async Task<ActionResult<UserCityLeader>> PostUserCityLeader(UserCityLeader usercityleader)
         {
           if (_context.UserCityLeader == null)
           {
               return Problem("Entity set 'AbioContext.UserCityLeader'  is null.");
           }
-            _context.UserCityLeader.Add(userCityLeader);
+            _context.UserCityLeader.Add(usercityleader);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserCityLeaderExists(userCityLeader.UserCityLeaderId))
+                if (UserCityLeaderExists(usercityleader.UserCityLeaderId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUserCityLeader", new { id = userCityLeader.UserCityLeaderId }, userCityLeader);
+            return CreatedAtAction("GetUserCityLeader", new { id = usercityleader.UserCityLeaderId }, usercityleader);
         }
-
-        // DELETE: api/UserCityLeaders/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserCityLeader(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var userCityLeader = await _context.UserCityLeader.FindAsync(id);
-            if (userCityLeader == null)
+            var usercityleader = await _context.UserCityLeader.FindAsync(id);
+            if (usercityleader == null)
             {
                 return NotFound();
             }
 
-            _context.UserCityLeader.Remove(userCityLeader);
+            _context.UserCityLeader.Remove(usercityleader);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.UserCityLeader?.Any(e => e.UserCityLeaderId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

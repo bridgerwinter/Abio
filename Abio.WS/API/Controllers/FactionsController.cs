@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FactionsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class FactionsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public FactionsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public FactionsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/Factions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Faction>>> GetFaction()
         {
@@ -31,17 +33,16 @@ namespace Abio.WS.API.Controllers
             return await _context.Faction.ToListAsync();
         }
 
-        // GET: api/Factions/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Faction>> GetFaction(int id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Faction>> GetFaction(int id)
+		{
           if (_context.Faction == null)
           {
               return NotFound();
           }
             var faction = await _context.Faction.FindAsync(id);
 
-            if (faction == null)
+            if (faction  == null)
             {
                 return NotFound();
             }
@@ -49,9 +50,7 @@ namespace Abio.WS.API.Controllers
             return faction;
         }
 
-        // PUT: api/Factions/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutFaction(int id, Faction faction)
         {
             if (id != faction.FactionId)
@@ -80,8 +79,6 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Factions
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Faction>> PostFaction(Faction faction)
         {
@@ -108,8 +105,7 @@ namespace Abio.WS.API.Controllers
 
             return CreatedAtAction("GetFaction", new { id = faction.FactionId }, faction);
         }
-
-        // DELETE: api/Factions/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFaction(int id)
         {
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.Faction?.Any(e => e.FactionId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

@@ -14,51 +14,51 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class UsersController : ControllerBase
+	public class HiredUnitStatsController : ControllerBase
 	{
 		private readonly AbioContext _context;
 
-		public UsersController(AbioContext context)
+		public HiredUnitStatsController(AbioContext context)
 		{
 			_context = context;
 		}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<HiredUnitStat>>> GetHiredUnitStat()
         {
-          if (_context.User == null)
+          if (_context.HiredUnitStat == null)
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.HiredUnitStat.ToListAsync();
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(Guid id)
+		public async Task<ActionResult<HiredUnitStat>> GetHiredUnitStat(Guid id)
 		{
-          if (_context.User == null)
+          if (_context.HiredUnitStat == null)
           {
               return NotFound();
           }
-            var user = await _context.User.FindAsync(id);
+            var hiredunitstat = await _context.HiredUnitStat.FindAsync(id);
 
-            if (user  == null)
+            if (hiredunitstat  == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return hiredunitstat;
         }
 
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutHiredUnitStat(Guid id, HiredUnitStat hiredunitstat)
         {
-            if (id != user.UserId)
+            if (id != hiredunitstat.HiredUnitStatId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(hiredunitstat).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!HiredUnitStatExists(id))
                 {
                     return NotFound();
                 }
@@ -80,20 +80,20 @@ namespace Abio.WS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<HiredUnitStat>> PostHiredUnitStat(HiredUnitStat hiredunitstat)
         {
-          if (_context.User == null)
+          if (_context.HiredUnitStat == null)
           {
-              return Problem("Entity set 'AbioContext.User'  is null.");
+              return Problem("Entity set 'AbioContext.HiredUnitStat'  is null.");
           }
-            _context.User.Add(user);
+            _context.HiredUnitStat.Add(hiredunitstat);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (HiredUnitStatExists(hiredunitstat.HiredUnitStatId))
                 {
                     return Conflict();
                 }
@@ -103,31 +103,31 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetHiredUnitStat", new { id = hiredunitstat.HiredUnitStatId }, hiredunitstat);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteHiredUnitStat(Guid id)
         {
-            if (_context.User == null)
+            if (_context.HiredUnitStat == null)
             {
                 return NotFound();
             }
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var hiredunitstat = await _context.HiredUnitStat.FindAsync(id);
+            if (hiredunitstat == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.HiredUnitStat.Remove(hiredunitstat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool HiredUnitStatExists(Guid id)
         {
-            return (_context.User?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.HiredUnitStat?.Any(e => e.HiredUnitStatId == id)).GetValueOrDefault();
         }
 	}
 }

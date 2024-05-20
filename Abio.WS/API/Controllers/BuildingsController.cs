@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BuildingsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class BuildingsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public BuildingsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public BuildingsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/Buildings
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Building>>> GetBuilding()
         {
@@ -31,17 +33,16 @@ namespace Abio.WS.API.Controllers
             return await _context.Building.ToListAsync();
         }
 
-        // GET: api/Buildings/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Building>> GetBuilding(int id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Building>> GetBuilding(int id)
+		{
           if (_context.Building == null)
           {
               return NotFound();
           }
             var building = await _context.Building.FindAsync(id);
 
-            if (building == null)
+            if (building  == null)
             {
                 return NotFound();
             }
@@ -49,9 +50,7 @@ namespace Abio.WS.API.Controllers
             return building;
         }
 
-        // PUT: api/Buildings/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutBuilding(int id, Building building)
         {
             if (id != building.BuildingId)
@@ -80,8 +79,6 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Buildings
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Building>> PostBuilding(Building building)
         {
@@ -108,8 +105,7 @@ namespace Abio.WS.API.Controllers
 
             return CreatedAtAction("GetBuilding", new { id = building.BuildingId }, building);
         }
-
-        // DELETE: api/Buildings/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuilding(int id)
         {
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.Building?.Any(e => e.BuildingId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

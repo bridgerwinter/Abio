@@ -14,51 +14,51 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class UsersController : ControllerBase
+	public class FeatsController : ControllerBase
 	{
 		private readonly AbioContext _context;
 
-		public UsersController(AbioContext context)
+		public FeatsController(AbioContext context)
 		{
 			_context = context;
 		}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Feat>>> GetFeat()
         {
-          if (_context.User == null)
+          if (_context.Feat == null)
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.Feat.ToListAsync();
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(Guid id)
+		public async Task<ActionResult<Feat>> GetFeat(int id)
 		{
-          if (_context.User == null)
+          if (_context.Feat == null)
           {
               return NotFound();
           }
-            var user = await _context.User.FindAsync(id);
+            var feat = await _context.Feat.FindAsync(id);
 
-            if (user  == null)
+            if (feat  == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return feat;
         }
 
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutFeat(int id, Feat feat)
         {
-            if (id != user.UserId)
+            if (id != feat.FeatId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(feat).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!FeatExists(id))
                 {
                     return NotFound();
                 }
@@ -80,20 +80,20 @@ namespace Abio.WS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Feat>> PostFeat(Feat feat)
         {
-          if (_context.User == null)
+          if (_context.Feat == null)
           {
-              return Problem("Entity set 'AbioContext.User'  is null.");
+              return Problem("Entity set 'AbioContext.Feat'  is null.");
           }
-            _context.User.Add(user);
+            _context.Feat.Add(feat);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (FeatExists(feat.FeatId))
                 {
                     return Conflict();
                 }
@@ -103,31 +103,31 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetFeat", new { id = feat.FeatId }, feat);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteFeat(int id)
         {
-            if (_context.User == null)
+            if (_context.Feat == null)
             {
                 return NotFound();
             }
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var feat = await _context.Feat.FindAsync(id);
+            if (feat == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Feat.Remove(feat);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool FeatExists(int id)
         {
-            return (_context.User?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Feat?.Any(e => e.FeatId == id)).GetValueOrDefault();
         }
 	}
 }

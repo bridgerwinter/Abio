@@ -1,6 +1,7 @@
 ﻿using Abio.Library.DatabaseModels;
 using Newtonsoft.Json;
 using System.Text;
+using Abio.Library.Services;
 using Attribute = Abio.Library.DatabaseModels.Attribute;
 
 namespace Abio.Library.Services
@@ -20,7 +21,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Market> GetMarket(Guid id)
 		{
-			var url = Constants.MarketUrl + id.ToString();
+			var url = $"{Constants.MarketUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Market>(result);
 			return deserializedResult;
@@ -38,7 +39,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateMarket(Market market)
 		{
-			var url = Constants.MarketUrl + market.MarketId.ToString();
+			var url = $"{Constants.MarketUrl}/{market.MarketId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(market);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -48,7 +49,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteMarket(Market market)
 		{
-			var url = Constants.MarketUrl + market.MarketId.ToString();
+			var url = $"{Constants.MarketUrl}/{market.MarketId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(market);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -68,7 +69,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<MarketListing> GetMarketListing(Guid id)
 		{
-			var url = Constants.MarketListingUrl + id.ToString();
+			var url = $"{Constants.MarketListingUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<MarketListing>(result);
 			return deserializedResult;
@@ -86,7 +87,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateMarketListing(MarketListing marketlisting)
 		{
-			var url = Constants.MarketListingUrl + marketlisting.MarketListingId.ToString();
+			var url = $"{Constants.MarketListingUrl}/{marketlisting.MarketListingId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(marketlisting);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -96,7 +97,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteMarketListing(MarketListing marketlisting)
 		{
-			var url = Constants.MarketListingUrl + marketlisting.MarketListingId.ToString();
+			var url = $"{Constants.MarketListingUrl}/{marketlisting.MarketListingId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(marketlisting);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -116,7 +117,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Attribute> GetAttribute(int id)
 		{
-			var url = Constants.AttributeUrl + id.ToString();
+			var url = $"{Constants.AttributeUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Attribute>(result);
 			return deserializedResult;
@@ -134,7 +135,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateAttribute(Attribute attribute)
 		{
-			var url = Constants.AttributeUrl + attribute.AttributeId.ToString();
+			var url = $"{Constants.AttributeUrl}/{attribute.AttributeId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(attribute);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -144,7 +145,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteAttribute(Attribute attribute)
 		{
-			var url = Constants.AttributeUrl + attribute.AttributeId.ToString();
+			var url = $"{Constants.AttributeUrl}/{attribute.AttributeId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(attribute);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -164,7 +165,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<BodyPart> GetBodyPart(int id)
 		{
-			var url = Constants.BodyPartUrl + id.ToString();
+			var url = $"{Constants.BodyPartUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<BodyPart>(result);
 			return deserializedResult;
@@ -182,7 +183,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateBodyPart(BodyPart bodypart)
 		{
-			var url = Constants.BodyPartUrl + bodypart.BodyPartId.ToString();
+			var url = $"{Constants.BodyPartUrl}/{bodypart.BodyPartId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(bodypart);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -192,7 +193,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteBodyPart(BodyPart bodypart)
 		{
-			var url = Constants.BodyPartUrl + bodypart.BodyPartId.ToString();
+			var url = $"{Constants.BodyPartUrl}/{bodypart.BodyPartId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(bodypart);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -212,7 +213,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Building> GetBuilding(int id)
 		{
-			var url = Constants.BuildingUrl + id.ToString();
+			var url = $"{Constants.BuildingUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Building>(result);
 			return deserializedResult;
@@ -230,7 +231,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateBuilding(Building building)
 		{
-			var url = Constants.BuildingUrl + building.BuildingId.ToString();
+			var url = $"{Constants.BuildingUrl}/{building.BuildingId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(building);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -240,7 +241,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteBuilding(Building building)
 		{
-			var url = Constants.BuildingUrl + building.BuildingId.ToString();
+			var url = $"{Constants.BuildingUrl}/{building.BuildingId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(building);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -260,7 +261,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<BuildingLevel> GetBuildingLevel(int id)
 		{
-			var url = Constants.BuildingLevelUrl + id.ToString();
+			var url = $"{Constants.BuildingLevelUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<BuildingLevel>(result);
 			return deserializedResult;
@@ -278,7 +279,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateBuildingLevel(BuildingLevel buildinglevel)
 		{
-			var url = Constants.BuildingLevelUrl + buildinglevel.BuildingLevelId.ToString();
+			var url = $"{Constants.BuildingLevelUrl}/{buildinglevel.BuildingLevelId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(buildinglevel);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -288,7 +289,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteBuildingLevel(BuildingLevel buildinglevel)
 		{
-			var url = Constants.BuildingLevelUrl + buildinglevel.BuildingLevelId.ToString();
+			var url = $"{Constants.BuildingLevelUrl}/{buildinglevel.BuildingLevelId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(buildinglevel);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -308,7 +309,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Emotion> GetEmotion(int id)
 		{
-			var url = Constants.EmotionUrl + id.ToString();
+			var url = $"{Constants.EmotionUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Emotion>(result);
 			return deserializedResult;
@@ -326,7 +327,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateEmotion(Emotion emotion)
 		{
-			var url = Constants.EmotionUrl + emotion.EmotionId.ToString();
+			var url = $"{Constants.EmotionUrl}/{emotion.EmotionId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(emotion);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -336,7 +337,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteEmotion(Emotion emotion)
 		{
-			var url = Constants.EmotionUrl + emotion.EmotionId.ToString();
+			var url = $"{Constants.EmotionUrl}/{emotion.EmotionId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(emotion);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -356,7 +357,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Faction> GetFaction(int id)
 		{
-			var url = Constants.FactionUrl + id.ToString();
+			var url = $"{Constants.FactionUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Faction>(result);
 			return deserializedResult;
@@ -374,7 +375,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateFaction(Faction faction)
 		{
-			var url = Constants.FactionUrl + faction.FactionId.ToString();
+			var url = $"{Constants.FactionUrl}/{faction.FactionId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(faction);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -384,7 +385,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteFaction(Faction faction)
 		{
-			var url = Constants.FactionUrl + faction.FactionId.ToString();
+			var url = $"{Constants.FactionUrl}/{faction.FactionId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(faction);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -404,7 +405,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Feat> GetFeat(int id)
 		{
-			var url = Constants.FeatUrl + id.ToString();
+			var url = $"{Constants.FeatUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Feat>(result);
 			return deserializedResult;
@@ -422,7 +423,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateFeat(Feat feat)
 		{
-			var url = Constants.FeatUrl + feat.FeatId.ToString();
+			var url = $"{Constants.FeatUrl}/{feat.FeatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(feat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -432,7 +433,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteFeat(Feat feat)
 		{
-			var url = Constants.FeatUrl + feat.FeatId.ToString();
+			var url = $"{Constants.FeatUrl}/{feat.FeatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(feat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -452,7 +453,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Item> GetItem(int id)
 		{
-			var url = Constants.ItemUrl + id.ToString();
+			var url = $"{Constants.ItemUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Item>(result);
 			return deserializedResult;
@@ -470,7 +471,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateItem(Item item)
 		{
-			var url = Constants.ItemUrl + item.ItemId.ToString();
+			var url = $"{Constants.ItemUrl}/{item.ItemId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(item);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -480,7 +481,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteItem(Item item)
 		{
-			var url = Constants.ItemUrl + item.ItemId.ToString();
+			var url = $"{Constants.ItemUrl}/{item.ItemId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(item);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -500,7 +501,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<PersonalityTrait> GetPersonalityTrait(int id)
 		{
-			var url = Constants.PersonalityTraitUrl + id.ToString();
+			var url = $"{Constants.PersonalityTraitUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<PersonalityTrait>(result);
 			return deserializedResult;
@@ -518,7 +519,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdatePersonalityTrait(PersonalityTrait personalitytrait)
 		{
-			var url = Constants.PersonalityTraitUrl + personalitytrait.PersonalityTraitId.ToString();
+			var url = $"{Constants.PersonalityTraitUrl}/{personalitytrait.PersonalityTraitId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(personalitytrait);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -528,7 +529,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeletePersonalityTrait(PersonalityTrait personalitytrait)
 		{
-			var url = Constants.PersonalityTraitUrl + personalitytrait.PersonalityTraitId.ToString();
+			var url = $"{Constants.PersonalityTraitUrl}/{personalitytrait.PersonalityTraitId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(personalitytrait);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -548,7 +549,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Resource> GetResource(int id)
 		{
-			var url = Constants.ResourceUrl + id.ToString();
+			var url = $"{Constants.ResourceUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Resource>(result);
 			return deserializedResult;
@@ -566,7 +567,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateResource(Resource resource)
 		{
-			var url = Constants.ResourceUrl + resource.ResourceId.ToString();
+			var url = $"{Constants.ResourceUrl}/{resource.ResourceId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(resource);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -576,7 +577,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteResource(Resource resource)
 		{
-			var url = Constants.ResourceUrl + resource.ResourceId.ToString();
+			var url = $"{Constants.ResourceUrl}/{resource.ResourceId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(resource);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -596,7 +597,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Skill> GetSkill(int id)
 		{
-			var url = Constants.SkillUrl + id.ToString();
+			var url = $"{Constants.SkillUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Skill>(result);
 			return deserializedResult;
@@ -614,7 +615,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateSkill(Skill skill)
 		{
-			var url = Constants.SkillUrl + skill.SkillId.ToString();
+			var url = $"{Constants.SkillUrl}/{skill.SkillId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(skill);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -624,7 +625,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteSkill(Skill skill)
 		{
-			var url = Constants.SkillUrl + skill.SkillId.ToString();
+			var url = $"{Constants.SkillUrl}/{skill.SkillId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(skill);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -644,7 +645,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Technology> GetTechnology(int id)
 		{
-			var url = Constants.TechnologyUrl + id.ToString();
+			var url = $"{Constants.TechnologyUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Technology>(result);
 			return deserializedResult;
@@ -662,7 +663,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateTechnology(Technology technology)
 		{
-			var url = Constants.TechnologyUrl + technology.TechnologyId.ToString();
+			var url = $"{Constants.TechnologyUrl}/{technology.TechnologyId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(technology);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -672,7 +673,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteTechnology(Technology technology)
 		{
-			var url = Constants.TechnologyUrl + technology.TechnologyId.ToString();
+			var url = $"{Constants.TechnologyUrl}/{technology.TechnologyId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(technology);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -692,7 +693,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Unit> GetUnit(int id)
 		{
-			var url = Constants.UnitUrl + id.ToString();
+			var url = $"{Constants.UnitUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Unit>(result);
 			return deserializedResult;
@@ -710,7 +711,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateUnit(Unit unit)
 		{
-			var url = Constants.UnitUrl + unit.UnitId.ToString();
+			var url = $"{Constants.UnitUrl}/{unit.UnitId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(unit);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -720,7 +721,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteUnit(Unit unit)
 		{
-			var url = Constants.UnitUrl + unit.UnitId.ToString();
+			var url = $"{Constants.UnitUrl}/{unit.UnitId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(unit);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -740,7 +741,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<UnitLevel> GetUnitLevel(int id)
 		{
-			var url = Constants.UnitLevelUrl + id.ToString();
+			var url = $"{Constants.UnitLevelUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<UnitLevel>(result);
 			return deserializedResult;
@@ -758,7 +759,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateUnitLevel(UnitLevel unitlevel)
 		{
-			var url = Constants.UnitLevelUrl + unitlevel.UnitLevelId.ToString();
+			var url = $"{Constants.UnitLevelUrl}/{unitlevel.UnitLevelId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(unitlevel);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -768,7 +769,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteUnitLevel(UnitLevel unitlevel)
 		{
-			var url = Constants.UnitLevelUrl + unitlevel.UnitLevelId.ToString();
+			var url = $"{Constants.UnitLevelUrl}/{unitlevel.UnitLevelId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(unitlevel);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -788,7 +789,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<ConstructedBuilding> GetConstructedBuilding(Guid id)
 		{
-			var url = Constants.ConstructedBuildingUrl + id.ToString();
+			var url = $"{Constants.ConstructedBuildingUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<ConstructedBuilding>(result);
 			return deserializedResult;
@@ -806,7 +807,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateConstructedBuilding(ConstructedBuilding constructedbuilding)
 		{
-			var url = Constants.ConstructedBuildingUrl + constructedbuilding.ConstructedBuildingId.ToString();
+			var url = $"{Constants.ConstructedBuildingUrl}/{constructedbuilding.ConstructedBuildingId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(constructedbuilding);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -816,7 +817,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteConstructedBuilding(ConstructedBuilding constructedbuilding)
 		{
-			var url = Constants.ConstructedBuildingUrl + constructedbuilding.ConstructedBuildingId.ToString();
+			var url = $"{Constants.ConstructedBuildingUrl}/{constructedbuilding.ConstructedBuildingId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(constructedbuilding);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -836,7 +837,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Friend> GetFriend(Guid id)
 		{
-			var url = Constants.FriendUrl + id.ToString();
+			var url = $"{Constants.FriendUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Friend>(result);
 			return deserializedResult;
@@ -854,7 +855,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateFriend(Friend friend)
 		{
-			var url = Constants.FriendUrl + friend.UserId.ToString();
+			var url = $"{Constants.FriendUrl}/{friend.UserId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(friend);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -864,7 +865,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteFriend(Friend friend)
 		{
-			var url = Constants.FriendUrl + friend.UserId.ToString();
+			var url = $"{Constants.FriendUrl}/{friend.UserId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(friend);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -884,7 +885,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredLeader> GetHiredLeader(Guid id)
 		{
-			var url = Constants.HiredLeaderUrl + id.ToString();
+			var url = $"{Constants.HiredLeaderUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredLeader>(result);
 			return deserializedResult;
@@ -902,7 +903,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredLeader(HiredLeader hiredleader)
 		{
-			var url = Constants.HiredLeaderUrl + hiredleader.HiredLeaderId.ToString();
+			var url = $"{Constants.HiredLeaderUrl}/{hiredleader.HiredLeaderId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredleader);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -912,7 +913,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredLeader(HiredLeader hiredleader)
 		{
-			var url = Constants.HiredLeaderUrl + hiredleader.HiredLeaderId.ToString();
+			var url = $"{Constants.HiredLeaderUrl}/{hiredleader.HiredLeaderId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredleader);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -932,7 +933,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredLeaderStat> GetHiredLeaderStat(Guid id)
 		{
-			var url = Constants.HiredLeaderStatUrl + id.ToString();
+			var url = $"{Constants.HiredLeaderStatUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredLeaderStat>(result);
 			return deserializedResult;
@@ -950,7 +951,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredLeaderStat(HiredLeaderStat hiredleaderstat)
 		{
-			var url = Constants.HiredLeaderStatUrl + hiredleaderstat.HiredLeaderStatId.ToString();
+			var url = $"{Constants.HiredLeaderStatUrl}/{hiredleaderstat.HiredLeaderStatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredleaderstat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -960,7 +961,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredLeaderStat(HiredLeaderStat hiredleaderstat)
 		{
-			var url = Constants.HiredLeaderStatUrl + hiredleaderstat.HiredLeaderStatId.ToString();
+			var url = $"{Constants.HiredLeaderStatUrl}/{hiredleaderstat.HiredLeaderStatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredleaderstat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -980,7 +981,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnit> GetHiredUnit(Guid id)
 		{
-			var url = Constants.HiredUnitUrl + id.ToString();
+			var url = $"{Constants.HiredUnitUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnit>(result);
 			return deserializedResult;
@@ -998,7 +999,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnit(HiredUnit hiredunit)
 		{
-			var url = Constants.HiredUnitUrl + hiredunit.HiredUnitId.ToString();
+			var url = $"{Constants.HiredUnitUrl}/{hiredunit.HiredUnitId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunit);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1008,7 +1009,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnit(HiredUnit hiredunit)
 		{
-			var url = Constants.HiredUnitUrl + hiredunit.HiredUnitId.ToString();
+			var url = $"{Constants.HiredUnitUrl}/{hiredunit.HiredUnitId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunit);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1028,7 +1029,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStat> GetHiredUnitStat(Guid id)
 		{
-			var url = Constants.HiredUnitStatUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStat>(result);
 			return deserializedResult;
@@ -1046,7 +1047,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStat(HiredUnitStat hiredunitstat)
 		{
-			var url = Constants.HiredUnitStatUrl + hiredunitstat.HiredUnitStatId.ToString();
+			var url = $"{Constants.HiredUnitStatUrl}/{hiredunitstat.HiredUnitStatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1056,7 +1057,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStat(HiredUnitStat hiredunitstat)
 		{
-			var url = Constants.HiredUnitStatUrl + hiredunitstat.HiredUnitStatId.ToString();
+			var url = $"{Constants.HiredUnitStatUrl}/{hiredunitstat.HiredUnitStatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1076,7 +1077,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStatBody> GetHiredUnitStatBody(Guid id)
 		{
-			var url = Constants.HiredUnitStatBodyUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatBodyUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStatBody>(result);
 			return deserializedResult;
@@ -1094,7 +1095,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStatBody(HiredUnitStatBody hiredunitstatbody)
 		{
-			var url = Constants.HiredUnitStatBodyUrl + hiredunitstatbody.HiredUnitStatBodyId.ToString();
+			var url = $"{Constants.HiredUnitStatBodyUrl}/{hiredunitstatbody.HiredUnitStatBodyId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatbody);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1104,7 +1105,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStatBody(HiredUnitStatBody hiredunitstatbody)
 		{
-			var url = Constants.HiredUnitStatBodyUrl + hiredunitstatbody.HiredUnitStatBodyId.ToString();
+			var url = $"{Constants.HiredUnitStatBodyUrl}/{hiredunitstatbody.HiredUnitStatBodyId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatbody);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1124,7 +1125,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStatCivil> GetHiredUnitStatCivil(Guid id)
 		{
-			var url = Constants.HiredUnitStatCivilUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatCivilUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStatCivil>(result);
 			return deserializedResult;
@@ -1142,7 +1143,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStatCivil(HiredUnitStatCivil hiredunitstatcivil)
 		{
-			var url = Constants.HiredUnitStatCivilUrl + hiredunitstatcivil.HiredUnitStatCivilId.ToString();
+			var url = $"{Constants.HiredUnitStatCivilUrl}/{hiredunitstatcivil.HiredUnitStatCivilId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatcivil);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1152,7 +1153,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStatCivil(HiredUnitStatCivil hiredunitstatcivil)
 		{
-			var url = Constants.HiredUnitStatCivilUrl + hiredunitstatcivil.HiredUnitStatCivilId.ToString();
+			var url = $"{Constants.HiredUnitStatCivilUrl}/{hiredunitstatcivil.HiredUnitStatCivilId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatcivil);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1172,7 +1173,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStatCombat> GetHiredUnitStatCombat(Guid id)
 		{
-			var url = Constants.HiredUnitStatCombatUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatCombatUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStatCombat>(result);
 			return deserializedResult;
@@ -1190,7 +1191,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStatCombat(HiredUnitStatCombat hiredunitstatcombat)
 		{
-			var url = Constants.HiredUnitStatCombatUrl + hiredunitstatcombat.HiredUnitStatCombatId.ToString();
+			var url = $"{Constants.HiredUnitStatCombatUrl}/{hiredunitstatcombat.HiredUnitStatCombatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatcombat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1200,7 +1201,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStatCombat(HiredUnitStatCombat hiredunitstatcombat)
 		{
-			var url = Constants.HiredUnitStatCombatUrl + hiredunitstatcombat.HiredUnitStatCombatId.ToString();
+			var url = $"{Constants.HiredUnitStatCombatUrl}/{hiredunitstatcombat.HiredUnitStatCombatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatcombat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1220,7 +1221,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStatEmotion> GetHiredUnitStatEmotion(Guid id)
 		{
-			var url = Constants.HiredUnitStatEmotionUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatEmotionUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStatEmotion>(result);
 			return deserializedResult;
@@ -1238,7 +1239,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStatEmotion(HiredUnitStatEmotion hiredunitstatemotion)
 		{
-			var url = Constants.HiredUnitStatEmotionUrl + hiredunitstatemotion.HiredUnitStatEmotionId.ToString();
+			var url = $"{Constants.HiredUnitStatEmotionUrl}/{hiredunitstatemotion.HiredUnitStatEmotionId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatemotion);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1248,7 +1249,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStatEmotion(HiredUnitStatEmotion hiredunitstatemotion)
 		{
-			var url = Constants.HiredUnitStatEmotionUrl + hiredunitstatemotion.HiredUnitStatEmotionId.ToString();
+			var url = $"{Constants.HiredUnitStatEmotionUrl}/{hiredunitstatemotion.HiredUnitStatEmotionId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatemotion);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1268,7 +1269,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStatFeat> GetHiredUnitStatFeat(Guid id)
 		{
-			var url = Constants.HiredUnitStatFeatUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatFeatUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStatFeat>(result);
 			return deserializedResult;
@@ -1286,7 +1287,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStatFeat(HiredUnitStatFeat hiredunitstatfeat)
 		{
-			var url = Constants.HiredUnitStatFeatUrl + hiredunitstatfeat.HiredUnitStatFeatId.ToString();
+			var url = $"{Constants.HiredUnitStatFeatUrl}/{hiredunitstatfeat.HiredUnitStatFeatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatfeat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1296,7 +1297,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStatFeat(HiredUnitStatFeat hiredunitstatfeat)
 		{
-			var url = Constants.HiredUnitStatFeatUrl + hiredunitstatfeat.HiredUnitStatFeatId.ToString();
+			var url = $"{Constants.HiredUnitStatFeatUrl}/{hiredunitstatfeat.HiredUnitStatFeatId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatfeat);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1316,7 +1317,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<HiredUnitStatMagic> GetHiredUnitStatMagic(Guid id)
 		{
-			var url = Constants.HiredUnitStatMagicUrl + id.ToString();
+			var url = $"{Constants.HiredUnitStatMagicUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<HiredUnitStatMagic>(result);
 			return deserializedResult;
@@ -1334,7 +1335,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateHiredUnitStatMagic(HiredUnitStatMagic hiredunitstatmagic)
 		{
-			var url = Constants.HiredUnitStatMagicUrl + hiredunitstatmagic.HiredUnitStatMagicId.ToString();
+			var url = $"{Constants.HiredUnitStatMagicUrl}/{hiredunitstatmagic.HiredUnitStatMagicId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatmagic);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1344,7 +1345,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteHiredUnitStatMagic(HiredUnitStatMagic hiredunitstatmagic)
 		{
-			var url = Constants.HiredUnitStatMagicUrl + hiredunitstatmagic.HiredUnitStatMagicId.ToString();
+			var url = $"{Constants.HiredUnitStatMagicUrl}/{hiredunitstatmagic.HiredUnitStatMagicId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(hiredunitstatmagic);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1364,7 +1365,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<ItemInventory> GetItemInventory(Guid id)
 		{
-			var url = Constants.ItemInventoryUrl + id.ToString();
+			var url = $"{Constants.ItemInventoryUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<ItemInventory>(result);
 			return deserializedResult;
@@ -1382,7 +1383,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateItemInventory(ItemInventory iteminventory)
 		{
-			var url = Constants.ItemInventoryUrl + iteminventory.ItemInventoryId.ToString();
+			var url = $"{Constants.ItemInventoryUrl}/{iteminventory.ItemInventoryId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(iteminventory);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1392,7 +1393,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteItemInventory(ItemInventory iteminventory)
 		{
-			var url = Constants.ItemInventoryUrl + iteminventory.ItemInventoryId.ToString();
+			var url = $"{Constants.ItemInventoryUrl}/{iteminventory.ItemInventoryId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(iteminventory);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1412,7 +1413,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<Player> GetPlayer(Guid id)
 		{
-			var url = Constants.PlayerUrl + id.ToString();
+			var url = $"{Constants.PlayerUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<Player>(result);
 			return deserializedResult;
@@ -1430,7 +1431,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdatePlayer(Player player)
 		{
-			var url = Constants.PlayerUrl + player.UserId.ToString();
+			var url = $"{Constants.PlayerUrl}/{player.UserId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(player);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1440,7 +1441,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeletePlayer(Player player)
 		{
-			var url = Constants.PlayerUrl + player.UserId.ToString();
+			var url = $"{Constants.PlayerUrl}/{player.UserId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(player);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1460,7 +1461,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<ResearchedTechnology> GetResearchedTechnology(Guid id)
 		{
-			var url = Constants.ResearchedTechnologyUrl + id.ToString();
+			var url = $"{Constants.ResearchedTechnologyUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<ResearchedTechnology>(result);
 			return deserializedResult;
@@ -1478,7 +1479,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateResearchedTechnology(ResearchedTechnology researchedtechnology)
 		{
-			var url = Constants.ResearchedTechnologyUrl + researchedtechnology.ResearchedTechnologyId.ToString();
+			var url = $"{Constants.ResearchedTechnologyUrl}/{researchedtechnology.ResearchedTechnologyId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(researchedtechnology);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1488,7 +1489,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteResearchedTechnology(ResearchedTechnology researchedtechnology)
 		{
-			var url = Constants.ResearchedTechnologyUrl + researchedtechnology.ResearchedTechnologyId.ToString();
+			var url = $"{Constants.ResearchedTechnologyUrl}/{researchedtechnology.ResearchedTechnologyId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(researchedtechnology);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1508,7 +1509,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<ResourceGain> GetResourceGain(Guid id)
 		{
-			var url = Constants.ResourceGainUrl + id.ToString();
+			var url = $"{Constants.ResourceGainUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<ResourceGain>(result);
 			return deserializedResult;
@@ -1526,7 +1527,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateResourceGain(ResourceGain resourcegain)
 		{
-			var url = Constants.ResourceGainUrl + resourcegain.ResourceGainId.ToString();
+			var url = $"{Constants.ResourceGainUrl}/{resourcegain.ResourceGainId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(resourcegain);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1536,7 +1537,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteResourceGain(ResourceGain resourcegain)
 		{
-			var url = Constants.ResourceGainUrl + resourcegain.ResourceGainId.ToString();
+			var url = $"{Constants.ResourceGainUrl}/{resourcegain.ResourceGainId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(resourcegain);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1556,7 +1557,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<ResourceInventory> GetResourceInventory(Guid id)
 		{
-			var url = Constants.ResourceInventoryUrl + id.ToString();
+			var url = $"{Constants.ResourceInventoryUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<ResourceInventory>(result);
 			return deserializedResult;
@@ -1574,7 +1575,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateResourceInventory(ResourceInventory resourceinventory)
 		{
-			var url = Constants.ResourceInventoryUrl + resourceinventory.ResourceInventoryId.ToString();
+			var url = $"{Constants.ResourceInventoryUrl}/{resourceinventory.ResourceInventoryId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(resourceinventory);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1584,7 +1585,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteResourceInventory(ResourceInventory resourceinventory)
 		{
-			var url = Constants.ResourceInventoryUrl + resourceinventory.ResourceInventoryId.ToString();
+			var url = $"{Constants.ResourceInventoryUrl}/{resourceinventory.ResourceInventoryId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(resourceinventory);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1604,7 +1605,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<UserCity> GetUserCity(Guid id)
 		{
-			var url = Constants.UserCityUrl + id.ToString();
+			var url = $"{Constants.UserCityUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<UserCity>(result);
 			return deserializedResult;
@@ -1622,7 +1623,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateUserCity(UserCity usercity)
 		{
-			var url = Constants.UserCityUrl + usercity.UserCityId.ToString();
+			var url = $"{Constants.UserCityUrl}/{usercity.UserCityId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(usercity);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1632,7 +1633,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteUserCity(UserCity usercity)
 		{
-			var url = Constants.UserCityUrl + usercity.UserCityId.ToString();
+			var url = $"{Constants.UserCityUrl}/{usercity.UserCityId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(usercity);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1652,7 +1653,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<UserCityLeader> GetUserCityLeader(Guid id)
 		{
-			var url = Constants.UserCityLeaderUrl + id.ToString();
+			var url = $"{Constants.UserCityLeaderUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<UserCityLeader>(result);
 			return deserializedResult;
@@ -1670,7 +1671,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateUserCityLeader(UserCityLeader usercityleader)
 		{
-			var url = Constants.UserCityLeaderUrl + usercityleader.UserCityLeaderId.ToString();
+			var url = $"{Constants.UserCityLeaderUrl}/{usercityleader.UserCityLeaderId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(usercityleader);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1680,7 +1681,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteUserCityLeader(UserCityLeader usercityleader)
 		{
-			var url = Constants.UserCityLeaderUrl + usercityleader.UserCityLeaderId.ToString();
+			var url = $"{Constants.UserCityLeaderUrl}/{usercityleader.UserCityLeaderId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(usercityleader);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);
@@ -1700,7 +1701,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<User> GetUser(Guid id)
 		{
-			var url = Constants.UserUrl + id.ToString();
+			var url = $"{Constants.UserUrl}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<User>(result);
 			return deserializedResult;
@@ -1718,7 +1719,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> UpdateUser(User user)
 		{
-			var url = Constants.UserUrl + user.UserId.ToString();
+			var url = $"{Constants.UserUrl}/{user.UserId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(user);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -1728,7 +1729,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> DeleteUser(User user)
 		{
-			var url = Constants.UserUrl + user.UserId.ToString();
+			var url = $"{Constants.UserUrl}/{user.UserId.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(user);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BuildingLevelsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class BuildingLevelsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public BuildingLevelsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public BuildingLevelsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/BuildingLevels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BuildingLevel>>> GetBuildingLevel()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.BuildingLevel.ToListAsync();
         }
 
-        // GET: api/BuildingLevels/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<BuildingLevel>> GetBuildingLevel(int id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<BuildingLevel>> GetBuildingLevel(int id)
+		{
           if (_context.BuildingLevel == null)
           {
               return NotFound();
           }
-            var buildingLevel = await _context.BuildingLevel.FindAsync(id);
+            var buildinglevel = await _context.BuildingLevel.FindAsync(id);
 
-            if (buildingLevel == null)
+            if (buildinglevel  == null)
             {
                 return NotFound();
             }
 
-            return buildingLevel;
+            return buildinglevel;
         }
 
-        // PUT: api/BuildingLevels/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuildingLevel(int id, BuildingLevel buildingLevel)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutBuildingLevel(int id, BuildingLevel buildinglevel)
         {
-            if (id != buildingLevel.BuildingLevelId)
+            if (id != buildinglevel.BuildingLevelId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(buildingLevel).State = EntityState.Modified;
+            _context.Entry(buildinglevel).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/BuildingLevels
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<BuildingLevel>> PostBuildingLevel(BuildingLevel buildingLevel)
+        public async Task<ActionResult<BuildingLevel>> PostBuildingLevel(BuildingLevel buildinglevel)
         {
           if (_context.BuildingLevel == null)
           {
               return Problem("Entity set 'AbioContext.BuildingLevel'  is null.");
           }
-            _context.BuildingLevel.Add(buildingLevel);
+            _context.BuildingLevel.Add(buildinglevel);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (BuildingLevelExists(buildingLevel.BuildingLevelId))
+                if (BuildingLevelExists(buildinglevel.BuildingLevelId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetBuildingLevel", new { id = buildingLevel.BuildingLevelId }, buildingLevel);
+            return CreatedAtAction("GetBuildingLevel", new { id = buildinglevel.BuildingLevelId }, buildinglevel);
         }
-
-        // DELETE: api/BuildingLevels/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBuildingLevel(int id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var buildingLevel = await _context.BuildingLevel.FindAsync(id);
-            if (buildingLevel == null)
+            var buildinglevel = await _context.BuildingLevel.FindAsync(id);
+            if (buildinglevel == null)
             {
                 return NotFound();
             }
 
-            _context.BuildingLevel.Remove(buildingLevel);
+            _context.BuildingLevel.Remove(buildinglevel);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.BuildingLevel?.Any(e => e.BuildingLevelId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

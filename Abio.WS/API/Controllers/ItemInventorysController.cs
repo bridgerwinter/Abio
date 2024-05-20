@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemInventoriesController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class ItemInventorysController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public ItemInventoriesController(AbioContext context)
-        {
-            _context = context;
-        }
+		public ItemInventorysController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/ItemInventories
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ItemInventory>>> GetItemInventory()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.ItemInventory.ToListAsync();
         }
 
-        // GET: api/ItemInventories/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ItemInventory>> GetItemInventory(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<ItemInventory>> GetItemInventory(Guid id)
+		{
           if (_context.ItemInventory == null)
           {
               return NotFound();
           }
-            var itemInventory = await _context.ItemInventory.FindAsync(id);
+            var iteminventory = await _context.ItemInventory.FindAsync(id);
 
-            if (itemInventory == null)
+            if (iteminventory  == null)
             {
                 return NotFound();
             }
 
-            return itemInventory;
+            return iteminventory;
         }
 
-        // PUT: api/ItemInventories/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutItemInventory(Guid id, ItemInventory itemInventory)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutItemInventory(Guid id, ItemInventory iteminventory)
         {
-            if (id != itemInventory.ItemInventoryId)
+            if (id != iteminventory.ItemInventoryId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(itemInventory).State = EntityState.Modified;
+            _context.Entry(iteminventory).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/ItemInventories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ItemInventory>> PostItemInventory(ItemInventory itemInventory)
+        public async Task<ActionResult<ItemInventory>> PostItemInventory(ItemInventory iteminventory)
         {
           if (_context.ItemInventory == null)
           {
               return Problem("Entity set 'AbioContext.ItemInventory'  is null.");
           }
-            _context.ItemInventory.Add(itemInventory);
+            _context.ItemInventory.Add(iteminventory);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ItemInventoryExists(itemInventory.ItemInventoryId))
+                if (ItemInventoryExists(iteminventory.ItemInventoryId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetItemInventory", new { id = itemInventory.ItemInventoryId }, itemInventory);
+            return CreatedAtAction("GetItemInventory", new { id = iteminventory.ItemInventoryId }, iteminventory);
         }
-
-        // DELETE: api/ItemInventories/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItemInventory(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var itemInventory = await _context.ItemInventory.FindAsync(id);
-            if (itemInventory == null)
+            var iteminventory = await _context.ItemInventory.FindAsync(id);
+            if (iteminventory == null)
             {
                 return NotFound();
             }
 
-            _context.ItemInventory.Remove(itemInventory);
+            _context.ItemInventory.Remove(iteminventory);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.ItemInventory?.Any(e => e.ItemInventoryId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

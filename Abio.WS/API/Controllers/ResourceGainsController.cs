@@ -14,51 +14,51 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class UsersController : ControllerBase
+	public class ResourceGainsController : ControllerBase
 	{
 		private readonly AbioContext _context;
 
-		public UsersController(AbioContext context)
+		public ResourceGainsController(AbioContext context)
 		{
 			_context = context;
 		}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<ResourceGain>>> GetResourceGain()
         {
-          if (_context.User == null)
+          if (_context.ResourceGain == null)
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.ResourceGain.ToListAsync();
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(Guid id)
+		public async Task<ActionResult<ResourceGain>> GetResourceGain(Guid id)
 		{
-          if (_context.User == null)
+          if (_context.ResourceGain == null)
           {
               return NotFound();
           }
-            var user = await _context.User.FindAsync(id);
+            var resourcegain = await _context.ResourceGain.FindAsync(id);
 
-            if (user  == null)
+            if (resourcegain  == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return resourcegain;
         }
 
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutResourceGain(Guid id, ResourceGain resourcegain)
         {
-            if (id != user.UserId)
+            if (id != resourcegain.ResourceGainId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(resourcegain).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!ResourceGainExists(id))
                 {
                     return NotFound();
                 }
@@ -80,20 +80,20 @@ namespace Abio.WS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<ResourceGain>> PostResourceGain(ResourceGain resourcegain)
         {
-          if (_context.User == null)
+          if (_context.ResourceGain == null)
           {
-              return Problem("Entity set 'AbioContext.User'  is null.");
+              return Problem("Entity set 'AbioContext.ResourceGain'  is null.");
           }
-            _context.User.Add(user);
+            _context.ResourceGain.Add(resourcegain);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (ResourceGainExists(resourcegain.ResourceGainId))
                 {
                     return Conflict();
                 }
@@ -103,31 +103,31 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetResourceGain", new { id = resourcegain.ResourceGainId }, resourcegain);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteResourceGain(Guid id)
         {
-            if (_context.User == null)
+            if (_context.ResourceGain == null)
             {
                 return NotFound();
             }
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var resourcegain = await _context.ResourceGain.FindAsync(id);
+            if (resourcegain == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.ResourceGain.Remove(resourcegain);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool ResourceGainExists(Guid id)
         {
-            return (_context.User?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.ResourceGain?.Any(e => e.ResourceGainId == id)).GetValueOrDefault();
         }
 	}
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MarketsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class MarketsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public MarketsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public MarketsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/Markets
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Market>>> GetMarket()
         {
@@ -31,17 +33,16 @@ namespace Abio.WS.API.Controllers
             return await _context.Market.ToListAsync();
         }
 
-        // GET: api/Markets/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Market>> GetMarket(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Market>> GetMarket(Guid id)
+		{
           if (_context.Market == null)
           {
               return NotFound();
           }
             var market = await _context.Market.FindAsync(id);
 
-            if (market == null)
+            if (market  == null)
             {
                 return NotFound();
             }
@@ -49,9 +50,7 @@ namespace Abio.WS.API.Controllers
             return market;
         }
 
-        // PUT: api/Markets/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutMarket(Guid id, Market market)
         {
             if (id != market.MarketId)
@@ -80,8 +79,6 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Markets
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Market>> PostMarket(Market market)
         {
@@ -108,8 +105,7 @@ namespace Abio.WS.API.Controllers
 
             return CreatedAtAction("GetMarket", new { id = market.MarketId }, market);
         }
-
-        // DELETE: api/Markets/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMarket(Guid id)
         {
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.Market?.Any(e => e.MarketId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

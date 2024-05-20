@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HiredUnitsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class HiredUnitsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public HiredUnitsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public HiredUnitsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/HiredUnits
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HiredUnit>>> GetHiredUnit()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.HiredUnit.ToListAsync();
         }
 
-        // GET: api/HiredUnits/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HiredUnit>> GetHiredUnit(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<HiredUnit>> GetHiredUnit(Guid id)
+		{
           if (_context.HiredUnit == null)
           {
               return NotFound();
           }
-            var hiredUnit = await _context.HiredUnit.FindAsync(id);
+            var hiredunit = await _context.HiredUnit.FindAsync(id);
 
-            if (hiredUnit == null)
+            if (hiredunit  == null)
             {
                 return NotFound();
             }
 
-            return hiredUnit;
+            return hiredunit;
         }
 
-        // PUT: api/HiredUnits/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHiredUnit(Guid id, HiredUnit hiredUnit)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutHiredUnit(Guid id, HiredUnit hiredunit)
         {
-            if (id != hiredUnit.HiredUnitId)
+            if (id != hiredunit.HiredUnitId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hiredUnit).State = EntityState.Modified;
+            _context.Entry(hiredunit).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/HiredUnits
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HiredUnit>> PostHiredUnit(HiredUnit hiredUnit)
+        public async Task<ActionResult<HiredUnit>> PostHiredUnit(HiredUnit hiredunit)
         {
           if (_context.HiredUnit == null)
           {
               return Problem("Entity set 'AbioContext.HiredUnit'  is null.");
           }
-            _context.HiredUnit.Add(hiredUnit);
+            _context.HiredUnit.Add(hiredunit);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (HiredUnitExists(hiredUnit.HiredUnitId))
+                if (HiredUnitExists(hiredunit.HiredUnitId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetHiredUnit", new { id = hiredUnit.HiredUnitId }, hiredUnit);
+            return CreatedAtAction("GetHiredUnit", new { id = hiredunit.HiredUnitId }, hiredunit);
         }
-
-        // DELETE: api/HiredUnits/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHiredUnit(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var hiredUnit = await _context.HiredUnit.FindAsync(id);
-            if (hiredUnit == null)
+            var hiredunit = await _context.HiredUnit.FindAsync(id);
+            if (hiredunit == null)
             {
                 return NotFound();
             }
 
-            _context.HiredUnit.Remove(hiredUnit);
+            _context.HiredUnit.Remove(hiredunit);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.HiredUnit?.Any(e => e.HiredUnitId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

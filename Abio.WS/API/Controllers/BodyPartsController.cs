@@ -14,51 +14,51 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class UsersController : ControllerBase
+	public class BodyPartsController : ControllerBase
 	{
 		private readonly AbioContext _context;
 
-		public UsersController(AbioContext context)
+		public BodyPartsController(AbioContext context)
 		{
 			_context = context;
 		}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<BodyPart>>> GetBodyPart()
         {
-          if (_context.User == null)
+          if (_context.BodyPart == null)
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.BodyPart.ToListAsync();
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(Guid id)
+		public async Task<ActionResult<BodyPart>> GetBodyPart(int id)
 		{
-          if (_context.User == null)
+          if (_context.BodyPart == null)
           {
               return NotFound();
           }
-            var user = await _context.User.FindAsync(id);
+            var bodypart = await _context.BodyPart.FindAsync(id);
 
-            if (user  == null)
+            if (bodypart  == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return bodypart;
         }
 
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutBodyPart(int id, BodyPart bodypart)
         {
-            if (id != user.UserId)
+            if (id != bodypart.BodyPartId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(bodypart).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!BodyPartExists(id))
                 {
                     return NotFound();
                 }
@@ -80,20 +80,20 @@ namespace Abio.WS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<BodyPart>> PostBodyPart(BodyPart bodypart)
         {
-          if (_context.User == null)
+          if (_context.BodyPart == null)
           {
-              return Problem("Entity set 'AbioContext.User'  is null.");
+              return Problem("Entity set 'AbioContext.BodyPart'  is null.");
           }
-            _context.User.Add(user);
+            _context.BodyPart.Add(bodypart);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (BodyPartExists(bodypart.BodyPartId))
                 {
                     return Conflict();
                 }
@@ -103,31 +103,31 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetBodyPart", new { id = bodypart.BodyPartId }, bodypart);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteBodyPart(int id)
         {
-            if (_context.User == null)
+            if (_context.BodyPart == null)
             {
                 return NotFound();
             }
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var bodypart = await _context.BodyPart.FindAsync(id);
+            if (bodypart == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.BodyPart.Remove(bodypart);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool BodyPartExists(int id)
         {
-            return (_context.User?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.BodyPart?.Any(e => e.BodyPartId == id)).GetValueOrDefault();
         }
 	}
 }

@@ -23,6 +23,7 @@ foreach (var schema in fileDirectories)
 using Abio.Library.DatabaseModels;
 using Newtonsoft.Json;
 using System.Text;
+using Abio.Library.Services;
 using Attribute = Abio.Library.DatabaseModels.Attribute;
 
 namespace Abio.Library.Services
@@ -56,7 +57,7 @@ namespace Abio.Library.Services
 		// GET
 		public static async Task<<#= classNameUpper #>> Get<#= classNameUpper #>(<#= idType #> id)
 		{
-			var url = Constants.<#= classNameUpper #>Url + id.ToString();
+			var url = $"{Constants.<#= classNameUpper #>Url}/{id.ToString()}";
 			string result = await Constants.GetClient().GetStringAsync(url);
 			var deserializedResult = JsonConvert.DeserializeObject<<#= classNameUpper #>>(result);
 			return deserializedResult;
@@ -74,7 +75,7 @@ namespace Abio.Library.Services
 		// PUT (UPDATE)
 		public static async Task<HttpResponseMessage> Update<#= classNameUpper #>(<#= classNameUpper #> <#= classNameLower #>)
 		{
-			var url = Constants.<#= classNameUpper #>Url + <#= classNameLower #>.<#= idName #>.ToString();
+			var url = $"{Constants.<#= classNameUpper #>Url}/{<#= classNameLower #>.<#= idName #>.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(<#= classNameLower #>);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().PutAsync(url,httpContent);
@@ -84,7 +85,7 @@ namespace Abio.Library.Services
 		// DELETE (UPDATE)
 		public static async Task<HttpResponseMessage> Delete<#= classNameUpper #>(<#= classNameUpper #> <#= classNameLower #>)
 		{
-			var url = Constants.<#= classNameUpper #>Url + <#= classNameLower #>.<#= idName #>.ToString();
+			var url = $"{Constants.<#= classNameUpper #>Url}/{<#= classNameLower #>.<#= idName #>.ToString()}";
 			string jsonChore = JsonConvert.SerializeObject(<#= classNameLower #>);
 			StringContent httpContent = new StringContent(jsonChore, Encoding.UTF8, "application/json");
 			HttpResponseMessage result = await Constants.GetClient().DeleteAsync(url);

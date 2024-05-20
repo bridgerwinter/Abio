@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HiredLeaderStatsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class HiredLeaderStatsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public HiredLeaderStatsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public HiredLeaderStatsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/HiredLeaderStats
         [HttpGet]
         public async Task<ActionResult<IEnumerable<HiredLeaderStat>>> GetHiredLeaderStat()
         {
@@ -31,35 +33,32 @@ namespace Abio.WS.API.Controllers
             return await _context.HiredLeaderStat.ToListAsync();
         }
 
-        // GET: api/HiredLeaderStats/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HiredLeaderStat>> GetHiredLeaderStat(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<HiredLeaderStat>> GetHiredLeaderStat(Guid id)
+		{
           if (_context.HiredLeaderStat == null)
           {
               return NotFound();
           }
-            var hiredLeaderStat = await _context.HiredLeaderStat.FindAsync(id);
+            var hiredleaderstat = await _context.HiredLeaderStat.FindAsync(id);
 
-            if (hiredLeaderStat == null)
+            if (hiredleaderstat  == null)
             {
                 return NotFound();
             }
 
-            return hiredLeaderStat;
+            return hiredleaderstat;
         }
 
-        // PUT: api/HiredLeaderStats/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutHiredLeaderStat(Guid id, HiredLeaderStat hiredLeaderStat)
+		[HttpPut("{id}")]
+        public async Task<IActionResult> PutHiredLeaderStat(Guid id, HiredLeaderStat hiredleaderstat)
         {
-            if (id != hiredLeaderStat.HiredLeaderStatId)
+            if (id != hiredleaderstat.HiredLeaderStatId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hiredLeaderStat).State = EntityState.Modified;
+            _context.Entry(hiredleaderstat).State = EntityState.Modified;
 
             try
             {
@@ -80,23 +79,21 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/HiredLeaderStats
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HiredLeaderStat>> PostHiredLeaderStat(HiredLeaderStat hiredLeaderStat)
+        public async Task<ActionResult<HiredLeaderStat>> PostHiredLeaderStat(HiredLeaderStat hiredleaderstat)
         {
           if (_context.HiredLeaderStat == null)
           {
               return Problem("Entity set 'AbioContext.HiredLeaderStat'  is null.");
           }
-            _context.HiredLeaderStat.Add(hiredLeaderStat);
+            _context.HiredLeaderStat.Add(hiredleaderstat);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (HiredLeaderStatExists(hiredLeaderStat.HiredLeaderStatId))
+                if (HiredLeaderStatExists(hiredleaderstat.HiredLeaderStatId))
                 {
                     return Conflict();
                 }
@@ -106,10 +103,9 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetHiredLeaderStat", new { id = hiredLeaderStat.HiredLeaderStatId }, hiredLeaderStat);
+            return CreatedAtAction("GetHiredLeaderStat", new { id = hiredleaderstat.HiredLeaderStatId }, hiredleaderstat);
         }
-
-        // DELETE: api/HiredLeaderStats/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHiredLeaderStat(Guid id)
         {
@@ -117,13 +113,13 @@ namespace Abio.WS.API.Controllers
             {
                 return NotFound();
             }
-            var hiredLeaderStat = await _context.HiredLeaderStat.FindAsync(id);
-            if (hiredLeaderStat == null)
+            var hiredleaderstat = await _context.HiredLeaderStat.FindAsync(id);
+            if (hiredleaderstat == null)
             {
                 return NotFound();
             }
 
-            _context.HiredLeaderStat.Remove(hiredLeaderStat);
+            _context.HiredLeaderStat.Remove(hiredleaderstat);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.HiredLeaderStat?.Any(e => e.HiredLeaderStatId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

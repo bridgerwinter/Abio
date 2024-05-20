@@ -14,51 +14,51 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class UsersController : ControllerBase
+	public class SkillsController : ControllerBase
 	{
 		private readonly AbioContext _context;
 
-		public UsersController(AbioContext context)
+		public SkillsController(AbioContext context)
 		{
 			_context = context;
 		}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<Skill>>> GetSkill()
         {
-          if (_context.User == null)
+          if (_context.Skill == null)
           {
               return NotFound();
           }
-            return await _context.User.ToListAsync();
+            return await _context.Skill.ToListAsync();
         }
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(Guid id)
+		public async Task<ActionResult<Skill>> GetSkill(int id)
 		{
-          if (_context.User == null)
+          if (_context.Skill == null)
           {
               return NotFound();
           }
-            var user = await _context.User.FindAsync(id);
+            var skill = await _context.Skill.FindAsync(id);
 
-            if (user  == null)
+            if (skill  == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return skill;
         }
 
 		[HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutSkill(int id, Skill skill)
         {
-            if (id != user.UserId)
+            if (id != skill.SkillId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(skill).State = EntityState.Modified;
 
             try
             {
@@ -66,7 +66,7 @@ namespace Abio.WS.API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!SkillExists(id))
                 {
                     return NotFound();
                 }
@@ -80,20 +80,20 @@ namespace Abio.WS.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Skill>> PostSkill(Skill skill)
         {
-          if (_context.User == null)
+          if (_context.Skill == null)
           {
-              return Problem("Entity set 'AbioContext.User'  is null.");
+              return Problem("Entity set 'AbioContext.Skill'  is null.");
           }
-            _context.User.Add(user);
+            _context.Skill.Add(skill);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (UserExists(user.UserId))
+                if (SkillExists(skill.SkillId))
                 {
                     return Conflict();
                 }
@@ -103,31 +103,31 @@ namespace Abio.WS.API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return CreatedAtAction("GetSkill", new { id = skill.SkillId }, skill);
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(Guid id)
+        public async Task<IActionResult> DeleteSkill(int id)
         {
-            if (_context.User == null)
+            if (_context.Skill == null)
             {
                 return NotFound();
             }
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var skill = await _context.Skill.FindAsync(id);
+            if (skill == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Skill.Remove(skill);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool UserExists(Guid id)
+        private bool SkillExists(int id)
         {
-            return (_context.User?.Any(e => e.UserId == id)).GetValueOrDefault();
+            return (_context.Skill?.Any(e => e.SkillId == id)).GetValueOrDefault();
         }
 	}
 }

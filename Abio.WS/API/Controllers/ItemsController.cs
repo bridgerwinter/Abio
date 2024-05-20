@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ItemsController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class ItemsController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public ItemsController(AbioContext context)
-        {
-            _context = context;
-        }
+		public ItemsController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/Items
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Item>>> GetItem()
         {
@@ -31,17 +33,16 @@ namespace Abio.WS.API.Controllers
             return await _context.Item.ToListAsync();
         }
 
-        // GET: api/Items/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Item>> GetItem(Guid id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Item>> GetItem(Guid id)
+		{
           if (_context.Item == null)
           {
               return NotFound();
           }
             var item = await _context.Item.FindAsync(id);
 
-            if (item == null)
+            if (item  == null)
             {
                 return NotFound();
             }
@@ -49,9 +50,7 @@ namespace Abio.WS.API.Controllers
             return item;
         }
 
-        // PUT: api/Items/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutItem(Guid id, Item item)
         {
             if (id != item.ItemId)
@@ -80,8 +79,6 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Items
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem(Item item)
         {
@@ -108,8 +105,7 @@ namespace Abio.WS.API.Controllers
 
             return CreatedAtAction("GetItem", new { id = item.ItemId }, item);
         }
-
-        // DELETE: api/Items/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(Guid id)
         {
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.Item?.Any(e => e.ItemId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,21 +6,23 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Abio.Library.DatabaseModels;
+using Attribute = Abio.Library.DatabaseModels.Attribute;
+
 
 namespace Abio.WS.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TechnologiesController : ControllerBase
-    {
-        private readonly AbioContext _context;
+	
+	public class TechnologysController : ControllerBase
+	{
+		private readonly AbioContext _context;
 
-        public TechnologiesController(AbioContext context)
-        {
-            _context = context;
-        }
+		public TechnologysController(AbioContext context)
+		{
+			_context = context;
+		}
 
-        // GET: api/Technologies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Technology>>> GetTechnology()
         {
@@ -31,17 +33,16 @@ namespace Abio.WS.API.Controllers
             return await _context.Technology.ToListAsync();
         }
 
-        // GET: api/Technologies/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Technology>> GetTechnology(int id)
-        {
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Technology>> GetTechnology(int id)
+		{
           if (_context.Technology == null)
           {
               return NotFound();
           }
             var technology = await _context.Technology.FindAsync(id);
 
-            if (technology == null)
+            if (technology  == null)
             {
                 return NotFound();
             }
@@ -49,9 +50,7 @@ namespace Abio.WS.API.Controllers
             return technology;
         }
 
-        // PUT: api/Technologies/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutTechnology(int id, Technology technology)
         {
             if (id != technology.TechnologyId)
@@ -80,8 +79,6 @@ namespace Abio.WS.API.Controllers
             return NoContent();
         }
 
-        // POST: api/Technologies
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Technology>> PostTechnology(Technology technology)
         {
@@ -108,8 +105,7 @@ namespace Abio.WS.API.Controllers
 
             return CreatedAtAction("GetTechnology", new { id = technology.TechnologyId }, technology);
         }
-
-        // DELETE: api/Technologies/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTechnology(int id)
         {
@@ -133,5 +129,6 @@ namespace Abio.WS.API.Controllers
         {
             return (_context.Technology?.Any(e => e.TechnologyId == id)).GetValueOrDefault();
         }
-    }
+	}
 }
+
