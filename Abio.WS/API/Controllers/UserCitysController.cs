@@ -62,6 +62,12 @@ namespace Abio.WS.API.Controllers
 
             try
             {
+                  usercity.UserCityId = Guid.NewGuid();
+                  if (this.UserCityExists(usercity.UserCityId))
+                  {
+                    usercity.UserCityId = Guid.NewGuid();
+                  }
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

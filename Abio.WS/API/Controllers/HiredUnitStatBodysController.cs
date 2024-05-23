@@ -62,6 +62,12 @@ namespace Abio.WS.API.Controllers
 
             try
             {
+                  hiredunitstatbody.HiredUnitStatBodyId = Guid.NewGuid();
+                  if (this.HiredUnitStatBodyExists(hiredunitstatbody.HiredUnitStatBodyId))
+                  {
+                    hiredunitstatbody.HiredUnitStatBodyId = Guid.NewGuid();
+                  }
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

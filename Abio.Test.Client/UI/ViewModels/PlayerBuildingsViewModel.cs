@@ -63,9 +63,10 @@ namespace Abio.Test.Client.UI.ViewModels
         {
             var buildingLevels = await ApiService.GetAllBuildingLevels();
             ConstructedBuilding c = new ConstructedBuilding();
-            c.Building = this.Buildings.Where(b => b.BuildingId == buildingId).FirstOrDefault();
+            c.BuildingId = this.Buildings.Where(b => b.BuildingId == buildingId).FirstOrDefault().BuildingId;
             c.BuildingLevelId = buildingLevels.FirstOrDefault().BuildingLevelId;
             c.UserId = testguid;
+            //c.User = await ApiService.GetUser(testguid);
             await ApiService.CreateConstructedBuilding(c);
         }
     }

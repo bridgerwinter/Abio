@@ -62,6 +62,12 @@ namespace Abio.WS.API.Controllers
 
             try
             {
+                  friend.FriendId = Guid.NewGuid();
+                  if (this.FriendExists(friend.FriendId))
+                  {
+                    friend.FriendId = Guid.NewGuid();
+                  }
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

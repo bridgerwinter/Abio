@@ -96,6 +96,14 @@ namespace Abio.WS.API.Controllers
 
             try
             {
+                  <# if (idType == "Guid") { this.Write($"{classNameLower}.{classNameUpper}Id = Guid.NewGuid();"); } #>
+
+                  <# if (idType == "Guid") { this.Write($"if (this.{classNameUpper}Exists({classNameLower}.{classNameUpper}Id))"); } #>
+
+                  <# if (idType == "Guid") { this.Write("{"); } #>
+                  <# if (idType == "Guid") { this.Write($"  {classNameLower}.{classNameUpper}Id = Guid.NewGuid();"); } #>
+                  <# if (idType == "Guid") { this.Write("}"); } #>
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

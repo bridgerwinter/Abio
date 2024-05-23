@@ -62,6 +62,12 @@ namespace Abio.WS.API.Controllers
 
             try
             {
+                  hiredunitstatemotion.HiredUnitStatEmotionId = Guid.NewGuid();
+                  if (this.HiredUnitStatEmotionExists(hiredunitstatemotion.HiredUnitStatEmotionId))
+                  {
+                    hiredunitstatemotion.HiredUnitStatEmotionId = Guid.NewGuid();
+                  }
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
