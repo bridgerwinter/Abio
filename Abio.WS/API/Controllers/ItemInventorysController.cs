@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  iteminventory.ItemInventoryId = Guid.NewGuid();
-                  if (this.ItemInventoryExists(iteminventory.ItemInventoryId))
-                  {
-                    iteminventory.ItemInventoryId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.ItemInventory.Add(iteminventory);
             try
             {
-                await _context.SaveChangesAsync();
+                  iteminventory.ItemInventoryId = Guid.NewGuid();
+                  if (this.ItemInventoryExists(iteminventory.ItemInventoryId))
+                  {
+                    iteminventory.ItemInventoryId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

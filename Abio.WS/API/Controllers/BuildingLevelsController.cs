@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  
-                  
-                  
-                  
-                  
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.BuildingLevel.Add(buildinglevel);
             try
             {
-                await _context.SaveChangesAsync();
+                  
+                  
+                  
+                  
+                                  await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -145,7 +145,7 @@ public partial class AbioContext : DbContext
 
             entity.ToTable("ConstructedBuilding", "Player");
 
-            entity.Property(e => e.ConstructedBuildingId).ValueGeneratedNever();
+            entity.Property(e => e.ConstructedBuildingId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.created_at)
                 .IsRequired()
                 .IsRowVersion()
@@ -576,20 +576,24 @@ public partial class AbioContext : DbContext
 
         modelBuilder.Entity<ResourceGain>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("ResourceGain", "Player");
+            entity.ToTable("ResourceGain", "Player");
 
+            entity.Property(e => e.ResourceGainId).ValueGeneratedNever();
             entity.Property(e => e.TimeSinceLastGathered)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
-            entity.HasOne(d => d.Resource).WithMany()
+            entity.HasOne(d => d.ResourceGainNavigation).WithOne(p => p.ResourceGain)
+                .HasForeignKey<ResourceGain>(d => d.ResourceGainId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ResourceGain_ConstructedBuilding");
+
+            entity.HasOne(d => d.Resource).WithMany(p => p.ResourceGain)
                 .HasForeignKey(d => d.ResourceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ResourceGain_Resource");
 
-            entity.HasOne(d => d.User).WithMany()
+            entity.HasOne(d => d.User).WithMany(p => p.ResourceGain)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ResourceGain_User");

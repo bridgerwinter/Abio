@@ -13,5 +13,7 @@ public partial class Resource
 
     public string ResourceDescription { get; set; }
 
+    public virtual ICollection<ResourceGain> ResourceGain { get; set; } = new List<ResourceGain>();
+
     public virtual ICollection<ResourceInventory> ResourceInventory { get; set; } = new List<ResourceInventory>();
 }

@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  player.PlayerId = Guid.NewGuid();
-                  if (this.PlayerExists(player.PlayerId))
-                  {
-                    player.PlayerId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.Player.Add(player);
             try
             {
-                await _context.SaveChangesAsync();
+                  player.UserId = Guid.NewGuid();
+                  if (this.PlayerExists(player.UserId))
+                  {
+                    player.UserId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

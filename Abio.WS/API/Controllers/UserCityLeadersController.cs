@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  usercityleader.UserCityLeaderId = Guid.NewGuid();
-                  if (this.UserCityLeaderExists(usercityleader.UserCityLeaderId))
-                  {
-                    usercityleader.UserCityLeaderId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.UserCityLeader.Add(usercityleader);
             try
             {
-                await _context.SaveChangesAsync();
+                  usercityleader.UserCityLeaderId = Guid.NewGuid();
+                  if (this.UserCityLeaderExists(usercityleader.UserCityLeaderId))
+                  {
+                    usercityleader.UserCityLeaderId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

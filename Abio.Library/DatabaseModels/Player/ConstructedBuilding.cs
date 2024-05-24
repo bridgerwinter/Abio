@@ -2,8 +2,6 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Abio.Library.DatabaseModels;
 
@@ -22,6 +20,8 @@ public partial class ConstructedBuilding
     public virtual Building Building { get; set; }
 
     public virtual BuildingLevel BuildingLevel { get; set; }
+
+    public virtual ResourceGain ResourceGain { get; set; }
 
     public virtual User User { get; set; }
 }

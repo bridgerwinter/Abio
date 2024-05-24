@@ -31,6 +31,7 @@ foreach(var key in dictionaryOfLookupFiles.Keys)
 		var idName = classNameUpper == "Friend"
 					|| classNameUpper == "Player"
 					? "UserId" : $"{classNameUpper}Id";
+
 #>
 using System;
 using System.Collections.Generic;
@@ -96,14 +97,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  <# if (idType == "Guid") { this.Write($"{classNameLower}.{classNameUpper}Id = Guid.NewGuid();"); } #>
-
-                  <# if (idType == "Guid") { this.Write($"if (this.{classNameUpper}Exists({classNameLower}.{classNameUpper}Id))"); } #>
-
-                  <# if (idType == "Guid") { this.Write("{"); } #>
-                  <# if (idType == "Guid") { this.Write($"  {classNameLower}.{classNameUpper}Id = Guid.NewGuid();"); } #>
-                  <# if (idType == "Guid") { this.Write("}"); } #>
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -131,6 +124,13 @@ namespace Abio.WS.API.Controllers
             _context.<#= classNameUpper #>.Add(<#= classNameLower #>);
             try
             {
+                  <# if (idType == "Guid") { this.Write($"{classNameLower}.{idName} = Guid.NewGuid();"); } #>
+
+                  <# if (idType == "Guid") { this.Write($"if (this.{classNameUpper}Exists({classNameLower}.{idName}))"); } #>
+
+                  <# if (idType == "Guid") { this.Write("{"); } #>
+                  <# if (idType == "Guid") { this.Write($"  {classNameLower}.{idName} = Guid.NewGuid();"); } #>
+                  <# if (idType == "Guid") { this.Write("}"); } #>
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)

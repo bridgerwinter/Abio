@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  hiredunitstatmagic.HiredUnitStatMagicId = Guid.NewGuid();
-                  if (this.HiredUnitStatMagicExists(hiredunitstatmagic.HiredUnitStatMagicId))
-                  {
-                    hiredunitstatmagic.HiredUnitStatMagicId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.HiredUnitStatMagic.Add(hiredunitstatmagic);
             try
             {
-                await _context.SaveChangesAsync();
+                  hiredunitstatmagic.HiredUnitStatMagicId = Guid.NewGuid();
+                  if (this.HiredUnitStatMagicExists(hiredunitstatmagic.HiredUnitStatMagicId))
+                  {
+                    hiredunitstatmagic.HiredUnitStatMagicId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

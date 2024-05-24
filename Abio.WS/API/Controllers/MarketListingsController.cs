@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  marketlisting.MarketListingId = Guid.NewGuid();
-                  if (this.MarketListingExists(marketlisting.MarketListingId))
-                  {
-                    marketlisting.MarketListingId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.MarketListing.Add(marketlisting);
             try
             {
-                await _context.SaveChangesAsync();
+                  marketlisting.MarketListingId = Guid.NewGuid();
+                  if (this.MarketListingExists(marketlisting.MarketListingId))
+                  {
+                    marketlisting.MarketListingId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
-                  if (this.ConstructedBuildingExists(constructedbuilding.ConstructedBuildingId))
-                  {
-                    constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.ConstructedBuilding.Add(constructedbuilding);
             try
             {
-                await _context.SaveChangesAsync();
+                  constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
+                  if (this.ConstructedBuildingExists(constructedbuilding.ConstructedBuildingId))
+                  {
+                    constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -62,12 +62,6 @@ namespace Abio.WS.API.Controllers
 
             try
             {
-                  researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
-                  if (this.ResearchedTechnologyExists(researchedtechnology.ResearchedTechnologyId))
-                  {
-                    researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
-                  }
-
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -95,7 +89,11 @@ namespace Abio.WS.API.Controllers
             _context.ResearchedTechnology.Add(researchedtechnology);
             try
             {
-                await _context.SaveChangesAsync();
+                  researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
+                  if (this.ResearchedTechnologyExists(researchedtechnology.ResearchedTechnologyId))
+                  {
+                    researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
+                  }                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -27,6 +27,8 @@ public partial class User
 
     public virtual ICollection<ResearchedTechnology> ResearchedTechnology { get; set; } = new List<ResearchedTechnology>();
 
+    public virtual ICollection<ResourceGain> ResourceGain { get; set; } = new List<ResourceGain>();
+
     public virtual ICollection<ResourceInventory> ResourceInventory { get; set; } = new List<ResourceInventory>();
 
     public virtual ICollection<UserCity> UserCity { get; set; } = new List<UserCity>();

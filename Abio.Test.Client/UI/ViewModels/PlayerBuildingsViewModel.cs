@@ -1,5 +1,7 @@
-﻿using Abio.Library.DatabaseModels;
+﻿using Abio.Library.Actions;
+using Abio.Library.DatabaseModels;
 using Abio.Library.Services;
+using Abio.Test.Client.Business;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -67,7 +69,33 @@ namespace Abio.Test.Client.UI.ViewModels
             c.BuildingLevelId = buildingLevels.FirstOrDefault().BuildingLevelId;
             c.UserId = testguid;
             //c.User = await ApiService.GetUser(testguid);
-            await ApiService.CreateConstructedBuilding(c);
+            var result = await ApiService.CreateConstructedBuilding(c);
+            var con = await SignalRExtension.GetSignalRConnection();
+            await con.DoCombatLogicAsync(await GatherArmy());
+        }
+
+        private async Task<CombatMessage> GatherArmy()
+        {
+            var units = await ApiService.GetAllUnits();
+
+            List<Unit> army1 = new List<Unit>();
+            List<Unit> army2 = new List<Unit>();
+
+            var peasant = units.Where(p => p.UnitName == "Peasant").First();
+            var knight = units.Where(p => p.UnitName == "Knight").First();
+            for (int i = 0; i < 10; i++)
+            {
+                army1.Add(peasant);
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                army2.Add(knight);
+            }
+            CombatMessage message = new CombatMessage();
+            message.Army1 = army1;
+            message.Army2 = army2;
+            return message;
         }
     }
 }
