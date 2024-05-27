@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.ResourceInventory.Add(resourceinventory);
             try
             {
+                resourceinventory.ResourceInventoryId = Guid.NewGuid();
+                if (this.ResourceInventoryExists(resourceinventory.ResourceInventoryId))
+                {
                   resourceinventory.ResourceInventoryId = Guid.NewGuid();
-                  if (this.ResourceInventoryExists(resourceinventory.ResourceInventoryId))
-                  {
-                    resourceinventory.ResourceInventoryId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

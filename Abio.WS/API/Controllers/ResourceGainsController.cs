@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.ResourceGain.Add(resourcegain);
             try
             {
+                resourcegain.ResourceGainId = Guid.NewGuid();
+                if (this.ResourceGainExists(resourcegain.ResourceGainId))
+                {
                   resourcegain.ResourceGainId = Guid.NewGuid();
-                  if (this.ResourceGainExists(resourcegain.ResourceGainId))
-                  {
-                    resourcegain.ResourceGainId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

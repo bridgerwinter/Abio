@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.PersonalityTrait.Add(personalitytrait);
             try
             {
-                  
-                  
-                  
-                  
-                                  await _context.SaveChangesAsync();
+                
+                
+                
+                
+                
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.MarketListing.Add(marketlisting);
             try
             {
+                marketlisting.MarketListingId = Guid.NewGuid();
+                if (this.MarketListingExists(marketlisting.MarketListingId))
+                {
                   marketlisting.MarketListingId = Guid.NewGuid();
-                  if (this.MarketListingExists(marketlisting.MarketListingId))
-                  {
-                    marketlisting.MarketListingId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.User.Add(user);
             try
             {
+                user.UserId = Guid.NewGuid();
+                if (this.UserExists(user.UserId))
+                {
                   user.UserId = Guid.NewGuid();
-                  if (this.UserExists(user.UserId))
-                  {
-                    user.UserId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

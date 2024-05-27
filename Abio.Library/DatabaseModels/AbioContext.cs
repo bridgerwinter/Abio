@@ -147,9 +147,8 @@ public partial class AbioContext : DbContext
 
             entity.Property(e => e.ConstructedBuildingId).HasDefaultValueSql("(newid())");
             entity.Property(e => e.created_at)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
 
             entity.HasOne(d => d.Building).WithMany(p => p.ConstructedBuilding)
                 .HasForeignKey(d => d.BuildingId)
@@ -223,10 +222,7 @@ public partial class AbioContext : DbContext
             entity.Property(e => e.HiredLeaderName)
                 .HasMaxLength(24)
                 .IsUnicode(false);
-            entity.Property(e => e.created_at)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+            entity.Property(e => e.created_at).HasColumnType("datetime");
 
             entity.HasOne(d => d.User).WithMany(p => p.HiredLeader)
                 .HasForeignKey(d => d.UserId)
@@ -549,9 +545,8 @@ public partial class AbioContext : DbContext
 
             entity.Property(e => e.ResearchedTechnologyId).ValueGeneratedNever();
             entity.Property(e => e.created_at)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
 
             entity.HasOne(d => d.Technology).WithMany(p => p.ResearchedTechnology)
                 .HasForeignKey(d => d.TechnologyId)
@@ -676,9 +671,8 @@ public partial class AbioContext : DbContext
 
             entity.Property(e => e.UserId).ValueGeneratedNever();
             entity.Property(e => e.created_at)
-                .IsRequired()
-                .IsRowVersion()
-                .IsConcurrencyToken();
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
         });
 
         modelBuilder.Entity<UserCity>(entity =>

@@ -13,7 +13,7 @@ public partial class ResearchedTechnology
 
     public int? TechnologyId { get; set; }
 
-    public byte[] created_at { get; set; }
+    public DateTime? created_at { get; set; }
 
     public virtual Technology Technology { get; set; }
 

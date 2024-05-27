@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.ItemInventory.Add(iteminventory);
             try
             {
+                iteminventory.ItemInventoryId = Guid.NewGuid();
+                if (this.ItemInventoryExists(iteminventory.ItemInventoryId))
+                {
                   iteminventory.ItemInventoryId = Guid.NewGuid();
-                  if (this.ItemInventoryExists(iteminventory.ItemInventoryId))
-                  {
-                    iteminventory.ItemInventoryId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

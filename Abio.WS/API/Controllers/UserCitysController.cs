@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.UserCity.Add(usercity);
             try
             {
+                usercity.UserCityId = Guid.NewGuid();
+                if (this.UserCityExists(usercity.UserCityId))
+                {
                   usercity.UserCityId = Guid.NewGuid();
-                  if (this.UserCityExists(usercity.UserCityId))
-                  {
-                    usercity.UserCityId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.ResearchedTechnology.Add(researchedtechnology);
             try
             {
+                researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
+                if (this.ResearchedTechnologyExists(researchedtechnology.ResearchedTechnologyId))
+                {
                   researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
-                  if (this.ResearchedTechnologyExists(researchedtechnology.ResearchedTechnologyId))
-                  {
-                    researchedtechnology.ResearchedTechnologyId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

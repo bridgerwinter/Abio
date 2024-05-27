@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.Player.Add(player);
             try
             {
+                player.UserId = Guid.NewGuid();
+                if (this.PlayerExists(player.UserId))
+                {
                   player.UserId = Guid.NewGuid();
-                  if (this.PlayerExists(player.UserId))
-                  {
-                    player.UserId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

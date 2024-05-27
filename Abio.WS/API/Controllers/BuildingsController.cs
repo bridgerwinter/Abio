@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.Building.Add(building);
             try
             {
-                  
-                  
-                  
-                  
-                                  await _context.SaveChangesAsync();
+                
+                
+                
+                
+                
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

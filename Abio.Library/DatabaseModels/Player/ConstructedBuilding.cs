@@ -15,7 +15,7 @@ public partial class ConstructedBuilding
 
     public int? BuildingLevelId { get; set; }
 
-    public byte[] created_at { get; set; }
+    public DateTime? created_at { get; set; }
 
     public virtual Building Building { get; set; }
 

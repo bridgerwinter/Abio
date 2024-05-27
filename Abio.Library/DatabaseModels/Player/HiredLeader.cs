@@ -15,7 +15,7 @@ public partial class HiredLeader
 
     public Guid? LeaderStatId { get; set; }
 
-    public byte[] created_at { get; set; }
+    public DateTime? created_at { get; set; }
 
     public virtual ICollection<HiredLeaderStat> HiredLeaderStat { get; set; } = new List<HiredLeaderStat>();
 

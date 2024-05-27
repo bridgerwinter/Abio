@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.ConstructedBuilding.Add(constructedbuilding);
             try
             {
+                constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
+                if (this.ConstructedBuildingExists(constructedbuilding.ConstructedBuildingId))
+                {
                   constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
-                  if (this.ConstructedBuildingExists(constructedbuilding.ConstructedBuildingId))
-                  {
-                    constructedbuilding.ConstructedBuildingId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

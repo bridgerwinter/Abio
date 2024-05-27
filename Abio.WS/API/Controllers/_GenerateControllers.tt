@@ -124,13 +124,14 @@ namespace Abio.WS.API.Controllers
             _context.<#= classNameUpper #>.Add(<#= classNameLower #>);
             try
             {
-                  <# if (idType == "Guid") { this.Write($"{classNameLower}.{idName} = Guid.NewGuid();"); } #>
+                <# if (idType == "Guid") { this.Write($"{classNameLower}.{idName} = Guid.NewGuid();"); } #>
 
-                  <# if (idType == "Guid") { this.Write($"if (this.{classNameUpper}Exists({classNameLower}.{idName}))"); } #>
+                <# if (idType == "Guid") { this.Write($"if (this.{classNameUpper}Exists({classNameLower}.{idName}))"); } #>
 
-                  <# if (idType == "Guid") { this.Write("{"); } #>
-                  <# if (idType == "Guid") { this.Write($"  {classNameLower}.{idName} = Guid.NewGuid();"); } #>
-                  <# if (idType == "Guid") { this.Write("}"); } #>
+                <# if (idType == "Guid") { this.Write("{"); } #>
+                <# if (idType == "Guid") { this.Write($"  {classNameLower}.{idName} = Guid.NewGuid();"); } #>
+                <# if (idType == "Guid") { this.Write("}"); } #>
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)

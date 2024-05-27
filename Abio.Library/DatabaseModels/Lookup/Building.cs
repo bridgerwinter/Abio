@@ -15,6 +15,8 @@ public partial class Building
 
     public int? FactionId { get; set; }
 
+    public int? ResourceId { get; set; }
+
     public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; set; } = new List<ConstructedBuilding>();
 
     public virtual Faction Faction { get; set; }

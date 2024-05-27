@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.HiredUnitStatBody.Add(hiredunitstatbody);
             try
             {
+                hiredunitstatbody.HiredUnitStatBodyId = Guid.NewGuid();
+                if (this.HiredUnitStatBodyExists(hiredunitstatbody.HiredUnitStatBodyId))
+                {
                   hiredunitstatbody.HiredUnitStatBodyId = Guid.NewGuid();
-                  if (this.HiredUnitStatBodyExists(hiredunitstatbody.HiredUnitStatBodyId))
-                  {
-                    hiredunitstatbody.HiredUnitStatBodyId = Guid.NewGuid();
-                  }                await _context.SaveChangesAsync();
+                }
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -89,11 +89,12 @@ namespace Abio.WS.API.Controllers
             _context.Emotion.Add(emotion);
             try
             {
-                  
-                  
-                  
-                  
-                                  await _context.SaveChangesAsync();
+                
+                
+                
+                
+                
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
