@@ -69,7 +69,7 @@ namespace Abio.Test.Client.UI.ViewModels
             c.BuildingId = this.Buildings.Where(b => b.BuildingId == buildingId).FirstOrDefault().BuildingId;
             c.BuildingLevelId = buildingLevels.FirstOrDefault().BuildingLevelId;
             c.UserId = testguid;
-            var con = await SignalRExtension.GetSignalRConnection();
+            var con = await HelperClientConstructionHub.GetSignalRConnection();
             await con.CreateConstructedBuilding(c);
         }
     }

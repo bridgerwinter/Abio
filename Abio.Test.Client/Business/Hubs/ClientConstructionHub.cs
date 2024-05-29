@@ -11,16 +11,15 @@ using System.Threading.Tasks;
 
 namespace Abio.Test.Client.Business
 {
-    public class SignalRConnection
+    public class ClientConstructionHub
     {
         public HubConnection Connection { get; set; }
-        string combatUrl = "http://localhost:5096/combathub";
-        string Construction = "http://localhost:5096/constructionhub";
+        string url = "http://localhost:5096/constructionhub";
 
 
-        public SignalRConnection()
+        public ClientConstructionHub()
         {
-            Connection = new HubConnectionBuilder().WithUrl(Construction).AddNewtonsoftJsonProtocol(opts =>
+            Connection = new HubConnectionBuilder().WithUrl(url).AddNewtonsoftJsonProtocol(opts =>
                 opts.PayloadSerializerSettings.TypeNameHandling = TypeNameHandling.Auto).Build();
         }
         public async Task Start()
@@ -45,6 +44,16 @@ namespace Abio.Test.Client.Business
             Debug.WriteLine($"Received");
         }
 
+    }
+
+    public class HelperClientConstructionHub()
+    {
+        public static async Task<ClientConstructionHub> GetSignalRConnection()
+        {
+            var signalRConnection = new ClientConstructionHub();
+            await signalRConnection.Start();
+            return signalRConnection;
+        }
     }
 
 }

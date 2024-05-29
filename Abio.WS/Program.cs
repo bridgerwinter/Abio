@@ -38,4 +38,5 @@ app.MapDefaultControllerRoute();
 app.MapHub<ChatHub>("/chatHub");
 app.MapHub<CombatHub>("/combatHub");
 app.MapHub<ConstructionHub>("/constructionHub");
+app.MapHub<ResourceHub>("/resourceHub");
 app.Run();
