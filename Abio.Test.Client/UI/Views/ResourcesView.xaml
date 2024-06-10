@@ -8,26 +8,10 @@
     <ContentPage.BindingContext>
         <local:ResourcesViewModel/>
     </ContentPage.BindingContext>
-
     <!-- Make this into resource times and bind it to a collection view -->
     <VerticalStackLayout>
         <VerticalStackLayout>
-            <!--<HorizontalStackLayout>
-                <Label Text="Gatherable Wheat: "/>
-                <Label Text="{Binding GatherableWheat}" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Label Text="Gatherable Gold:  "/>
-                <Label Text="{Binding GatherableGold}" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Label Text="Total Wheat:  "/>
-                <Label Text="{Binding TotalWheat}" />
-            </HorizontalStackLayout>
-            <HorizontalStackLayout>
-                <Label Text="Total Gold:  "/>
-                <Label Text="{Binding TotalGold}" />
-            </HorizontalStackLayout>-->
+
             <CollectionView ItemsSource="{Binding PlayerResources}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>

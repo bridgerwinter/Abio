@@ -10,7 +10,9 @@
     <Shell.BindingContext>
         <root:AppShellViewModel/>
     </Shell.BindingContext>
-
+    <Shell.TitleView>
+        <local:ResourceInventoryView HeightRequest="10000" WidthRequest="10000"/>
+    </Shell.TitleView>
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home"
                       Route="Home" 

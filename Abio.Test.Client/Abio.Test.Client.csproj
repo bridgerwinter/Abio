@@ -92,6 +92,9 @@
 	  <MauiXaml Update="UI\Views\MainMenuView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="UI\Views\ResourceInventoryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="UI\Views\ResourcesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
