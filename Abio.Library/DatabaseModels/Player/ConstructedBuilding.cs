@@ -21,7 +21,7 @@ public partial class ConstructedBuilding
 
     public virtual BuildingLevel BuildingLevel { get; set; }
 
-    public virtual ResourceGain ResourceGain { get; set; }
+    public virtual ICollection<ResourceGain> ResourceGain { get; set; } = new List<ResourceGain>();
 
     public virtual User User { get; set; }
 }

@@ -13,15 +13,22 @@ namespace Abio.WS.Hubs
         {
             var result = await ApiService.CreateConstructedBuilding(constructedBuilding);
             ResourceGain resourcegain = new ResourceGain();
-            //resourcegain.ConstructedBuildingId = result.;
             var id = result.Headers.Location.Segments[3];
             resourcegain.ConstructedBuildingId = Guid.Parse(id);
             resourcegain.UserId = (Guid)constructedBuilding.UserId;
             var building = await ApiService.GetBuilding((int)constructedBuilding.BuildingId);
+            // Subtract totals 
+            await SubtractBuildingCosts(building, resourcegain.UserId);
             resourcegain.ResourceId = (int)building.ResourceId;
 
             var httpResponse = await ApiService.CreateResourceGain(resourcegain);
             await Clients.All.SendAsync("OnReceiveCreateConstructedBuilding", httpResponse.ReasonPhrase );
+        }
+
+        public async Task SubtractBuildingCosts(Building b, Guid id)
+        {
+            var res = await (id);
+            res
         }
     }
 }

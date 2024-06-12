@@ -17,6 +17,16 @@ public partial class Building
 
     public int? ResourceId { get; set; }
 
+    public int? FoodCost { get; set; }
+
+    public int? WoodCost { get; set; }
+
+    public int? SteelCost { get; set; }
+
+    public int? GoldCost { get; set; }
+
+    public int? StoneCost { get; set; }
+
     public virtual ICollection<ConstructedBuilding> ConstructedBuilding { get; set; } = new List<ConstructedBuilding>();
 
     public virtual Faction Faction { get; set; }

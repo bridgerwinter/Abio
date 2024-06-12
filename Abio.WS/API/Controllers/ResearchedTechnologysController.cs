@@ -14,7 +14,7 @@ namespace Abio.WS.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 	
-	public class ResearchedTechnologysController : ControllerBase
+	public partial class ResearchedTechnologysController : ControllerBase
 	{
 		private readonly AbioContext _context;
 

@@ -578,8 +578,8 @@ public partial class AbioContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
 
-            entity.HasOne(d => d.ResourceGainNavigation).WithOne(p => p.ResourceGain)
-                .HasForeignKey<ResourceGain>(d => d.ResourceGainId)
+            entity.HasOne(d => d.ConstructedBuilding).WithMany(p => p.ResourceGain)
+                .HasForeignKey(d => d.ConstructedBuildingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ResourceGain_ConstructedBuilding");
 
@@ -600,7 +600,7 @@ public partial class AbioContext : DbContext
 
             entity.ToTable("ResourceInventory", "Player");
 
-            entity.Property(e => e.ResourceInventoryId).ValueGeneratedNever();
+            entity.Property(e => e.ResourceInventoryId).HasDefaultValueSql("(newid())");
 
             entity.HasOne(d => d.Resource).WithMany(p => p.ResourceInventory)
                 .HasForeignKey(d => d.ResourceId)

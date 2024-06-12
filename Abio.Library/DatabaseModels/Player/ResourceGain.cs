@@ -17,9 +17,9 @@ public partial class ResourceGain
 
     public Guid ConstructedBuildingId { get; set; }
 
-    public virtual Resource Resource { get; set; }
+    public virtual ConstructedBuilding ConstructedBuilding { get; set; }
 
-    public virtual ConstructedBuilding ResourceGainNavigation { get; set; }
+    public virtual Resource Resource { get; set; }
 
     public virtual User User { get; set; }
 }

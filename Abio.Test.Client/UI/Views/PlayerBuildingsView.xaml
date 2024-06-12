@@ -22,6 +22,14 @@
                     <VerticalStackLayout>
                         <Label Text="{Binding BuildingName}" FontSize="Medium" VerticalTextAlignment="Center"/>
                         <Label Text="{Binding BuildingDescription}" FontAttributes="Italic" FontSize="Small" VerticalTextAlignment="End"/>
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding FoodCost, StringFormat='Food {0} '}"/>
+                            <Label Text="{Binding WoodCost, StringFormat='Wood {0} '}"/>
+                            <Label Text="{Binding SteelCost, StringFormat='Steel {0} '}"/>
+                            <Label Text="{Binding GoldCost, StringFormat='Gold {0} '}"/>
+                            <Label Text="{Binding StoneCost, StringFormat='Stone {0} '}"/>
+
+                        </HorizontalStackLayout>
                         <Button Text="Construct" Command="{Binding Source={RelativeSource AncestorType={x:Type local:PlayerBuildingsViewModel}}, Path=ConstructBuildingCommand}" CommandParameter="{Binding BuildingId}"/>
                     </VerticalStackLayout>
                 </DataTemplate>
