@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Abio.WS.API.Controllers
 {
-    public partial class ResourceInventorysController
+    public partial class ResourceInventorysController : ControllerBase
     {
-        [HttpGet("\\user\\{id}")]
+        [HttpGet("user/{id}")]
         public async Task<ActionResult<List<ResourceInventory>>> GetResourceInventoryByUserId(Guid id)
         {
             if (_context.ResourceInventory == null)

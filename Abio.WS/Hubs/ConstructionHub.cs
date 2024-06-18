@@ -27,8 +27,32 @@ namespace Abio.WS.Hubs
 
         public async Task SubtractBuildingCosts(Building b, Guid id)
         {
-            var res = await (id);
-            res
+            
+            var r = await ApiService.GetResourceInventoryByUser(id);
+            foreach(var i in r)
+            {
+                switch (i.ResourceId)
+                {
+                    case 5:
+                        i.Quantity -= b.StoneCost;
+                        break;
+                    case 4:
+                        i.Quantity -= b.GoldCost;
+                        break;
+                    case 2:
+                        i.Quantity -= b.WoodCost;
+                        break;
+                    case 3:
+                        i.Quantity -= b.SteelCost;
+                        break;
+                    case 1:
+                        i.Quantity -= b.FoodCost;
+                        break;
+                }
+                await ApiService.UpdateResourceInventory(i);
+            }
+
+
         }
     }
 }
